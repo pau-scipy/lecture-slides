@@ -1,0 +1,331 @@
+\documentclass{beamer}
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{hyperref}
+
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{10}  % for normal
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\usepackage{listings}
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle=\ttm,
+otherkeywords={self},             % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false            % 
+}}
+
+
+% Python environment
+\lstnewenvironment{code}[1][]
+{
+%\begin{small}
+\pythonstyle
+\lstset{#1}
+%\end{small}
+}
+{}
+
+
+\begin{document}
+
+% Python basics hands on lecture. Types and variables. if-then.
+
+\begin{frame}
+\frametitle{CS24420 \& MA25220 \& MT25220}
+\begin{itemize}
+\item CS24420 - Scientific Python
+\item MA25220 - Introduction to Numerical Analysis and its
+  applications
+\item MT25220 - Cyflwyniad i Ddadansoddiad Rhifiadol a'i gymhwysiadau
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Try it in your hello.py file}
+Open Spyder, load the hello.py file you previously made and change the
+code to the following:
+\begin{code}
+x = 1 + 5
+y = 6/4.0
+print(x)
+print(y)
+print(x + y)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Try it}
+\begin{code}
+x = "Hello"
+y = "world"
+print(x)
+print(y)
+print(x + y)
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Try it}
+\begin{code}
+x = 4
+y = "world"
+print(x)
+print(y)
+print(x + y)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Try it}
+\begin{code}
+x = "Mary"
+print(Mary)
+\end{code}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Basic types}
+\begin{itemize}
+\item {\tt NoneType}
+\item {\tt bool}
+\item {\tt int} (also {\tt long}, {\tt bignum})
+\item {\tt float}
+\item {\tt str} 
+\end{itemize}
+(also {\tt complex}, {\tt unicode}, and other less basic types)
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Try it}
+\begin{code}
+>>> type(5)
+>>> type(None)
+>>> type(5.5)
+>>> type(False)
+>>> type("hello")
+>>> type('hello')
+>>> type('5.5')
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Convert types}
+\begin{code}
+>>> int("5")
+>>> bool(2)
+>>> str(7.5)
+>>> int(4.6)
+>>> int("Wednesday")
+>>> float(4)
+>>> bool("hello")
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Try it}
+\begin{code}
+>>> "a" + "b"
+>>> 1 + 2
+>>> "a" + 2
+>>> "a" + str(2)
+>>> 1 + "2"
+>>> "6" / "4"
+>>> "a" * 5
+\end{code}
+\end{frame}
+
+\begin{frame}
+\frametitle{Types}
+\begin{itemize}
+\item The {\tt NoneType} type has only one value, {\tt None}
+\item The {\tt bool} type has two values, {\tt True} and {\tt False}
+\item int, float, str have many possible values
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Strings}
+Single or double quotes: {\tt "hello" 'hello'}
+
+Triple quotes:
+\begin{code}
+"""this string
+spans many
+lines
+"""
+\end{code}
+
+Strings can behave as if they were a list of characters, so
+you can use {\tt len} and {\tt in}: 
+\begin{code}
+>>> x = "hello world"
+>>> len(x)
+>>> "o" in x
+>>> "wo" in x
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Strings}
+\begin{code}
+>>> s = "ATGCTTATACA"
+>>> s.count('A')
+>>> s.startswith("AT")
+>>> s.endswith("GC")
+>>> s.find("G")
+>>> s.find("N")
+>>> help(str)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{if - else}
+\begin{code}
+temp = 40 * math.sin(2.5)
+if temp < 10:
+   msg = "wear trousers"
+else:
+   msg = "wear shorts"
+print(msg)
+\end{code}
+We need to be able to make decisions and change the
+outcome based on the decisions.
+\begin{itemize}
+\item Note the indentation and the colons ( {\tt :} )
+\item {\tt if} needs a condition to test ({\tt temp < 10})
+\item The condition should evaluate to {\tt True} or {\tt False}
+\item {\tt else} doesn't have a condition
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{if - else}
+\begin{code}
+temp = 40 * math.sin(2.5)
+if temp < 10:
+   msg = "Feeling cold! Only " + str(temp) + "."
+   msg = msg + "Wear trousers"
+else:
+   msg = "We're enjoying summer."
+   msg = msg + "Wear shorts"
+print(msg)
+\end{code}
+We can have many lines of code within each indented
+block.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{if - elif - else}
+\begin{code}
+temp = 40 * math.sin(2.5)
+if temp < 3:
+   msg = "wear wool trousers"
+elif temp < 10:
+   msg = "wear trousers"
+else:
+   msg = "wear shorts"
+  
+print(msg)
+\end{code}
+\begin{itemize}
+\item if and elif need a condition to test
+\item else doesn't have a condition
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{if - else}
+\begin{code}
+temp = 40 * math.sin(2.5)
+rain = 10
+if temp < 10:
+   msg = "Feeling cold! Only " + str(temp)
+   if rain > 5:
+      msg = msg + "Wear waterproof trousers"
+   else:
+      msg = msg + "Wear trousers"
+else:
+   msg = "We're enjoying summer"
+   msg = msg + "wear shorts"
+\end{code}
+\begin{itemize}
+\item We can have {\tt if} statements within other {\tt if}
+statements.
+\item They {\bf need} good indentation
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Conditions}
+What kinds of condition can we have?
+
+Generally want something that evaluates to {\tt True} or {\tt False}.
+
+\begin{code}
+x < y
+x <= y
+x >= y
+x == y    # equality test uses a double equals sign!
+x != y
+x == 5
+x < 3.5/2
+x < "banana"
+"apple" < "banana"
+\end{code}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Conditions}
+We can use {\tt and} and {\tt or} and {\tt not}.
+
+\begin{code}
+x = "Aberystwyth"
+y = 3.0/5
+if len(x) < 4 and y > 7:
+   print("success")
+
+x = len("Aberystwyth") > 5
+y = True
+if x or y:
+   print("hooray!")
+
+x = len("Aberystwyth") > 5
+if not x:
+   print("not long enough")
+\end{code}
+\end{frame}
+
+\begin{frame}
+\frametitle{Summary}
+\begin{itemize}
+\item Types
+\item Saving values in variables
+\item if-elif-else
+\end{itemize}
+\end{frame}
+
+\end{document}

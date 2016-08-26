@@ -1,0 +1,135 @@
+\documentclass{beamer}
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{hyperref}
+
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{10}  % for normal
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\usepackage{listings}
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle=\ttm,
+otherkeywords={self},             % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false            % 
+}}
+
+
+% Python environment
+\lstnewenvironment{code}[1][]
+{
+%\begin{small}
+\pythonstyle
+\lstset{#1}
+%\end{small}
+}
+{}
+
+
+\begin{document}
+
+% Python basics hands on lecture. Types and variables. if-then.
+
+\begin{frame}
+\frametitle{CS24420 \& MA25220 \& MT25220}
+\begin{itemize}
+\item CS24420 - Scientific Python
+\item MA25220 - Introduction to Numerical Analysis and its
+  applications
+\item MT25220 - Cyflwyniad i Ddadansoddiad Rhifiadol a'i gymhwysiadau
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Open Spyder}
+There are 3 windows: editor, help and console.
+
+You can see the console shown is an iPython console. It uses an
+\texttt{In [1]:} prompt.
+
+There is also a plain console that you can switch to. It uses a \texttt{>>>} prompt.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Try the following}
+Open Spyder and try the following in the console window:
+\begin{code}
+>>> 1 + 5
+>>> 6 * 3
+>>> 7 / 3
+\end{code}
+
+Also try it in the iPython console window:
+\begin{code}
+In [1]: 1 + 5
+In [2]: 6 * 3
+In [3]: 7 / 3
+\end{code}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Try the following}
+\begin{code}
+>>> 2 + 3 * 7
+>>> (2 + 3) * 7
+>>> 2 + (3 * 7)
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Save to a file}
+Make a folder in your m: drive to save your work for this module.
+
+Type the following code into the editor pane. 
+
+Save the code to a file in your m: drive called hello.py. It must have
+a .py extension. 
+
+Then use the green triangle ('Run File') button to run your code.
+\begin{code}
+# This is a comment line that the computer will ignore
+x = 1 + 5
+y = 6 / 4.0
+print("Hello World")
+
+# Lets see what x and y contain
+print(x)
+print(y)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Check numpy and matplotlib work}
+Check that numpy and matplotlib are available and work for you:
+\begin{code}
+import numpy as np
+import matplotlib.pyplot as plt
+
+print("Hello World")
+print(np.zeros(3))
+plt.plot([2,3,4]) 
+\end{code}
+\end{frame}
+
+\end{document}
