@@ -1,0 +1,6 @@
+How random is a coin toss https://www.youtube.com/watch?v=AYnJv68T3MM (using maths to look at the way a coin behaves).
+
+What does random mean? probabilty distributions (3D printed? Could 3D print or get Pete to make a Galton board http://www.thingiverse.com/thing:185258 to illustrate bernoulli, binomial and normal distn, and then repeat by simulating the binomial/normal-via-central-limit-theorem distribution in Python).
+
+
+
