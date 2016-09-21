@@ -17,12 +17,12 @@ Tues 4:10 Python basics theory lecture. Loops (while and for-range).
 
 Tues 5:10 Python basics worksheet. Types, variables, loops.
 
-Fri 13:10 Lists and dictionaries, hands on examples
+Fri 13:10 Lists, hands on examples
 
 -------------------
 Week 3 (week beginning 17/10)
 
-Tues 4:10 Lists and dictionaries theory. For loops and lists. Quiz on content so far. 
+Tues 4:10 Dictionaries theory. For loops and lists. Quiz on content so far. 
 
 Tues 5:10 Worksheet on loops over lists and dictionaries. Add to lists and dicts. Loop over the contents and sum or count or display entries.
 

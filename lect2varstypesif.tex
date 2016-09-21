@@ -47,12 +47,16 @@ showstringspaces=false            %
 
 \begin{frame}
 \frametitle{CS24420 \& MA25220 \& MT25220}
-\begin{itemize}
-\item CS24420 - Scientific Python
-\item MA25220 - Introduction to Numerical Analysis and its
-  applications
-\item MT25220 - Cyflwyniad i Ddadansoddiad Rhifiadol a'i gymhwysiadau
-\end{itemize}
+
+\begin{center}
+\begin{huge}
+Lecture 2: Types, Variables, if-else 
+\end{huge}
+\bigskip
+
+Amanda Clare (afc@aber.ac.uk)
+
+\end{center}
 \end{frame}
 
 
@@ -188,6 +192,8 @@ you can use {\tt len} and {\tt in}:
 
 \begin{frame}[fragile]
 \frametitle{Strings}
+
+More things we can do with strings:
 \begin{code}
 >>> s = "ATGCTTATACA"
 >>> s.count('A')
@@ -195,7 +201,7 @@ you can use {\tt len} and {\tt in}:
 >>> s.endswith("GC")
 >>> s.find("G")
 >>> s.find("N")
->>> help(str)
+>>> s = s + "NNNNN"
 \end{code}
 \end{frame}
 

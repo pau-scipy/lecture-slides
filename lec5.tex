@@ -61,7 +61,127 @@ Amanda Clare (afc@aber.ac.uk)
 
 
 \begin{frame}[fragile]
-\frametitle{foo}
+\frametitle{Dictionaries}
+A dictionary is a data structure where you can store
+keys and values.
+
+For example:
+\begin{itemize}
+\item A birthday book: look up the birthday (value) for the
+name of a person (key)
+\item A price list: look up the price (value) of a product
+using its barcode (key)
+\item Coordinates of a gene: look up the location (value)
+of a gene given its systematic identifier (key)
+\item Look up the capital city (value) given the name of a
+country
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Creating dictionaries and adding items}
+We use curly brackets to create a new dictionary:
+\begin{code}
+>>> my_dict = {}
+\end{code}
+We can add items (new key and value):
+\begin{code}
+>>> my_dict['John'] = 724736
+\end{code}
+We can update existing items (alter the value):
+\begin{code}
+>>> my_dict['John'] = 666666
+\end{code}
+We could create a new dictionary with many items:
+\begin{code}
+>>> my_dict = { "a": 34, "b":28, "c":56 }
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Requesting data}
+We can request the value that the dictionary holds for a specific
+key:
+\begin{code}
+>>> my_dict = { "John" : 4, "Sarah" : 5 }
+>>> my_dict["John"]
+\end{code}
+ What happens if a key is not present?
+\begin{code}
+>>> my_dict["Jane"]
+\end{code}
+ What happens if a key is used more than once?
+\begin{code}
+>>> my_dict = { "John" : 4, "Sarah" : 5, "John" : 7 }
+>>> my_dict["John"]
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Requesting data}
+We can check if a key is present, and if so, find out the
+value:
+\begin{code}
+student = "Jane"
+if student in my_dict:
+   print(my_dict[student])
+else:
+   print("No value found for " + student)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Requesting data}
+We can check if a key is present, and if so, find out the
+value:
+\begin{code}
+student = "Jane"
+if student in my_dict:
+   print(my_dict[student])
+else:
+   print("No value found for " + student)
+\end{code}
+\end{frame}
+
+\begin{frame}
+\frametitle{Exercise}
+Create an empty dictionary.
+
+Add the following information to that dictionary: the
+name (keys) and favourite food (values) of the three
+people sitting closest to you. If their names are not
+unique, use their full names.
+
+Check that each person's favourite food can be looked
+up in the dictionary.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Getting values out}
+\begin{code}
+my_dict = { "a": 34, "b":28, "c":56 }
+print(my_dict.keys())
+for k in my_dict.keys():
+   print(my_dict[k])
+\end{code}
+ We use .keys() to find out the keys that are in a dictionary.
+We use square brackets after the dictionary name [] to find
+out what value belongs to that key.
+
+\bigskip
+
+If we're not sure if a key is present, better check:
+\begin{code}
+if my_key in my_dict:
+   print(my_dict[my_key])
+else:
+   print(my_key + " is not there")
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Quiz (in teams)}
 bar
 \begin{code}
 x = 1 + 5

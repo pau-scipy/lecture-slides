@@ -62,21 +62,234 @@ Amanda Clare (afc@aber.ac.uk)
 
 
 \begin{frame}[fragile]
-\frametitle{while}
-bar
+\frametitle{while loops}
+We often want to do things many times.
 \begin{code}
-x = 1 + 5
+while True:
+   print( "Hello world" )
+\end{code}
+\begin{itemize}
+\item A while loop needs a condition and a colon.
+\item The body of the loop must be indented
+\item The body will be executed while the condition is still True
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{while loops}
+\begin{code}
+x = 0
+while x < 100:
+   print( "Hello world " + str(x) )
+   x = x + 1
+\end{code}
+\begin{itemize}
+\item A while loop needs a condition and a colon.
+\item The body of the loop must be indented
+\item The body will be executed while the condition is still True
+\item Why use str?
+\item Which numbers will be printed?
+\item What is the value of x at the end?
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{while loops}
+Write a piece of code that will initialise a variable x to 200
+and then use a while loop that will print out the value of x
+and decrease the value of x, stopping when x is 99.
+
+\bigskip
+
+Could you instead stop when x is less than the length of
+the string “Python rules the world”?
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{while loops - structure}
+\begin{code}
+# some code
+while condition:
+   # some body of the loop
+   # more body
+   # note that all the body is indented
+# some code that does not belong to the loop
+\end{code}
+\begin{itemize}
+\item The condition is an expression that should evaluate to True or False
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Conditions}
+What kinds of condition can we have?
+
+Generally want something that evaluates to {\tt True} or {\tt False}.
+
+\begin{code}
+x < y
+x <= y
+x >= y
+x == y    # equality test uses a double equals sign!
+x != y
+x == 5
+x < 3.5/2
+x < "banana"
+\end{code}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Conditions}
+We can use {\tt and} and {\tt or} and {\tt not}.
+
+\begin{code}
+x = "Aberystwyth"
+y = 3.0/5
+if len(x) < 4 and y > 7:
+   print("success")
+
+x = len("Aberystwyth") > 5
+y = True
+if x or y:
+   print("hooray!")
+
+x = len("Aberystwyth") > 5
+if not x:
+   print("not long enough")
 \end{code}
 \end{frame}
 
 
 \begin{frame}[fragile]
-\frametitle{range}
+\frametitle{range (note: use list(range()) to view the list in Python 3)}
+\begin{code}
+>>> range(0, 100)  # or list(range(0,100))
+>>> range(100)
+>>> range(1, 100)
+\end{code}
+Using a step
+\begin{code}
+>>> range(0, 100, 5)
+\end{code}
+Counting down
+\begin{code}
+>>> range(100, 0, -1)
+\end{code}
+\end{frame}
+
+\begin{frame}
+\frametitle{How could we use range to make the following?}
+\begin{enumerate}
+\item All odd numbers from 1 to 49
+\item All multiples of 4 from 0 to 100
+\item A decreasing list of odd numbers from 25 to -25
+\end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{for}
+\frametitle{for loops}
+We can loop with \texttt{while} and we can also loop with \texttt{for}.
+Looping with \texttt{for} is particularly useful if you know you
+want to do something for each item in a list (rather than
+while a condition is True).
+\begin{code}
+for x in range(2, 8):
+   print("The number is: " + str(x))
+\end{code}
+\begin{itemize}
+\item We use \texttt{for} and \texttt{in}, and a colon at the end of the line.
+\item We indent the body of the for loop.
+\end{itemize}
 \end{frame}
 
+
+\begin{frame}[fragile]
+\frametitle{for loops}
+Here we have a for-loop with a body that is an if-statement.
+\bigskip
+\begin{code}
+for x in range(0, 100):
+   if x % 7 == 0:
+   print (str(x) + " is divisible by 7")
+\end{code}
+\end{frame}
+
+\begin{frame}
+\frametitle{Exercises}
+\begin{enumerate}
+\item Write a for-loop that will print out all the even numbers
+between 50 and 100.
+\item Write a for-loop that will sum all the even numbers
+between 50 and 100 and print the sum at the end (hint:
+you'll need to start by initialising a variable to collect the
+sum into).
+\item Write a for-loop that will print out the leap years from
+now until the year 2500. Leap years are those that are
+divisible by 4, except that years that are divisible by 100
+are not leap years, unless they're also divisible by 400.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{\texttt{range} as a generator}
+\begin{itemize}
+\item \texttt{range} will generate numbers. 
+\item In Python3, it will generate them on-demand (won't create them all
+in memory unless they're needed)
+\item In Python2, the whole list would be created. Use xrange in
+  Python2 if you want the generator version.
+\item In Python3, if you want to see the whole lot as a list, you need
+  to convert them to a list (e.g. \texttt{list(range(2, 8))} ). Most of the
+  time you don't need to do this.
+\end{itemize} 
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{User input}
+\begin{code}
+import sys
+print("Enter your name")
+name = sys.stdin.readline()
+print("Hello " + name + ". How are you?")
+\end{code}
+This includes the newline character.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{User input}
+\begin{code}
+import sys
+
+print("Enter your name")
+name = sys.stdin.readline()
+print("Hello " + name.strip() + ". How are you?")
+\end{code}
+This removes the newline character.
+
+\texttt{s.strip()} will remove any whitespace chars from both ends of a
+string \texttt{s} (whitespace is spaces, newlines, tabs).
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Guess the secret number!}
+An interactive game to exercise what you know about
+variables, if statements, loops and input/output.
+\begin{itemize}
+\item Initialise a variable to hold a secret number of your
+choice.
+\item Prompt the user to input a guess.
+\item Compare the guess to the secret number. If it's
+correct, print a congratulations message and stop.
+\item If it's not correct, then tell the user if the secret is
+lower or higher than their guess, and prompt them to
+guess again. Keep going until they've guessed
+correctly (while their guess is still wrong).
+\end{itemize}
+\end{frame}
 
 \end{document}

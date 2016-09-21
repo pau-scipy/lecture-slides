@@ -43,14 +43,14 @@ showstringspaces=false            %
 
 \begin{document}
 
-% Practical lecture: Lists and dictionaries, hands on examples
+% Practical lecture: Lists, hands on examples
 
 \begin{frame}
 \frametitle{CS24420 \& MA25220 \& MT25220}
 
 \begin{center}
 \begin{huge}
-Lecture 4: Lists and dictionaries
+Lecture 4: Lists
 \end{huge}
 \bigskip
 
@@ -61,12 +61,171 @@ Amanda Clare (afc@aber.ac.uk)
 
 
 \begin{frame}[fragile]
-\frametitle{foo}
-bar
+\frametitle{Lists}
 \begin{code}
-x = 1 + 5
+>>> x = [1,3,4,5,7,2]
+>>> y = ["hello","hi","shwmae","morning"]
+>>> z = [True, False, True]
+>>> w = []
+>>> n = len(x)
+>>> y = sorted(x)
+>>> x.sort()
+>>> x.reverse()
 \end{code}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Lists}
+\begin{code}
+>>> x = [1,3,4,5,7,2]
+\end{code}
+ List elements are counted from position 0
+\begin{code}
+>>> x[0]
+>>> x[2]
+\end{code}
+The last element in x is at what position?
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Lists}
+\begin{code}
+>>> x = [1,3,4,5,7,2]
+\end{code}
+Which element will this change?
+\begin{code}
+>>> x[2] = 8
+>>> print(x)
+\end{code}
+What did you see?
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Lists}
+What will this do?
+\begin{code}
+>>> x = [1,3,4,5,7,2]
+>>> x[0] = x[5]
+\end{code}
+\bigskip
+What will this do?
+\begin{code}
+>>> x[10] = 4
+>>> x.append(8)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Joining lists together}
+We can add two lists together to make a longer list.
+\begin{code}
+>>> x = [1, 2, 3]
+>>> y = [4, 5, 6]
+>>> z = x + y
+>>> print(z)
+\end{code}
+ I can extend y by x. What happens to y and to x?
+\begin{code}
+>>> y.extend(x)
+>>> print(y)
+>>> print(x)
+\end{code}
+ If I now change part of y, will x be altered?
+\begin{code}
+>>> y[4] = 9
+>>> print(y)
+>>> print(x)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Slicing lists}
+Slicing is the name for just copying some sub part of a list.
+For example, if we have a list called x then we can use:
+\begin{code}
+x[1:4] # items at positions 1, 2 and 3 (but not 4)
+x[2:6] # items at positions 2, 3, 4 and 5
+x[2:] # all items from position 2 to the end 
+x[:4] # the first 4 items (in positions 0, 1, 2 and 3)
+\end{code}
+
+\begin{code}
+>>> x = [2,3,4,5,6,7,8]
+>>> y = x[1:4]
+>>> y[0] = 0
+>>> print(y)
+>>> print(x)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Splitting strings}
+\begin{code}
+>>> x = "2,3,5,y,n,large"
+>>> y = x.split(",")
+>>> print(y)
+
+>>> x = "hello and welcome to python"
+>>> y = x.split()
+>>> print(y)
+\end{code}
+
+\texttt{split()} with no arguments will split on whitespace
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Joining strings}
+Joining a list of strings into a single string:
+\begin{code}
+>>> x = "hello and welcome to python"
+>>> y = x.split()
+>>> z = ",".join(splitX)
+>>> print(z)
+\end{code}
+
+Joining can be done with any string separator:
+\begin{code}
+>>> x = ["1","2","3","4"]
+>>> spacedX = " ".join(x)
+>>> tabbedX = "\t".join(x)
+>>> commaX = ",".join(x)
+>>> wooX = "woo".join(x)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Looping over a list}
+\begin{code}
+for x in ['aberystwyth', 'bangor', 'cardiff', 'swansea']:
+   print(x + str(len(x)))
+\end{code}
+
+The variable \texttt{x} is used to represent each element of the list
+in turn.
+
+What does this code do?
+
+Why is str present?
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exercises}
+1. Read in a sentence of text from the keyboard and report the number of
+words that were typed.
+
+\bigskip
+
+2. Read in a sentence of text from the keyboard and display the longest word
+that was typed.
+
+\bigskip 
+
+Hints: you'll need to split the sentence into a list of words. Remember
+how to do user input from lecture 3 with sys.stdin.readline().
+\end{frame}
+
+% exercise: take keyboard input and count words
+% exercise: take keyboard input, split into words and find and display the longest word
 
 \end{document}
