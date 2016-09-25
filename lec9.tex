@@ -63,9 +63,166 @@ Amanda Clare (afc@aber.ac.uk)
 \end{frame}
 
 
+
+
 \begin{frame}[fragile]
-\frametitle{foo}
-bar
+\frametitle{Functions in maths}
+Assume we have 2 sets, $A$ and $B$. For example: countries and capital cities
+\bigskip
+
+We could imagine all possible pairings of elements such that one
+element in the pair is from $A$ and the other is from $B$. 
+\bigskip
+
+For example, if
+$A = \{France, UK, Spain\}$ and $B = \{Paris, London, Madrid\}$ then all
+possible pairs are:
+\begin{multline*}
+\{ (France, London), (France, Paris), (France, Madrid), \\
+(UK, London),
+  (UK, Paris), (UK, Madrid), \\
+(Spain, Paris), (Spain, London), (Spain,
+  Madrid) \}
+ \end{multline*}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Relations in maths}
+The set of all possible pairs from $A$ and $B$ is known as the cartesian product of $A$
+and $B$.
+
+A subset of this (that is, some of the pairs but not necessarily all
+of them) is called a \em{relation}.
+
+For example: 
+\begin{itemize} 
+\item the capital cities of each country: $\{(France, Paris), (UK,
+  London), (Spain, Madrid) \}$
+\item popular holiday destinations: $\{ (France, Paris), (UK, Paris),
+  (Spain, London) \}$
+\item same number of letters in word: $\{ (France, London), (Spain,
+  Paris) \}$
+\item Continental flight destinations from UK: $\{ (UK, Paris), (UK, Madrid) \}$
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Functions in maths}
+A function is a relation where there's a single output for
+any given input. \\
+A single element of $B$ for every element of $A$ in the relation.
+So we can pick any input element and know that an output
+exists. \\
+We also know it's the only output (there's no confusion). \\
+We can think of a function as a mapping from elements in $A$
+to elements in $B$.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Which of these are functions}
+
+Which of these relations are functions?
+ 
+\begin{itemize} 
+\item the capital cities of each country: $\{(France, Paris), (UK,
+  London), (Spain, Madrid) \}$
+\item popular holiday destinations: $\{ (France, Paris), (UK, Paris),
+  (Spain, London) \}$
+\item same number of letters in word: $\{ (France, London), (Spain,
+  Paris) \}$
+\item Continental flight destinations from UK: $\{ (UK, Paris), (UK, Madrid) \}$
+\end{itemize}
+\pause
+A partial function is not defined for all elements of $A$, only some
+of them. For some elements there is no output. Which of these are partial?
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{In Python}
+\begin{code}
+def capital_city(country):
+   capital = None
+   if country == "France":
+      capital = "Paris"
+   elif country == "UK":
+      capital = "London"
+   elif country == "Spain":
+      capital = "Madrid"
+   return capital
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{In Python}
+\begin{code}
+capital_dict = { "France": "Paris", "UK": "London", "Spain": "Madrid" }
+
+def capital_city(country):
+   capital = None
+   if country in capital_dict:
+      capital = capital_dict[country]
+   return capital
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Return values}
+When we return a value from a function, we can collect that value into
+a variable:
+\begin{code}
+c = capital_city("UK")
+print(c)
+
+d = capital_city("Germany")
+print(d) 
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Return values and None}
+Some functions in Python don't return a value. They are written
+solely for their side effects (often printing to a screen or writing
+to a file)
+\begin{code}
+def print_hashes(num):
+   for i in range(num):
+      print('#' * i)
+\end{code}
+
+This is still known as a \em{function} in Python, even though it seems
+that it doesn't return a value. In fact it does actually return a
+value: it returns the value \texttt{None}. 
+
+\bigskip
+
+N.B. Sometimes when we write a function just for its side effects rather than
+its return value we might instead choose to return a boolean,
+as an indicator of success or failure.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Partial functions give a ValueError Exception}
+\begin{code}
+>>> import math
+>>> n = math.sqrt(9)
+>>> print(n)
+3.0
+>>> n = math.sqrt(-9)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: math domain error
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Passing functions as parameters}
+b
 \begin{code}
 x = 1 + 5
 \end{code}
