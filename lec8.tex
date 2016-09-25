@@ -13,8 +13,10 @@
 \definecolor{deepblue}{rgb}{0,0,0.5}
 \definecolor{deepred}{rgb}{0.6,0,0}
 \definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{shadecolor}{rgb}{1, 0.8, 0.3}
 
 \usepackage{listings}
+\usepackage{framed}
 
 % Python style for highlighting
 \newcommand\pythonstyle{\lstset{
@@ -50,7 +52,7 @@ showstringspaces=false            %
 
 \begin{center}
 \begin{huge}
-Lecture 8: Using functions 
+Lecture 8: Hands-on Using functions 
 \end{huge}
 \bigskip
 
@@ -61,12 +63,299 @@ Amanda Clare (afc@aber.ac.uk)
 
 
 \begin{frame}[fragile]
-\frametitle{foo}
-bar
+\frametitle{Functions}
+Functions allow us to group useful code statements
+together for reusability.
+
+\bigskip
+
+You can use Python's built in functions, such
+as len and np.random.random:
 \begin{code}
-x = 1 + 5
+>>> len( [1,2,5,6,7,3] )
+>>> len("hello world")
+>>> import numpy as np
+>>> x = np.random.random((5, 10))
+\end{code}
+But you can also write your own.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{weather\_message}
+For example, here's a function called \texttt{weather\_message}
+\begin{code}
+import math
+def weather_message():
+   temp = 40 * math.sin(2.5)
+   if temp < 3:
+      msg = "wear wool trousers"
+   elif temp < 10:
+      msg = "wear trousers"
+   else: 
+      msg = "wear shorts"
+   return msg
+\end{code}
+\pause
+We write \texttt{def}, the function name, two brackets and a
+colon.
+The body of the function is indented.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Save the code in a file called weather.py}
+\begin{shaded}
+\begin{code}
+import math
+def weather_message():
+   temp = 40 * math.sin(2.5)
+   if temp < 3:
+      msg = "wear wool trousers"
+   elif temp < 10:
+      msg = "wear trousers"
+   else: 
+      msg = "wear shorts"
+   return msg
+\end{code}
+\end{shaded}
+\begin{code}
+>>> import weather
+>>> w = weather.weather_message()
+>>> print(w)
 \end{code}
 \end{frame}
 
+
+\begin{frame}[fragile]
+\frametitle{Your function can take a parameter}
+\begin{shaded}
+\begin{code}
+def weather_message(temp):
+  if temp < 3:
+      msg = "wear wool trousers"
+   elif temp < 10:
+      msg = "wear trousers"
+   else: 
+      msg = "wear shorts"
+   return msg
+\end{code}
+\end{shaded}
+\begin{code}
+>>> import weather
+>>> w = weather.weather_message(15)
+>>> print(w)
+>>> w = weather.weather_message(8)
+>>> print(w)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Many parameters}
+\begin{shaded}
+\begin{code}
+def weather_message(temp, low, med):
+  if temp < low:
+      msg = "wear wool trousers"
+   elif temp < med:
+      msg = "wear trousers"
+   else: 
+      msg = "wear shorts"
+   return msg
+\end{code}
+\end{shaded}
+\begin{code}
+>>> import weather
+>>> w = weather.weather_message(15,5,20)
+>>> print(w)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Reusable code}
+We can then call that function many times and reuse it.
+\begin{code}
+>>> import weather
+>>> w = weather.weather_message(6, 3, 10)
+>>> w = weather.weather_message(100, 0, 45)
+>>> w = weather.weather_message(4, 5, 6)
+\end{code}
+Writing code that is reusable is a fundamental aim for
+programmers.
+
+\bigskip
+
+Others can use your code.
+
+\bigskip
+
+You can reuse your code in future projects.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Functions in a script}
+\begin{shaded}
+\begin{code}
+def weather_message(temp, low, med):
+   if temp < low:
+      msg = "wear wool trousers"
+   elif temp < med:
+      msg = "wear trousers"
+   else:
+      msg = "wear shorts"
+   return msg
+
+w = weather_message(15, 6, 20)
+print(w)
+\end{code}
+\end{shaded}
+We can write functions and then call them, all in the
+same file. We call this a ``script''. Note how the last two lines are
+not indented.
+
+\bigskip
+
+We can execute this code at the command line:\\
+\texttt{python weather.py}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Exercise - calling a function}
+
+Write a for-loop to go through temperatures from 0 to
+100 and call your \texttt{weather\_message} function for
+each temperature. Always call it with a \texttt{low} of 7 and a
+\texttt{med} of 15.
+\bigskip
+
+Just start writing your for-loop at the bottom of your
+weather.py file.
+\bigskip
+
+Run the code with\\
+\texttt{python weather.py}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Adding randomness}
+Let's add another function to your weather.py file
+\begin{shaded}
+\begin{code}
+import random
+def predict_tomorrow_temp():
+   return random.choice(range(-3, 25))
+\end{code}
+\end{shaded}
+
+This function returns a value using the keyword return.\\
+This function takes no parameters.\\
+The value returned will be a random number in the range -3
+up to 25 (but not including 25).\\
+\begin{code}
+>>> weather.predict_tomorrow_temp()
+>>> t = weather.predict_tomorrow_temp()
+>>> t
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Using that result}
+\begin{code}
+>>> weather.predict_tomorrow_temp()
+2
+>>> weather.predict_tomorrow_temp()
+9
+>>> t = weather.predict_tomorrow_temp()
+>>> print(t)
+23
+>>> t = weather.predict_tomorrow_temp()
+>>> print(t)
+-2
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Taking a parameter}
+\begin{shaded}
+\begin{code}
+import random
+def predict_tomorrow_temp(today_temp):
+   change = random.choice(range(-1, 2))
+   new_temp = today_temp + change
+   return new_temp
+\end{code}
+\end{shaded}
+This function takes one parameter (\texttt{today\_temp})
+and returns a result (\texttt{new\_temp}).
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Using a parameter}
+\begin{shaded}
+\begin{code}
+import random
+def predict_tomorrow_temp(today_temp):
+   change = random.choice(range(-1, 2))
+   new_temp = today_temp + change
+   return new_temp
+
+today = 10
+tomorrow = predict_tomorrow_temp(today)
+next_day = predict_tomorrow_temp(tomorrow)
+print(today)
+print(tomorrow)
+print(next_day)
+\end{code}
+\end{shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Predict a whole week}
+\begin{shaded}
+\begin{code}
+import random
+def predict_tomorrow_temp(today_temp):
+   change = random.choice(range(-1, 2))
+   new_temp = today_temp + change
+   return new_temp
+
+temp = 10
+for day in range(1,8):
+   print("Day " + str(day))
+   print("Today's temp is:" + str(temp))
+   temp = predict_tomorrow_temp(temp)
+   print("Tomorrow will be:" + str(temp))
+\end{code}
+\end{shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exercise}
+\begin{shaded}
+\begin{code}
+import random
+def predict_tomorrows_temp(today_temp):
+   change = random.choice(range(-1,2))
+   new_temp = today_temp + change
+   return new_temp
+\end{code}
+\end{shaded}
+
+How would you fix this function so that it never returned
+temperatures lower than -3 or higher than 24? (Hint, you'll
+need to use an if-statement).
+\end{frame}
+
+\begin{frame}
+\frametitle{Summary}
+\begin{itemize}
+\item Writing functions
+\item Calling functions
+\item Functions can take parameters
+\item Functions can return values that can be saved into variables
+\item Functions allow you to write reusable code
+\end{itemize}
+\end{frame}
 
 \end{document}
