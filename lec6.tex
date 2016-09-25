@@ -50,7 +50,7 @@ showstringspaces=false            %
 
 \begin{center}
 \begin{huge}
-Lecture 6: NumPy
+Lecture 6: Hands-on NumPy
 \end{huge}
 \bigskip
 
@@ -61,12 +61,55 @@ Amanda Clare (afc@aber.ac.uk)
 
 
 \begin{frame}[fragile]
-\frametitle{foo}
-bar
+\frametitle{Multidimensional arrays}
+\begin{itemize}
+\item elements all of the same type
+\item the dimensions are called axes
+\item the number of dimensions is the rank 
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Multidimensional arrays}
 \begin{code}
-x = 1 + 5
+>>> import numpy as np
+>>> x = np.random.random(10)
+>>> print(x)
+>>> y = np.random.random((3, 10))
+>>> print(y)
+>>> y = np.random.random((10, 3))
+>>> print(y)
+>>> y = np.random.random((3, 3, 3))
+>>> print(y)
 \end{code}
 \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Scalar operations}
+
+np.random.random will generate numbers between 0 and 1 (not including
+1). What if we want numbers between 0 and 100?
+\begin{code}
+>>> x = np.random.random(10) * 100
+>>> print(x)
+>>> y = np.random.random((3, 10)) * 100
+>>> print(y)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Scalar operations}
+
+What's the difference? Why?
+\begin{code}
+>>> x = np.random.random(3, 5) * 10 + 5
+>>> print(x)
+>>> y = np.random.random((3, 5)) + 5 * 10
+>>> print(y)
+\end{code}
+\end{frame}
+
 
 
 \end{document}

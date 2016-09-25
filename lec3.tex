@@ -61,9 +61,108 @@ Amanda Clare (afc@aber.ac.uk)
 \end{frame}
 
 
+
+\begin{frame}[fragile]
+\frametitle{Variables}
+Names for values. 
+
+\bigskip
+
+In Python, the values have types. So 3.4 is a float,
+and "hello" is a str. 
+
+\bigskip
+
+The variable is just a name for a value (think
+of it as a pointer to that box in memory that holds the value). 
+
+\bigskip
+
+Later in the code, that same variable might point to another value of
+a different type entirely.
+
+\begin{code}
+x = 4
+print(x)
+x = "hello"
+print(x)
+\end{code}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Dynamic typing}
+This is known as 'dynamic typing'. Type checking can only be done
+dynamically at
+run time rather than statically (there is no Python compiler). 
+ 
+\bigskip
+
+Values have types. Variables are names for values.
+
+\bigskip
+
+The values have strong types. We can't do: 
+\begin{code}
+"hello" + 4
+
+\end{code}
+
+because these have different types and they do not satisfy \texttt{+}.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Gotchas}
+However sometimes it can look as though Python isn't strongly typed
+for two main reasons: 
+\begin{itemize}
+\item some type coercions especially with bools
+\item some operator overloading, especially *
+\end{itemize}
+We can do \texttt{"hello" * 4}, because * is overloaded for
+strings, unfortunately. 
+
+\bigskip
+
+We can also evaluate 
+\begin{itemize}
+\item \texttt{True and "fish"} 
+\item \texttt{"fish" and True}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Gotchas}
+
+We can say 
+\begin{code}
+while "hello":
+  print("ok")
+\end{code}
+Python's booleans can be a little hazardous.  See \url{http://anh.cs.luc.edu/python/hands-on/3.1/handsonHtml/boolean.html}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Variables}
+
+Variable identifiers in Python:
+\begin{itemize}
+\item \texttt{use\_underscores}
+\item \texttt{use\_lower\_case}
+\item \texttt{notCamelCase}
+\item Can't start with a number (e.g. not \texttt{2night})
+\item As always in programming, try to give them meaningful names
+\end{itemize}
+\end{frame}
+
 \begin{frame}[fragile]
 \frametitle{while loops}
-We often want to do things many times.
+We often want to repeat things many times.
 \begin{code}
 while True:
    print( "Hello world" )
@@ -95,7 +194,7 @@ while x < 100:
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{while loops}
+\frametitle{while loops exercise on the board}
 Write a piece of code that will initialise a variable x to 200
 and then use a while loop that will print out the value of x
 and decrease the value of x, stopping when x is 99.
@@ -165,17 +264,26 @@ if not x:
 
 
 \begin{frame}[fragile]
-\frametitle{range (note: use list(range()) to view the list in Python 3)}
+\frametitle{range}
+\texttt{range(start, stop[, step])} is a function that will generate all
+numbers from \texttt{start} to \texttt{stop} but not including
+\texttt{stop}, jumping by \texttt{step} if provided.
+ 
+\bigskip
+
+In Python 2, range returns a list. In Python 3 range returns a
+generator (so to see the numbers as a list, use \texttt{list(range())}).
+
 \begin{code}
 >>> range(0, 100)  # or list(range(0,100))
 >>> range(100)
 >>> range(1, 100)
 \end{code}
-Using a step
+Using a step:
 \begin{code}
 >>> range(0, 100, 5)
 \end{code}
-Counting down
+Counting down:
 \begin{code}
 >>> range(100, 0, -1)
 \end{code}

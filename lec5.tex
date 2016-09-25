@@ -45,12 +45,15 @@ showstringspaces=false            %
 
 % Lists and dictionaries theory. For loops and lists. Quiz on content so far. 
 
+% other things: strings vs lists, and the differences
+% types in lists
+
 \begin{frame}
 \frametitle{CS24420 \& MA25220 \& MT25220}
 
 \begin{center}
 \begin{huge}
-Lecture 5: Lists and Dictionaries
+Lecture 5: Dictionaries
 \end{huge}
 \bigskip
 
@@ -82,19 +85,19 @@ country
 \frametitle{Creating dictionaries and adding items}
 We use curly brackets to create a new dictionary:
 \begin{code}
->>> my_dict = {}
+>>> phonebook = {}
 \end{code}
 We can add items (new key and value):
 \begin{code}
->>> my_dict['John'] = 724736
+>>> phonebook['John'] = 724736
 \end{code}
 We can update existing items (alter the value):
 \begin{code}
->>> my_dict['John'] = 666666
+>>> phonebook['John'] = 666666
 \end{code}
 We could create a new dictionary with many items:
 \begin{code}
->>> my_dict = { "a": 34, "b":28, "c":56 }
+>>> ages = { "a": 34, "b":28, "c":56 }
 \end{code}
 \end{frame}
 
@@ -103,17 +106,17 @@ We could create a new dictionary with many items:
 We can request the value that the dictionary holds for a specific
 key:
 \begin{code}
->>> my_dict = { "John" : 4, "Sarah" : 5 }
->>> my_dict["John"]
+>>> office = { "John" : 4, "Sarah" : 5 }
+>>> office["John"]
 \end{code}
  What happens if a key is not present?
 \begin{code}
->>> my_dict["Jane"]
+>>> office["Jane"]
 \end{code}
  What happens if a key is used more than once?
 \begin{code}
->>> my_dict = { "John" : 4, "Sarah" : 5, "John" : 7 }
->>> my_dict["John"]
+>>> office = { "John" : 4, "Sarah" : 5, "John" : 7 }
+>>> office["John"]
 \end{code}
 \end{frame}
 
@@ -124,52 +127,47 @@ We can check if a key is present, and if so, find out the
 value:
 \begin{code}
 student = "Jane"
-if student in my_dict:
-   print(my_dict[student])
+if student in exam_result:
+   print(exam_result[student])
 else:
    print("No value found for " + student)
 \end{code}
 \end{frame}
 
+
+
 \begin{frame}[fragile]
-\frametitle{Requesting data}
-We can check if a key is present, and if so, find out the
-value:
+\frametitle{Getting all values out}
 \begin{code}
-student = "Jane"
-if student in my_dict:
-   print(my_dict[student])
-else:
-   print("No value found for " + student)
+age = { "a": 34, "b":28, "c":56 }
+print(age.keys())
+print(age.values())
+
+for k in age.keys():
+   print(age[k])
 \end{code}
-\end{frame}
-
-\begin{frame}
-\frametitle{Exercise}
-Create an empty dictionary.
-
-Add the following information to that dictionary: the
-name (keys) and favourite food (values) of the three
-people sitting closest to you. If their names are not
-unique, use their full names.
-
-Check that each person's favourite food can be looked
-up in the dictionary.
+We can use .keys() to find out the keys that are in a dictionary.
+We use square brackets after the dictionary name [] to find
+out what value belongs to that key.
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Getting values out}
+\frametitle{Simpler, more Pythonic}
 \begin{code}
-my_dict = { "a": 34, "b":28, "c":56 }
-print(my_dict.keys())
 for k in my_dict.keys():
    print(my_dict[k])
 \end{code}
- We use .keys() to find out the keys that are in a dictionary.
-We use square brackets after the dictionary name [] to find
-out what value belongs to that key.
+can be written instead
+\begin{code}
+for k in my_dict:
+   print(my_dict[k])
+\end{code}
+The .keys() is assumed if we're looping over a dictionary.
+\end{frame}
 
-\bigskip
+
+\begin{frame}[fragile]
+\frametitle{Checking for presence of a key}
 
 If we're not sure if a key is present, better check:
 \begin{code}
@@ -180,12 +178,32 @@ else:
 \end{code}
 \end{frame}
 
+\begin{frame}
+\frametitle{Exercise on the board}
+Create an empty dictionary.
+
+\bigskip
+
+Add the following information to that dictionary: the
+name (keys) and favourite food (values) of the three
+people sitting closest to you. If their names are not
+unique, use their full names.
+
+\bigskip
+
+One of those people has recently discovered how wonderful olives
+are. Update the favourite food for this person.
+
+\bigskip
+
+Find out whether Hannah is in the dictionary or not. If she is, report
+her favourite food. If she isn't, report that she's not present.
+\end{frame}
+
+
+
 \begin{frame}[fragile]
 \frametitle{Quiz (in teams)}
-bar
-\begin{code}
-x = 1 + 5
-\end{code}
 \end{frame}
 
 

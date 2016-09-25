@@ -50,7 +50,7 @@ showstringspaces=false            %
 
 \begin{center}
 \begin{huge}
-Lecture 4: Lists
+Lecture 4: Hands-on Lists 
 \end{huge}
 \bigskip
 
@@ -68,11 +68,11 @@ Amanda Clare (afc@aber.ac.uk)
 >>> z = [True, False, True]
 >>> w = []
 >>> n = len(x)
->>> y = sorted(x)
->>> x.sort()
->>> x.reverse()
 \end{code}
 \end{frame}
+
+
+
 
 \begin{frame}[fragile]
 \frametitle{Lists}
@@ -197,7 +197,7 @@ Joining can be done with any string separator:
 \begin{frame}[fragile]
 \frametitle{Looping over a list}
 \begin{code}
-for x in ['aberystwyth', 'bangor', 'cardiff', 'swansea']:
+for x in ['aberystwyth', 'bangor', 'cardiff','swansea']:
    print(x + str(len(x)))
 \end{code}
 
@@ -225,7 +225,59 @@ Hints: you'll need to split the sentence into a list of words. Remember
 how to do user input from lecture 3 with sys.stdin.readline().
 \end{frame}
 
-% exercise: take keyboard input and count words
-% exercise: take keyboard input, split into words and find and display the longest word
+
+\begin{frame}[fragile]
+\frametitle{Are strings and lists the same?}
+\begin{code}
+>>> x = len([4,3,2,5,6])
+>>> x = len("hello")
+
+>>> sorted([4,3,2,5,6])
+>>> sorted("hello")
+
+>>> x = [4,3,2,5,6]
+>>> x[3] = 9
+
+>>> x = "hello"
+>>> x[3] = 'f'
+\end{code}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Modifying lists, or not?}
+\begin{code}
+>>> x = [3,5,6,8,2,9]
+>>> y = sorted(x)
+>>> x.sort()
+\end{code}
+
+sorted() will return a new list. sort() will return None.
+
+\bigskip
+
+Some functions in Python will destructively modify lists (for
+efficiency), and some will not. 
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modifying lists, or not?}
+\begin{code}
+>>> x = [3,5,6,8,2,9]
+>>> x.reverse()
+>>> x[::-1]
+>>> reversed(x)
+\end{code}
+
+x.reverse() will destructively modify the list in place and return None. x[::-1] will
+return a new list. reversed(x) will return a generator. 
+
+\bigskip
+
+Some functions in Python will destructively modify lists (for
+efficiency), and some will not. 
+\end{frame}
+
 
 \end{document}
