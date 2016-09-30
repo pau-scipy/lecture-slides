@@ -159,7 +159,11 @@ def capital_city(country):
 \begin{frame}[fragile]
 \frametitle{In Python}
 \begin{code}
-capital_dict = { "France": "Paris", "UK": "London", "Spain": "Madrid" }
+capital_dict = { 
+  "France": "Paris", 
+  "UK":     "London", 
+  "Spain":  "Madrid" 
+}
 
 def capital_city(country):
    capital = None
@@ -194,7 +198,7 @@ def print_hashes(num):
       print('#' * i)
 \end{code}
 
-This is still known as a \em{function} in Python, even though it seems
+This is still known as a {\em function} in Python, even though it seems
 that it doesn't return a value. In fact it does actually return a
 value: it returns the value \texttt{None}. 
 
@@ -219,14 +223,177 @@ ValueError: math domain error
 \end{code}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Parameters}
+If I define a function that takes two parameters, then I must call it
+with two parameters:
+\begin{code}
+def perimeter(width, height):
+   return (width*2) + (height*2)
+
+print( perimeter(4, 5) )
+\end{code}
+
+\end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Passing functions as parameters}
-b
+\frametitle{Named parameters}
+If we name the parameters when I supply the values then we can put
+them in any order. However this is not a good idea, for code readability.
 \begin{code}
-x = 1 + 5
+def perimeter(width, height):
+   return (width*2) + (height*2)
+
+print( perimeter(4, 5) )
+print( perimeter(width=4, height=5) )
+print( perimeter(height=5, width=4) )
 \end{code}
 \end{frame}
 
+
+\begin{frame}[fragile]
+\frametitle{Named parameters}
+However we can give the parameters default values and then the names
+and ability to use them in any order becomes more useful.
+\begin{code}
+def perimeter(width=7, height=6):
+   return (width*2) + (height*2)
+
+print( perimeter(4, 5) )  
+print( perimeter(width=4) )  
+print( perimeter(height=5) ) 
+print( perimeter() )  
+\end{code}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Functions have a type}
+Functions have the type 'function'.
+\begin{code}
+>>> type(perimeter)
+<type 'function'>
+>>> type(len)
+<type 'builtin_function_or_method'>
+>>> type(max)
+<type 'builtin_function_or_method'>
+\end{code}
+When we just use the name, e.g. \texttt{perimeter} we are referring
+to the function itself. When we add brackets, we are calling the
+function instead, e.g.  \texttt{perimeter(3,4)}.
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Functions as arguments}
+We can pass functions as arguments. Here I pass the function \texttt{len}, and
+I also pass the function \texttt{first\_char}.
+\begin{code}
+def is_ok_text( word, f ):
+   score = f(word)
+   return score < 10
+
+def first_char(word):
+   return (ord (word[0]) )
+
+x = is_ok_text("hello", len)
+y = is_ok_text("hello", first_char)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Functions as arguments}
+Suppose we're playing Scrabble. We want to define rules for which
+words are acceptable. 
+\begin{code}
+def tough(word):
+   return ( len(word) > 3
+            and not word.endswith('s')
+            and word[0].upper() != word[0] )
+
+def easy(word):
+   return True
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Functions as arguments}
+\begin{code}
+def playScrabble(num_players, rules):
+   # some code to set up and play
+   # at some point we can test a word
+   word = get_word_from_player(n)
+   if rules(word):
+      # play carries on
+   else:
+      # choose another word
+
+# Which rules are we playing?
+playScrabble(4, tough)
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Lambda functions}
+We can also define simple functions using the lambda keyword. 
+\begin{code}
+number_of_ls = lambda s : return s.count('l')
+say_hello = lambda name: return "hello " + name 
+
+print (say_hello("Amanda"))
+print (number_of_ls(say_hello("Amanda")))
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Lambda functions}
+Lambda functions are a convenient notation but not necessary. 
+These functions are equivalent:
+\begin{code}
+number_of_ls = lambda s : s.count('l')
+
+def number_of_ls(s):
+   return s.count('l')
+\end{code}
+\begin{code}
+say_hello = lambda name: "hello " + name 
+
+def say_hello(name):
+   return "hello " + name 
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Lambda functions}
+Lambda functions can only be used for simple, single line functions.
+
+\bigskip
+
+After the colon must be an expression which produces the returned
+value.
+
+\bigskip
+
+Lambda functions can take more than one argument:
+
+\begin{code}
+perimeter = lambda height,width : width*2 + height*2 
+\end{code}
+\end{frame}
+
+\begin{frame}
+\frametitle{Summary}
+\begin{itemize}
+\item Functions and relations
+\item Return values, None and print
+\item Parameters
+\item Passing functions
+\item Lambda functions
+\end{itemize}
+\end{frame}
 
 \end{document}
