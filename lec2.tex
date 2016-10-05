@@ -61,9 +61,8 @@ Amanda Clare (afc@aber.ac.uk)
 
 
 \begin{frame}[fragile]
-\frametitle{Try it in your hello.py file}
-Open Spyder, load the hello.py file you previously made and change the
-code to the following:
+\frametitle{Try it in a new file}
+Open Spyder, enter the following code and save it to your M: drive as lec2.py
 \begin{code}
 x = 1 + 5
 y = 6/4.0
@@ -154,7 +153,17 @@ print(Mary)
 >>> "a" + str(2)
 >>> 1 + "2"
 >>> "6" / "4"
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Try it}
+\begin{code}
 >>> "a" * 5
+>>> True and "hello"
+>>> "hello" and True
+>>> 1 < 4
+>>> type (1 < 4)
 \end{code}
 \end{frame}
 
@@ -170,16 +179,25 @@ print(Mary)
 \begin{frame}[fragile]
 \frametitle{Strings}
 Single or double quotes: {\tt "hello" 'hello'}
+\begin{code}
+>>> x = "hello"
+>>> y = 'hello'
+>>> x == y
+\end{code}
 
 Triple quotes:
 \begin{code}
-"""this string
+x = """this string
 spans many
 lines
 """
 \end{code}
+\end{frame}
 
-Strings can behave as if they were a list of characters, so
+
+\begin{frame}[fragile]
+\frametitle{Strings}
+Strings can behave as if they were an immutable list of characters, so
 you can use {\tt len} and {\tt in}: 
 \begin{code}
 >>> x = "hello world"
@@ -294,7 +312,7 @@ x < y
 x <= y
 x >= y
 x == y    # equality test uses a double equals sign!
-x != y
+x != y    # not x == y 
 x == 5
 x < 3.5/2
 x < "banana"
