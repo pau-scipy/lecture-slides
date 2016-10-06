@@ -1,8 +1,14 @@
 \documentclass{beamer}
 
+\usepackage{helvet}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\rmdefault}{phv}
+
 \usepackage{listings}
 \usepackage{color}
 \usepackage{hyperref}
+\usepackage{upquote}
+\usepackage[T1]{fontenc}
 
 % Default fixed font does not support bold face
 \DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
@@ -28,6 +34,7 @@ stringstyle=\color{deepgreen},
 frame=tb,                         % Any extra options here
 showstringspaces=false            % 
 }}
+
 
 
 % Python environment
@@ -178,7 +185,7 @@ print(Mary)
 
 \begin{frame}[fragile]
 \frametitle{Strings}
-Single or double quotes: {\tt "hello" 'hello'}
+Single or double quotes: 
 \begin{code}
 >>> x = "hello"
 >>> y = 'hello'
@@ -224,8 +231,22 @@ More things we can do with strings:
 \end{frame}
 
 \begin{frame}[fragile]
+\frametitle{Importing useful stuff from the maths library}
+\begin{code}
+>>> import math
+>>> math.pi
+>>> math.sin
+>>> math.sin(0.5) 
+>>> help(math.log)
+>>> math.log(1024, 2)
+>>> help(math)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
 \frametitle{if - else}
 \begin{code}
+import math
 temp = 40 * math.sin(2.5)
 if temp < 10:
    msg = "wear trousers"
@@ -246,6 +267,7 @@ outcome based on the decisions.
 \begin{frame}[fragile]
 \frametitle{if - else}
 \begin{code}
+import math
 temp = 40 * math.sin(2.5)
 if temp < 10:
    msg = "Feeling cold! Only " + str(temp) + "."
@@ -263,6 +285,7 @@ block.
 \begin{frame}[fragile]
 \frametitle{if - elif - else}
 \begin{code}
+import math
 temp = 40 * math.sin(2.5)
 if temp < 3:
    msg = "wear wool trousers"
@@ -282,6 +305,7 @@ print(msg)
 \begin{frame}[fragile]
 \frametitle{if - else}
 \begin{code}
+import math
 temp = 40 * math.sin(2.5)
 rain = 10
 if temp < 10:
