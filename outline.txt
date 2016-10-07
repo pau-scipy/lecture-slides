@@ -22,7 +22,7 @@ Fri 13:10 Lists, hands on examples
 -------------------
 Week 3 (week beginning 17/10)
 
-Tues 4:10 Dictionaries theory. For loops and lists. Quiz on content so far. 
+Tues 4:10 Sets? Dictionaries theory. For loops and lists. Quiz on content so far. 
 
 Tues 5:10 Worksheet on loops over lists and dictionaries. Add to lists and dicts. Loop over the contents and sum or count or display entries.
 
@@ -31,7 +31,7 @@ Fri 13:10 numpy hands on lecture (make arrays, apply scalars, make ndarrays, app
 -------------------
 Week 4 (week beginning  24/10)
 
-Tues 4:10 numpy theory (to what level?). Matrices (which operations?).
+Tues 4:10 numpy theory. Matrices (which operations?).
 
 Tues 5:10 numpy worksheet.
 
@@ -40,11 +40,11 @@ Fri 13:10 Functions hands on. Remember existing functions eg len, sorted, sqrt a
 -------------------
 Week 5 (week beginning 31/10)
 
-Tues 4:10 Theory of functions and their correspondence to maths functions. Return values and None. print vs return. Parameters. What's the point of functions.
+Tues 4:10 Theory of functions and their correspondence to maths functions. Return values and None. print vs return. Parameters. What's the point of functions. lambdas. Passing functions as args.
 
 Tues 5:10 Functions worksheet. Write functions to take params and return values.
 
-Fri 13:10 Hands on adding main to a file of functions. Importing your file. Running your file. Adding comments. Generating documentation for your module.
+Fri 13:10 Hands on adding main to a file of functions. Importing your file. Running your file. Adding comments. Generating documentation for your module. Packages, pip, argparse
 
 -------------------
 Week 6 (week beginning 7/11)
@@ -64,11 +64,13 @@ Prac session will run Tues at 5:10 and could also run extra one Fri 13:10 if the
 -------------------
 Week 8 (week beginning 21/11)
 
-Tues 4:10 Theory of objects. Inheritance. Design. Objects = methods plus attributes. Self. Calling methods via dot vs just calling functions.  __init__
+Tues 4:10 Theory of objects. Inheritance. Design. Objects = methods
+plus attributes. Self. Calling methods via dot vs just calling
+functions.  __init__, private
 
 Tues 5:10 Worksheet on making basic objects. 
 
-Fri 13:10 hands on examples of using objects: e.g. datetime
+Fri 13:10 hands on examples of using objects: e.g. datetime, requests
 
 -------------------
 Week 9 (week beginning 28/11)
@@ -95,4 +97,4 @@ Tues 4:10 Revision lecture. Q&A.
 
 Tues 5:10 Catch up outstanding worksheets.
 
-Fri 13:10  no plan, emergency usage only.
+Fri 13:10 Final prac. no plan, emergency usage only.
