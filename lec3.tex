@@ -58,7 +58,7 @@ showstringspaces=false            %
 
 \begin{center}
 \begin{huge}
-Lecture 3: Loops
+Lecture 3: Loops (and variables and user input)
 \end{huge}
 
 \bigskip
@@ -102,9 +102,11 @@ print(x)
 
 \begin{frame}[fragile]
 \frametitle{Dynamic typing}
-This is known as 'dynamic typing'. Type checking can only be done
-dynamically at
-run time rather than statically (there is no Python compiler). 
+This is known as 'dynamic typing'. Python will use the types to check
+that instructions are valid. Much of the type checking can only be done
+dynamically, at
+run time, while the code is executing, rather than statically, before
+the code is run. 
  
 \bigskip
 
@@ -121,21 +123,37 @@ The values have strong types. We can't do:
 because these have different types and they do not satisfy \texttt{+}.
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Dynamic typing}
+Will there be a TypeError when this code is run?
+
+\begin{code}
+x = 4
+y = 8
+if y < 6:
+   x = "world"
+z = "hello" + x
+print(z)
+\end{code}
+
+\end{frame}
+
+
 
 \begin{frame}[fragile]
-\frametitle{Gotchas}
+\frametitle{Watch out for some type issues}
 However sometimes it can look as though Python isn't strongly typed
 for two main reasons: 
 \begin{itemize}
-\item some type coercions especially with bools
-\item some operator overloading, especially *
+\item Sometimes types are silently converted (especially to bools)
+\item Some operators are overloaded to have multiple uses, especially *
 \end{itemize}
 So we can do \texttt{"hello" * 4}, because * is overloaded for
-strings, unfortunately. 
+strings and ints, unfortunately. 
 
 \bigskip
 
-We can also evaluate 
+Remember we can also evaluate: 
 \begin{itemize}
 \item \texttt{True and "fish"} 
 \item \texttt{"fish" and True}
@@ -143,16 +161,6 @@ We can also evaluate
 
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Gotchas}
-
-We can say 
-\begin{code}
-while "hello":
-  print("ok")
-\end{code}
-Python's booleans can be a little hazardous.  See \url{http://anh.cs.luc.edu/python/hands-on/3.1/handsonHtml/boolean.html}
-\end{frame}
 
 
 \begin{frame}[fragile]
@@ -179,7 +187,35 @@ while True:
 \item A while loop needs a condition and a colon.
 \item The body of the loop must be indented
 \item The body will be executed while the condition is still True
+\item Here the condition is very simple. It never changes, so the loop
+  will loop forever.
 \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Note about print}
+\texttt{print} is one of the key parts of Python that changed between
+version 2 and version 3. In Python 2, \texttt{print} is a statement:
+
+\begin{code}
+print "hello"
+\end{code}
+
+Whereas in Python 3 \texttt{print} is a function, and takes arguments in round brackets:
+
+\begin{code}
+print("hello")
+\end{code}
+
+For simple uses of \texttt{print}, we can get away with round brackets
+in both Python 2 and Python 3 (Python 2 will just treat these brackets
+as grouping brackets):
+
+\begin{code}
+print("hello")
+\end{code}
+
 \end{frame}
 
 
@@ -190,6 +226,9 @@ x = 0
 while x < 100:
    print( "Hello world " + str(x) )
    x = x + 1
+
+print("finished the loop")
+print(x)
 \end{code}
 \begin{itemize}
 \item A while loop needs a condition and a colon.
@@ -217,16 +256,17 @@ the string "Python rules the world"?
 \begin{frame}[fragile]
 \frametitle{while loops - structure}
 \begin{code}
-# some code
+# Some code before the loop
 while condition:
-   # some body of the loop
-   # more body
-   # note that all the body is indented
-# some code that does not belong to the loop
+   # Some body of the loop
+   # Note that all the body is indented
+   # Usually the condition tests some variable
+   # Remember to change some variable, 
+   # so the condition will be different next time
+   # The condition determines when to loop
+# Some code that does not belong to the loop
 \end{code}
-\begin{itemize}
-\item The condition is an expression that should evaluate to True or False
-\end{itemize}
+
 \end{frame}
 
 \begin{frame}[fragile]
@@ -247,6 +287,16 @@ x < "banana"
 \end{code}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Watch out for some type issues in conditions}
+
+We can say 
+\begin{code}
+while "hello":
+  print("ok")
+\end{code}
+Python's booleans can be a little hazardous.  See \url{http://anh.cs.luc.edu/python/hands-on/3.1/handsonHtml/boolean.html}
+\end{frame}
 
 
 \begin{frame}[fragile]
@@ -275,25 +325,57 @@ if not x:
 \frametitle{range}
 \texttt{range(start, stop[, step])} is a function that will generate all
 numbers from \texttt{start} to \texttt{stop} but not including
-\texttt{stop}, jumping by \texttt{step} if provided.
+\texttt{stop}, jumping by the optional \texttt{step} if it is provided.
  
-\bigskip
+\begin{code}
+x = range(0, 100)
+print(x)
+\end{code}
 
-In Python 2, range returns a list. In Python 3 range returns a
-generator (so to see the numbers as a list, use \texttt{list(range())}).
+In Python 2, \texttt{range} returns a list. In Python 3 \texttt{range} returns a
+generator (so to view the numbers as a list, use \texttt{list(range())}).
 
 \begin{code}
->>> range(0, 100)  # or list(range(0,100))
->>> range(100)
->>> range(1, 100)
+>>> range(0, 10)
+range(0, 10)
+>>> list( range(0, 10) )
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+\end{code}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\texttt{range} as a generator}
+\begin{itemize}
+\item \texttt{range} will generate numbers. 
+\item In Python3, it will generate them on-demand (won't create them all
+in memory unless an until they're needed)
+\item In Python2, the whole list would be created. Use \texttt{xrange} in
+  Python2 if you want the generator version.
+\item In Python3, if you want to see the whole lot as a list, you need
+  to convert them to a list (e.g. \texttt{list( range(2, 8) )} ). Most of the
+  time you don't need to do this.
+\end{itemize} 
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+\frametitle{range}
+
+\begin{code}
+>>> print( range(0, 100) )  # or list(range(0,100))
+>>> print( range(100) )
+>>> print( range(1, 100) )
 \end{code}
 Using a step:
 \begin{code}
->>> range(0, 100, 5)
+>>> print( range(0, 100, 5) )
 \end{code}
 Counting down:
 \begin{code}
->>> range(100, 0, -1)
+>>> print( range(100, 0, -1) )
 \end{code}
 \end{frame}
 
@@ -310,8 +392,8 @@ Counting down:
 \frametitle{for loops}
 We can loop with \texttt{while} and we can also loop with \texttt{for}.
 Looping with \texttt{for} is particularly useful if you know you
-want to do something for each item in a list (rather than
-while a condition is True).
+want to do something for each item in a list, or each item produced by
+a generator (rather than while a condition is True).
 \begin{code}
 for x in range(2, 8):
    print("The number is: " + str(x))
@@ -319,6 +401,8 @@ for x in range(2, 8):
 \begin{itemize}
 \item We use \texttt{for} and \texttt{in}, and a colon at the end of the line.
 \item We indent the body of the for loop.
+\item Each time through the loop, the variable \texttt{x} holds another of the values from
+  the list/generator.
 \end{itemize}
 \end{frame}
 
@@ -330,7 +414,7 @@ Here we have a for-loop with a body that is an if-statement.
 \begin{code}
 for x in range(0, 100):
    if x % 7 == 0:
-   print (str(x) + " is divisible by 7")
+      print (str(x) + " is divisible by 7")
 \end{code}
 \end{frame}
 
@@ -350,19 +434,6 @@ are not leap years, unless they're also divisible by 400.
 \end{enumerate}
 \end{frame}
 
-\begin{frame}
-\frametitle{\texttt{range} as a generator}
-\begin{itemize}
-\item \texttt{range} will generate numbers. 
-\item In Python3, it will generate them on-demand (won't create them all
-in memory unless they're needed)
-\item In Python2, the whole list would be created. Use xrange in
-  Python2 if you want the generator version.
-\item In Python3, if you want to see the whole lot as a list, you need
-  to convert them to a list (e.g. \texttt{list(range(2, 8))} ). Most of the
-  time you don't need to do this.
-\end{itemize} 
-\end{frame}
 
 \begin{frame}[fragile]
 \frametitle{User input}
@@ -390,6 +461,24 @@ This removes the newline character.
 string \texttt{s} (whitespace is spaces, newlines, tabs).
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{input()}
+There is a built-in function \texttt{input}. This:
+takes a prompt as
+its argument, displays the prompt, 
+gets a line of input from the user,
+strips the trailing newline off 
+and returns the line of input, as a string.
+\begin{code}
+name = input("Enter your name: ")
+print("Hello " + name + ". How are you?")
+\end{code}
+
+However, in Python 2, input behaved differently. It didn't just return
+the string, instead it evaluated the string. So if your string was "4
++ 6" it would give you the integer 10 as a result. 
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Guess the secret number!}
@@ -405,6 +494,19 @@ correct, print a congratulations message and stop.
 lower or higher than their guess, and prompt them to
 guess again. Keep going until they've guessed
 correctly (while their guess is still wrong).
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Summary}
+\begin{itemize}
+\item Variables
+\item Dynamic typing
+\item \texttt{while} loops
+\item \texttt{range}
+\item \texttt{for} loops
+\item User input
 \end{itemize}
 \end{frame}
 

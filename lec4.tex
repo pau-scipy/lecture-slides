@@ -159,6 +159,19 @@ x[:4] # the first 4 items (in positions 0, 1, 2 and 3)
 \end{frame}
 
 \begin{frame}[fragile]
+\frametitle{Slicing lists}
+We can also add a step size.
+\begin{code}
+>>> x = list(range(0,100))
+>>> print(x[10:40])
+>>> print(x[10:40:3])
+>>> print(x[40:10:-1])
+>>> print(x[40::-1])
+>>> print(x[::-1])
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
 \frametitle{Splitting strings}
 \begin{code}
 >>> x = "2,3,5,y,n,large"
@@ -170,7 +183,7 @@ x[:4] # the first 4 items (in positions 0, 1, 2 and 3)
 >>> print(y)
 \end{code}
 
-\texttt{split()} with no arguments will split on whitespace
+\texttt{split()} with no arguments will split on whitespace.
 \end{frame}
 
 
@@ -180,17 +193,17 @@ Joining a list of strings into a single string:
 \begin{code}
 >>> x = "hello and welcome to python"
 >>> y = x.split()
->>> z = ",".join(splitX)
+>>> z = ",".join(y)
 >>> print(z)
 \end{code}
 
 Joining can be done with any string separator:
 \begin{code}
 >>> x = ["1","2","3","4"]
->>> spacedX = " ".join(x)
->>> tabbedX = "\t".join(x)
->>> commaX = ",".join(x)
->>> wooX = "woo".join(x)
+>>> spaced_x = " ".join(x)
+>>> tabbed_x = "\t".join(x)
+>>> comma_x = ",".join(x)
+>>> woo_x = "woo".join(x)
 \end{code}
 \end{frame}
 
@@ -222,7 +235,7 @@ that was typed.
 \bigskip 
 
 Hints: you'll need to split the sentence into a list of words. Remember
-how to do user input from lecture 3 with sys.stdin.readline().
+how to do user input from lecture 3 with sys.stdin.readline(), or input().
 \end{frame}
 
 
@@ -279,5 +292,15 @@ Some functions in Python will destructively modify lists (for
 efficiency), and some will not. 
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Summary - Lists}
+\begin{itemize}
+\item Adding items to lists
+\item Slicing lists
+\item Splitting and joining strings
+\item Looping over lists
+\item Modifications: destructive or not?
+\end{itemize}
+\end{frame}
 
 \end{document}
