@@ -46,7 +46,7 @@ showstringspaces=false            %
 % Practical lecture: Lists, hands on examples
 
 \begin{frame}
-\frametitle{CS24420 \& MA25220 \& MT25220}
+\frametitle{CS24420 \& MA25220 \& MT25220 \& MX35220 \& CSM0120}
 
 \begin{center}
 \begin{huge}
@@ -83,6 +83,7 @@ Amanda Clare (afc@aber.ac.uk)
 \begin{code}
 >>> x[0]
 >>> x[2]
+>>> x[-1]
 \end{code}
 The last element in x is at what position?
 \end{frame}
@@ -202,15 +203,15 @@ Joining can be done with any string separator:
 >>> x = ["1","2","3","4"]
 >>> spaced_x = " ".join(x)
 >>> tabbed_x = "\t".join(x)
->>> comma_x = ",".join(x)
->>> woo_x = "woo".join(x)
+>>> comma_x  = ",".join(x)
+>>> woo_x    = "woo".join(x)
 \end{code}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Looping over a list}
 \begin{code}
-for x in ['aberystwyth', 'bangor', 'cardiff','swansea']:
+for x in ['aberystwyth','bangor','cardiff','swansea']:
    print(x + str(len(x)))
 \end{code}
 
@@ -229,7 +230,7 @@ words that were typed.
 
 \bigskip
 
-2. Read in a sentence of text from the keyboard and display the longest word
+2. [Harder, optional] Read in a sentence of text from the keyboard and display the longest word
 that was typed.
 
 \bigskip 
@@ -263,7 +264,9 @@ how to do user input from lecture 3 with sys.stdin.readline(), or input().
 \begin{code}
 >>> x = [3,5,6,8,2,9]
 >>> y = sorted(x)
->>> x.sort()
+>>> print(y)
+>>> z = x.sort()
+>>> print(z)
 \end{code}
 
 sorted() will return a new list. sort() will return None.
