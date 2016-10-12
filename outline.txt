@@ -13,47 +13,47 @@ Fri 13:10 Python basics hands on lecture. Types and variables. if-then.
 -------------------
 Week 2 (week beginning 10/10)
 
-Tues 4:10 Python basics theory lecture. Loops (while and for-range). 
+Tues 4:10 Theory: Python basics theory lecture. Loops (while and for-range). 
 
 Tues 5:10 Python basics worksheet. Types, variables, loops.
 
-Fri 13:10 Lists, hands on examples
+Fri 13:10 Hands-on: Lists, hands on examples
 
 -------------------
 Week 3 (week beginning 17/10)
 
-Tues 4:10 Sets? Dictionaries theory. For loops and lists. Quiz on content so far. 
+Tues 4:10 Theory: Dictionaries. Sets. For loops and lists. List/Set/Dict comprehesions. Perhaps a quiz on content so far. 
 
 Tues 5:10 Worksheet on loops over lists and dictionaries. Add to lists and dicts. Loop over the contents and sum or count or display entries.
 
-Fri 13:10 numpy hands on lecture (make arrays, apply scalars, make ndarrays, apply basic functions).
+Fri 13:10 Hands-on: numpy hands on lecture (make arrays, apply scalars, make ndarrays, apply basic functions). Reading/writing simple data from csv files.
 
 -------------------
 Week 4 (week beginning  24/10)
 
-Tues 4:10 numpy theory. Matrices (which operations?).
+Tues 4:10 Theory: numpy. 2d and 3d arrays. indexing (and boolean expression indexing). linspace. 4d arrays. bincount. 
 
-Tues 5:10 numpy worksheet.
+Tues 5:10 numpy worksheet. 
 
-Fri 13:10 Functions hands on. Remember existing functions eg len, sorted, sqrt and numpy functions. Define and call some functions with simple params and return values.
+Fri 13:10 Hands-on: Functions hands on. Remember existing functions eg len, sorted, sqrt and numpy functions. Define and call some functions with simple params and return values.
 
 -------------------
 Week 5 (week beginning 31/10)
 
-Tues 4:10 Theory of functions and their correspondence to maths functions. Return values and None. print vs return. Parameters. What's the point of functions. lambdas. Passing functions as args.
+Tues 4:10 Theory: functions and their correspondence to maths functions. Return values and None. print vs return. Parameters. What's the point of functions. lambdas. Passing functions as args.
 
 Tues 5:10 Functions worksheet. Write functions to take params and return values.
 
-Fri 13:10 Hands on adding main to a file of functions. Importing your file. Running your file. Adding comments. Generating documentation for your module. Packages, pip, argparse
+Fri 13:10 Hands on: adding main to a file of functions. Importing your file. Running your file. Adding comments. Generating documentation for your module. Packages, pip, argparse
 
 -------------------
 Week 6 (week beginning 7/11)
 
-Tues 4:10 Theory of exceptions. What they are, how you catch them, how to continue. Why we have them. Exceptions vs if-then. What's caught at run time and what's caught before. 
+Tues 4:10 Theory: exceptions. What they are, how you catch them, how to continue. Why we have them. Exceptions vs if-then. What's caught at run time and what's caught before. 
 
 Tues 5:10 Worksheet that asks them to write a couple of small specific functions, bundle into a module, and make sure obvious exceptions/special cases are handled.
 
-Fri 13:10 Hands on objects (some code with simple objects that have a few methods and vars to play with).
+Fri 13:10 Hands on: objects (some code with simple objects that have a few methods and vars to play with).
 
 -------------------
 Week 7 Reading week (week beginning 14/11)
@@ -64,29 +64,27 @@ Prac session will run Tues at 5:10 and could also run extra one Fri 13:10 if the
 -------------------
 Week 8 (week beginning 21/11)
 
-Tues 4:10 Theory of objects. Inheritance. Design. Objects = methods
-plus attributes. Self. Calling methods via dot vs just calling
-functions.  __init__, private
+Tues 4:10 Theory: objects. Inheritance. Design. Objects = methods plus attributes. Self. Calling methods via dot vs just calling functions.  __init__, private
 
 Tues 5:10 Worksheet on making basic objects. 
 
-Fri 13:10 hands on examples of using objects: e.g. datetime, requests
+Fri 13:10 Hands on: examples of using objects: e.g. datetime, requests
 
 -------------------
 Week 9 (week beginning 28/11)
 
-Tues 4:10 Theory of file handling. Files as objects. File handles, iterators. Looping over file contents. CSV format. 
+Tues 4:10 Theory: file handling. Files as objects. File handles, iterators. Looping over file contents. CSV format. 
 
 Tues 5:10 Worksheet on reading stuff from files
 
-Friday 13:10 Hands on with plotting graphs using data from files.
+Friday 13:10 Hands on: with plotting graphs using data from files.
 
 -------------------
 Week 10 (week beginning 5/12)
 
-Tues 4:10 Theory of plotting. Examples of different plots, their pros and cons. Legends, axes, colours. Misleading graphs. Multiple plots on same axes. Saving and showing. 
+Tues 4:10 Theory: plotting. Examples of different plots, their pros and cons. Legends, axes, colours. Misleading graphs. Multiple plots on same axes. Saving and showing. 
 
-Tues 5:10 Worksheet on plotting
+Tues 5:10 Worksheet on plotting (is there enough time for this to be assessed?)
 
 Fri 13:10 Interactive team quiz (with prizes?)
 
@@ -97,4 +95,5 @@ Tues 4:10 Revision lecture. Q&A.
 
 Tues 5:10 Catch up outstanding worksheets.
 
-Fri 13:10 Final prac. no plan, emergency usage only.
+Fri 13:10 Final prac. no plan, emergency usage only. Probably more
+worksheet signoff.
