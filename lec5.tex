@@ -124,6 +124,16 @@ TypeError: 'tuple' object does not support
     ('Alice', 'Wunderland', ['en207'])
 )
 \end{code}
+%TODO should I use students[0][2] instead?
+Although one cannot assign to individual elements of a \texttt{tuple}, \textbf{mutable}
+elements such as \texttt{list}s can be modified:
+\begin{code}
+>>> alice[2].append("ma252")
+>>> sam[2][0] = "csm01"
+>>> students
+(('Sam', 'Nicholls', ['cms01']),
+('Alice', 'Wunderland', ['en207', 'ma252']))
+\end{code}
 \end{frame}
 
 
