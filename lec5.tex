@@ -139,8 +139,8 @@ elements such as \texttt{list}s can be modified:
 
 \begin{frame}[fragile]
 \frametitle{Packing and Unpacking Tuples}
-    \texttt{Tuple}s can actually be constructed without the parentheses...\\
-    A \texttt{tuple} can be \textit{packed} by enumerating its elements
+\texttt{Tuple}s can actually be constructed without the parentheses...\\
+A \texttt{tuple} can be \textit{packed} by enumerating its elements
 and delimiting them with a comma:
 
 \begin{code}
@@ -169,8 +169,8 @@ order of keys is not guaranteed!
 
 \begin{frame}[fragile]
 \frametitle{Dictionaries}
-A dictionary is a data structure where you can store
-keys and values.
+    A \texttt{dict}ionary is a data structure where you can store
+    mappings between \textbf{keys} and \textbf{values}.
 
 For example:
 \begin{itemize}
@@ -238,6 +238,17 @@ else:
 \end{code}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Checking for presence of a key}
+
+If we're not sure if a key is present, better check:
+\begin{code}
+if my_key in my_dict:
+   print(my_dict[my_key])
+else:
+   print(my_key + " is not there")
+\end{code}
+\end{frame}
 
 
 \begin{frame}[fragile]
@@ -271,16 +282,48 @@ The .keys() is assumed if we're looping over a dictionary.
 
 
 \begin{frame}[fragile]
-\frametitle{Checking for presence of a key}
-
-If we're not sure if a key is present, better check:
+\frametitle{Ordering of \texttt{dict}ionary keys}
+\texttt{Dict}ionaries are \textbf{unordered} data structures.\\
+The ordering of keys is non-random, but arbitrary.
 \begin{code}
-if my_key in my_dict:
-   print(my_dict[my_key])
-else:
-   print(my_key + " is not there")
+>>> phonebook = {}
+>>> phonebook["msn"] = 4443
+>>> phonebook["afc"] = 2429
+>>> phonebook["waa2"] = 2421 
+>>> phonebook.keys()
+['msn', 'waa2', 'afc']
+\end{code}
+The keys \textbf{are not ordered} alphanumerically, neither are they in the same
+order in which they were inserted into the \texttt{dict}ionary.
+\vskip 0.3cm
+
+Use \texttt{sorted()} to iterate over \texttt{dict}ionaries in a sorted fashion:
+\begin{code}
+for k in sorted(phonebook):
+   print(phonebook[k])
 \end{code}
 \end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Iterating \texttt{dict}ionaries with \texttt{tuple}s}
+We can get a \texttt{list} of (key, value) \texttt{tuples} of the elements
+in a \texttt{dict}ionary with \texttt{items()}:
+\begin{code}
+>>> phonebook.items()
+[('msn', 4443), ('waa2', 2421), ('afc', 2429)]
+\end{code}
+
+\vskip 0.3cm
+Instead of looking up the value for a key inside our loop using the dictionary,
+we can \textit{unpack} the (key, value) tuples in the \texttt{for} loop:
+\begin{code}
+for key, value in sorted(phonebook.items()):
+    print("User: " + key + " Phone: " + str(value))
+\end{code}
+\end{frame}
+
+
 
 \begin{frame}
 \frametitle{Exercise on the board}
