@@ -88,7 +88,7 @@ Although valid, it's considered bad practice to mix types in a \texttt{list}.
 
 
 \begin{frame}[fragile]
-\frametitle{Tuples}
+\frametitle{Handling Tuples}
     Like \texttt{list}s, \texttt{tuple} elements can be indexed, sliced and counted:
 \begin{code}
 >>> sam = ("Sam", "Nicholls", 25)
@@ -111,7 +111,7 @@ TypeError: 'tuple' object does not support
 
 
 \begin{frame}[fragile]
-\frametitle{Tuples}
+\frametitle{Tuples as Containers}
     \texttt{Tuple}s may contain other data structures, including \texttt{tuple}s!
 
 \begin{code}
@@ -124,21 +124,33 @@ TypeError: 'tuple' object does not support
     ('Alice', 'Wunderland', ['en207'])
 )
 \end{code}
-
-Although one cannot assign to individual elements of a \texttt{tuple}, \textbf{mutable}
-elements such as \texttt{list}s can be modified:
-\begin{code}
->>> alice[2].append("ma252")
->>> sam[2][0] = "csm01"
->>> students
-(('Sam', 'Nicholls', ['cms01']),
-('Alice', 'Wunderland', ['en207', 'ma252']))
-\end{code}
 \end{frame}
 
-% types in lists
-% 
-tuples
+
+\begin{frame}[fragile]
+\frametitle{Packing and Unpacking Tuples}
+    \texttt{Tuple}s can actually be constructed without the parentheses...\\
+    A \texttt{tuple} can be \textit{packed} by enumerating its elements
+and delimiting them with a comma:
+
+\begin{code}
+>>> sam = "Sam", "Nicholls", 25
+>>> sam
+('Sam', 'Nicholls', 25)
+\end{code}
+
+\vskip 0.3cm
+Conversely, one may \textit{unpack} each of the elements of a \texttt{tuple}
+    into suitably named, \textbf{ordered} variables:
+\begin{code}
+>>> firstname, surname, age = sam
+>>> firstname
+'Sam'
+\end{code}
+Unpacking requires the same number of variables on the left as there
+    are elements in the \texttt{tuple} on the right.
+\end{frame}
+
 sets
 list comprehensions
 string formatting
