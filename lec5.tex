@@ -164,7 +164,6 @@ Unpacking requires the same number of variables on the left as there
 sets
 list comprehensions
 string formatting
-order of keys is not guaranteed!
 % list comprehensions? Generators and iterators? 
 
 \begin{frame}[fragile]
@@ -237,19 +236,6 @@ else:
    print("No value found for " + student)
 \end{code}
 \end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Checking for presence of a key}
-
-If we're not sure if a key is present, better check:
-\begin{code}
-if my_key in my_dict:
-   print(my_dict[my_key])
-else:
-   print(my_key + " is not there")
-\end{code}
-\end{frame}
-
 
 \begin{frame}[fragile]
 \frametitle{Getting all values out}
