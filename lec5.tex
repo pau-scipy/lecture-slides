@@ -13,6 +13,7 @@
 \definecolor{deepblue}{rgb}{0,0,0.5}
 \definecolor{deepred}{rgb}{0.6,0,0}
 \definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{purple}{RGB}{153, 0, 153}
 
 \usepackage{listings}
 
@@ -48,22 +49,100 @@ showstringspaces=false            %
 
 
 \begin{frame}
-\frametitle{CS24420 \& MA25220 \& MT25220 \& MX35220 \& CSM0120}}
+\frametitle{CS24420 \& MA25220 \& MT25220 \& MX35220 \& CSM0120}
 
 \begin{center}
 \begin{huge}
-Lecture 5: Dictionaries
+Lecture 5: Tuples, Dictionaries and Sets
 \end{huge}
 \bigskip
 
-Amanda Clare (afc@aber.ac.uk)
+Amanda Clare (afc@aber.ac.uk)\\
+Sam Nicholls (msn@aber.ac.uk)
 
 \end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Tuples}
+    A \texttt{tuple} is a \textbf{finite} sequence of \textbf{ordered} items.\\
+    \texttt{Tuple}s store a \textbf{fixed} number of \textbf{immutable} elements.\\
+    \texttt{Tuple}s can serve as a container for grouping related variables.
+    \\For example:
+
+    \begin{itemize}
+        \item A co-ordinate such as (x, y), or (latitude, longitude)
+        \item A colour defined in RGB space, like {\color{purple}(153, 0, 153)}
+        \item Grouped information such as (firstname, surname, age)
+    \end{itemize}
+
+\vskip 0.3cm
+    \texttt{Tuple}s look like \texttt{list}s, but are enclosed in parentheses:
+\begin{code}
+>>> aber = (52.4153, 4.0829)
+>>> sam = ("Sam", "Nicholls", 25)
+\end{code}
+Although valid, it's considered bad practice to mix types in a \texttt{list}.
+\texttt{Tuple}s provide a more natural data structure for mixed types.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Tuples}
+    Like \texttt{list}s, \texttt{tuple} elements can be indexed, sliced and counted:
+\begin{code}
+>>> sam = ("Sam", "Nicholls", 25)
+>>> sam[0]
+'Sam'
+>>> sam[1:3]
+('Nicholls', 25)
+>>> len(sam)
+3
+\end{code}
+
+\vskip 0.3cm
+Unlike \texttt{list}s, elements of \texttt{tuple}s are \textbf{immutable}:
+\begin{code}
+>>> sam[2] = 26
+TypeError: 'tuple' object does not support
+           item assignment
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Tuples}
+    \texttt{Tuple}s may contain other data structures, including \texttt{tuple}s!
+
+\begin{code}
+>>> sam = ("Sam", "Nicholls", ["cs244"])
+>>> alice = ("Alice", "Wunderland", ["en207"])
+>>> students = (sam, alice)
+>>> students
+(
+    ('Sam', 'Nicholls', ['cs244']),
+    ('Alice', 'Wunderland', ['en207'])
+)
+\end{code}
+
+Although one cannot assign to individual elements of a \texttt{tuple}, \textbf{mutable}
+elements such as \texttt{list}s can be modified:
+\begin{code}
+>>> alice[2].append("ma252")
+>>> sam[2][0] = "csm01"
+>>> students
+(('Sam', 'Nicholls', ['cms01']),
+('Alice', 'Wunderland', ['en207', 'ma252']))
+\end{code}
 \end{frame}
 
 % types in lists
 % 
 tuples
+sets
+list comprehensions
+string formatting
+order of keys is not guaranteed!
 % list comprehensions? Generators and iterators? 
 
 \begin{frame}[fragile]
