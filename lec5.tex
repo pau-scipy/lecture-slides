@@ -4,6 +4,9 @@
 \usepackage{color}
 \usepackage{hyperref}
 
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
 % Default fixed font does not support bold face
 \DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
 \DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{10}  % for normal
@@ -27,7 +30,8 @@ emph={MyClass,__init__},          % Custom highlighting
 emphstyle=\ttb\color{deepred},    % Custom highlighting style
 stringstyle=\color{deepgreen},
 frame=tb,                         % Any extra options here
-showstringspaces=false            % 
+showstringspaces=false,            % 
+upquote=True
 }}
 
 
@@ -350,11 +354,12 @@ TypeError: 'set' object does not support indexing
 \end{code}
 
 \vskip 0.2cm
-We can add additional values to a \texttt{set} with \texttt{update}:
+    We can add additional values to a \texttt{set} with \texttt{add} and \texttt{update}:
 \begin{code}
->>> colours.update(["purple", "yellow"])
+>>> colours.add("purple")
+>>> colours.update(["yellow", "pink"])
 >>> colours
-set(['blue', 'purple', 'green', 'yellow', 'red'])
+set(['blue', 'purple', 'green', 'yellow', 'red', 'pink'])
 \end{code}
 \end{frame}
 
@@ -471,20 +476,56 @@ set([2, 3, 4, 5, 6])
 \frametitle{Comprehensions}
 An efficient method to create \texttt{list}s, \texttt{dict}ionaries and \texttt{set}s.
 
+\vskip 0.2cm
+Here is a \texttt{for} loop to append the first 20 square numbers to a \texttt{list}:
+
+\begin{code}
+square_numbers = []
+for i in range(20):
+    square_numbers.append(i**2)
+\end{code}
+
+\vskip 0.3cm
+This is perfectly reasonable, but \textbf{comprehensions} allow us to collapse
+this loop into one line of Python:
+\begin{code}
+[i**2 for i in range(20)]
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Comprehensions: Why?}
+
+Comprehensions are powerful. We can use expressions and \texttt{if}s.\\
+Consider this code that creates a list of only even squares:
+\begin{code}
+even_squares = []
+for i in range(20):
+    current_square = i**2
+    if current_square % 2 == 0:
+        even_squares.append(current_square)
+\end{code}
+
+\vskip 0.3cm
+We can just add a conditional to our comprehension:
+\begin{code}
+[i**2 for i in range(20) if i**2 % 2 == 0]
+\end{code}
 \end{frame}
 
 
 \begin{frame}[fragile]
 \frametitle{Examples of Comprehensions}
-Create a \textbf{list} of the reciprocols of $1/(2^i)$ for $i=0...53$:
+Create a \textbf{list} of the reciprocals of $1/(2^i)$ for $i=0...53$:
 \begin{code}
 >>> [1.0/(2**i) for i in range(54)]
 \end{code}
 
 \vskip 0.3cm
 Given a \texttt{list} of item (barcode, quantity) \texttt{tuples},
-create a \textbf{dictionary} to represent lines in a receipt, mapping
-barcodes to the total amount spent on each type of item:
+create a \textbf{dictionary} to map each product
+barcode to the total amount spent on each type of item:
 \begin{code}
 >>> basket = [(100, 10), (101, 2), (111, 1)]
 >>> prices = {100: 1.0, 101: 2.75, 111: 8.5}
@@ -497,6 +538,26 @@ create a \textbf{set} containing a register of student names enrolled on "cs244"
 \begin{code}
 >>> students = [("Sam", ["cs244"]), ("Alice", ["ma252"])]
 >>> {s[0] for s in students if 'cs244' in s[1]}
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Comprehension Inception}
+Here is some code with an \textit{outer loop} that iterates (with a \texttt{for})
+over a \texttt{list} of student (name, module\_list) \texttt{tuples} and an
+\textit{inner loop} that iterates over the \texttt{list} of modules of each student
+to create a \textbf{set} of unique modules studied by any student:
+
+\begin{code}
+students = [
+    ("Sam", ["ma252", "csd01"]),
+    ("Alice", ["en207", "ma252"])
+]
+module_set = set()
+for student in students:
+    for module in student[1]:
+        module_set.add(module)
 \end{code}
 \end{frame}
 
@@ -532,11 +593,12 @@ special \% specifiers of the string, which define how to format that variable.
 %todo technically %s will take *any* type
 \begin{frame}[fragile]
 \frametitle{String Formatting}
-For now, you might want to know these three format specifiers:
+For now, you might want to know these four format specifiers:
 \begin{code}
 >>> print("%d is for integers" % (8))
 >>> print("%d is for floats" % (3.14))
 >>> print("%s is for strings" % ("hoot"))
+>>> print("%% prints a percentage sign" % ())
 \end{code}
 
 \vskip 0.3cm
@@ -554,7 +616,7 @@ Particularly, you should know how to print a \texttt{float} to a certain
 Total Price: $4.80
 \end{code}
 
-{\tiny{These 'percentage formatters' are considered "old style" but are not deprecated. For information on the newer\\\vskip -0.15cm format() options see: \url{https://docs.python.org/3.4/library/string.html#format-string-syntax}}}
+{\tiny{These 'percentage formatters' are considered "old style" but are not deprecated. For information on the\\\vskip -0.15cm newer format() options see: \url{https://docs.python.org/3.4/library/string.html#format-string-syntax}}}
 \end{frame}
 
 
