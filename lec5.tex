@@ -60,6 +60,7 @@ basicstyle=\ttfamily
 \begin{center}
 \begin{huge}
 Lecture 5\\
+\bigskip
 Tuples, Dictionaries and Sets
 \end{huge}
 \bigskip
@@ -243,7 +244,9 @@ key:
 We can check if a key is present, and if so, find out the
 value:
 \begin{code}
-student = "Jane"
+exam_result = {"Myfanwy" : 70, "Megan": 64}
+
+student = "Megan"
 if student in exam_result:
    print(exam_result[student])
 else:
