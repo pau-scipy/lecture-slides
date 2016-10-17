@@ -6,6 +6,8 @@
 
 \usepackage[T1]{fontenc}
 \usepackage{textcomp}
+\usepackage{helvet}
+\usepackage{upquote}
 
 % Default fixed font does not support bold face
 \DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
@@ -31,7 +33,6 @@ emphstyle=\ttb\color{deepred},    % Custom highlighting style
 stringstyle=\color{deepgreen},
 frame=tb,                         % Any extra options here
 showstringspaces=false,            % 
-upquote=True
 }}
 
 
@@ -536,7 +537,7 @@ barcode to the total amount spent on each type of item:
 Given a \texttt{list} of student (name, module\_list) \texttt{tuples},
 create a \textbf{set} containing a register of student names enrolled on "cs244":
 \begin{code}
->>> students = [("Sam", ["cs244"]), ("Alice", ["ma252"])]
+>>> students = [("Sam", ["cs244"]), ("Ali", ["ma252"])]
 >>> {s[0] for s in students if 'cs244' in s[1]}
 \end{code}
 \end{frame}
@@ -547,17 +548,23 @@ create a \textbf{set} containing a register of student names enrolled on "cs244"
 Here is some code with an \textit{outer loop} that iterates (with a \texttt{for})
 over a \texttt{list} of student (name, module\_list) \texttt{tuples} and an
 \textit{inner loop} that iterates over the \texttt{list} of modules of each student
-to create a \textbf{set} of unique modules studied by any student:
+to create a \textbf{set} of unique 20 credit modules studied by any student:
 
 \begin{code}
 students = [
-    ("Sam", ["ma252", "csd01"]),
-    ("Alice", ["en207", "ma252"])
+    ("Sam", ["cs23820", "ma25220", "csd0100"]),
+    ("Alice", ["en20710", "ma25220"])
 ]
-module_set = set()
+cred20_module_set = set()
 for student in students:
     for module in student[1]:
-        module_set.add(module)
+        if module.endswith("20"):
+            cred_20_module_set.add(module)
+\end{code}
+
+\begin{code}
+{mod for stu in students
+     for mod in stu[1] if mod.endswith("20")}
 \end{code}
 \end{frame}
 
@@ -596,7 +603,7 @@ special \% specifiers of the string, which define how to format that variable.
 For now, you might want to know these four format specifiers:
 \begin{code}
 >>> print("%d is for integers" % (8))
->>> print("%d is for floats" % (3.14))
+>>> print("%f is for floats" % (3.14))
 >>> print("%s is for strings" % ("hoot"))
 >>> print("%% prints a percentage sign" % ())
 \end{code}
