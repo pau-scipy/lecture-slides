@@ -53,7 +53,8 @@ showstringspaces=false            %
 
 \begin{center}
 \begin{huge}
-Lecture 5: Tuples, Dictionaries and Sets
+Lecture 5\\
+Tuples, Dictionaries and Sets
 \end{huge}
 \bigskip
 
@@ -79,7 +80,7 @@ Sam Nicholls (msn@aber.ac.uk)
 \vskip 0.3cm
     \texttt{Tuple}s look like \texttt{list}s, but are enclosed in parentheses:
 \begin{code}
->>> aber = (52.4153, 4.0829)
+>>> aber = (52.4153, -4.0829)
 >>> sam = ("Sam", "Nicholls", 25)
 \end{code}
 Although valid, it's considered bad practice to mix types in a \texttt{list}.
@@ -88,7 +89,7 @@ Although valid, it's considered bad practice to mix types in a \texttt{list}.
 
 
 \begin{frame}[fragile]
-\frametitle{Handling Tuples}
+\frametitle{Handling \texttt{tuples}}
     Like \texttt{list}s, \texttt{tuple} elements can be indexed, sliced and counted:
 \begin{code}
 >>> sam = ("Sam", "Nicholls", 25)
@@ -161,11 +162,6 @@ Unpacking requires the same number of variables on the left as there
     are elements in the \texttt{tuple} on the right.
 \end{frame}
 
-sets
-list comprehensions
-string formatting
-% list comprehensions? Generators and iterators? 
-
 \begin{frame}[fragile]
 \frametitle{Dictionaries}
     A \texttt{dict}ionary is a data structure where you can store
@@ -190,14 +186,22 @@ We use curly brackets to create a new dictionary:
 \begin{code}
 >>> phonebook = {}
 \end{code}
+
 We can add items (new key and value):
 \begin{code}
 >>> phonebook['John'] = 724736
 \end{code}
+
 We can update existing items (alter the value):
 \begin{code}
 >>> phonebook['John'] = 666666
 \end{code}
+
+We can delete existing items:
+\begin{code}
+>>> del phonebook['John']
+\end{code}
+
 We could create a new dictionary with many items:
 \begin{code}
 >>> ages = { "a": 34, "b":28, "c":56 }
@@ -309,35 +313,294 @@ for key, value in sorted(phonebook.items()):
 \end{code}
 \end{frame}
 
+%todo hmm
+\begin{frame}[fragile]
+\frametitle{Sets}
+    A \texttt{set} is a collection of \textbf{unordered}, \textbf{unique} elements.\\
+    For example:
 
+    \begin{itemize}
+        \item All even numbers
+        \item A hand of playing cards (dealt from a single deck)
+        \item Students registered on a module
+        \item Colours in a rainbow
+        \item Results of a lottery draw
+        \item Each term of the sequence $1/(2^i)$ for $\texttt{i}=0...\texttt{n}$
+    \end{itemize}
 
-\begin{frame}
-\frametitle{Exercise on the board}
-Create an empty dictionary.
-
-\bigskip
-
-Add the following information to that dictionary: the
-name (keys) and favourite food (values) of the three
-people sitting closest to you. If their names are not
-unique, use their full names.
-
-\bigskip
-
-One of those people has recently discovered how wonderful olives
-are. Update the favourite food for this person.
-
-\bigskip
-
-Find out whether Hannah is in the dictionary or not. If she is, report
-her favourite food. If she isn't, report that she's not present.
+    \texttt{Set}s are typically used as a data structure for fast 
+    membership testing (\textit{is something already in this set?}), and for
+    efficient elimination of duplicate elements from another collection.
 \end{frame}
-
 
 
 \begin{frame}[fragile]
-\frametitle{Quiz (in teams)}
+\frametitle{Creating and updating \texttt{set}s}
+\texttt{Set}s look like \texttt{list}s, but are enclosed in braces:
+\begin{code}
+>>> colours = {"red", "green", "blue"}
+>>> lotto = {14, 16, 25, 42, 46, 51, 53}
+\end{code}
+
+\vskip 0.2cm
+A \texttt{set} \textbf{cannot be indexed} (or sliced):
+\begin{code}
+>>> lotto[0]
+TypeError: 'set' object does not support indexing
+\end{code}
+
+\vskip 0.2cm
+We can add additional values to a \texttt{set} with \texttt{update}:
+\begin{code}
+>>> colours.update(["purple", "yellow"])
+>>> colours
+set(['blue', 'purple', 'green', 'yellow', 'red'])
+\end{code}
 \end{frame}
 
+
+%todo woops used uppercase for set variable names...
+\begin{frame}[fragile]
+\frametitle{Membership and cardinality of \texttt{sets}}
+An element of a \texttt{set} is said to be a \textbf{member} of that \texttt{set}.\\
+    We say that $x$ is a member of \texttt{set} $A$, or that
+    "x belongs to A".\\
+    Mathematically we denote this: $x \in A$ (read $\in$ as "in")\\
+\begin{code}
+>>> A = {1, 2, 3}
+>>> 2 in A
+True
+\end{code}
+
+\bigskip
+    The \textbf{cardinality} of a \texttt{set} is defined as the number of members that a \texttt{set} has.
+    For some set $A$, we denote its cardinality $|A|$.\\
+\begin{code}
+>>> len(A)
+3
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Equality of \texttt{set}s}
+Although a \texttt{set} can contain elements that have a natural ordering, such as
+integers, the collection itself is \textbf{unordered}. Thus the equivalence of sets
+is based on whether they contain the same elements, regardless of ordering.
+\begin{code}
+>>> {1, 2, 3} == {3, 2, 1}
+True
+>>> {1, 2, 3} == {3, 2, 1, 0}
+False
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Set Operations}
+Consider:
+\begin{code}
+>>> A = {1, 2, 3}
+>>> B = {3, 4, 5}
+\end{code}
+
+\vskip 0.4cm
+\textbf{Intersection}: Members that appear in both A and B
+\begin{code}
+>>> A & B
+set([3])
+\end{code}
+
+\vskip 0.4cm
+\textbf{Union}: The unique collection of all members across A and B
+\begin{code}
+>>> A | B
+set([1, 2, 3, 4, 5])
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Set Operations}
+Continue to consider:
+\begin{code}
+>>> A = {1, 2, 3}
+>>> B = {3, 4, 5}
+\end{code}
+
+\vskip 0.4cm
+\textbf{Difference}: Members in A that are not in B
+\begin{code}
+>>> A - B
+set([1, 2])
+\end{code}
+
+\vskip 0.4cm
+\textbf{Symmetric Difference}: Members of A and B not in intersection
+\begin{code}
+>>> A ^ B
+set([1, 2, 4, 5])
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Set Operations}
+Introducing C for your consideration:
+\begin{code}
+>>> A = {1, 2, 3}
+>>> B = {3, 4, 5}
+>>> C = {1, 3, 6}
+\end{code}
+
+\vskip 0.4cm
+We can chain these operations to manipulate more than two sets in an expression:
+\begin{code}
+>>> (A | B) | C
+set([1, 2, 3, 4, 5, 6])
+>>> (A & B) & C
+set([3])
+>>> (A & B) - C
+set([])
+>>> (A ^ B) ^ C
+set([2, 3, 4, 5, 6])
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+%gens and iters?
+\frametitle{Comprehensions}
+An efficient method to create \texttt{list}s, \texttt{dict}ionaries and \texttt{set}s.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Examples of Comprehensions}
+\begin{code}
+>>> pow2_reciprocals = [1.0/(2**i) for i in range(10)]
+\end{code}
+
+\begin{code}
+{x: x**2 for x in (2, 4, 6)}
+\end{code}
+
+\begin{code}
+a = {x for x in 'abracadabra' if x not in 'abc'}
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{String Formatting}
+Previously we've taught to convert to strings and concatenate:
+\begin{code}
+>>> print("Hello, my favourite number is " + str(8))
+\end{code}
+
+\vskip 0.3cm
+However, sometimes we want more control over string formatting.\\
+A mini-language called "\%-formatting" exists to allow you to define how individual
+values are presented when printed.
+It looks like this:
+
+\begin{code}
+>>> name = "Sam"
+>>> phone = 4443
+>>> print("Name: %s - Phone: %d" % (name, phone))
+Name: Sam - Phone: 4443
+\end{code}
+
+%todo quite clunky wording?
+For strings, the modulus operator \%
+is overloaded to pass a tuple of variables that are substituted (in order)
+to each of the
+special \% specifiers of the string, which define how to format that variable.
+\end{frame}
+
+
+%todo technically %s will take *any* type
+\begin{frame}[fragile]
+\frametitle{String Formatting}
+For now, you might want to know these three format specifiers:
+\begin{code}
+>>> print("%d is for integers" % (8))
+>>> print("%d is for floats" % (3.14))
+>>> print("%s is for strings" % ("hoot"))
+\end{code}
+
+\vskip 0.3cm
+Particularly, you should know how to print a \texttt{float} to a certain
+    number of decimal places. We can prefix the \texttt{f} with \texttt{.N}
+    to specify the precision of the float to \texttt{N} decimal places:
+%>>> item_price = 1.2
+%>>> item_quantity = 4
+%>>> total = item_price * item_quantity
+%>>> total
+%4.8
+\begin{code}
+>>> total = 4.8
+>>> print("Total Price: $%.2f" % (total))
+Total Price: $4.80
+\end{code}
+
+{\tiny{These 'percentage formatters' are considered "old style" but are not deprecated. For information on the newer\\\vskip -0.15cm format() options see: \url{https://docs.python.org/3.4/library/string.html#format-string-syntax}}}
+\end{frame}
+
+
+
+%\begin{frame}
+%\frametitle{Exercise on the board}
+%Create an empty dictionary.
+
+%\bigskip
+
+%Add the following information to that dictionary: the
+%name (keys) and favourite food (values) of the three
+%people sitting closest to you. If their names are not
+%unique, use their full names.
+
+%\bigskip
+
+%One of those people has recently discovered how wonderful olives
+%are. Update the favourite food for this person.
+
+%\bigskip
+
+%Find out whether Hannah is in the dictionary or not. If she is, report
+%her favourite food. If she isn't, report that she's not present.
+%\end{frame}
+
+
+
+%\begin{frame}[fragile]
+%\frametitle{Quiz (in teams)}
+%\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Summary}
+\textbf{Tuples}: Ordered grouping of related variables
+\begin{code}
+>>> aber = (52.4153, 4.0829)
+>>> sam = ("Sam", "Nicholls", 25)
+\end{code}
+
+\vskip 0.2cm
+\textbf{Dictionaries}: A key-value mapping
+\begin{code}
+>>> phonebook = {"msn": 4443, "afc": 2429}
+\end{code}
+
+\vskip 0.2cm
+\textbf{Sets}: Unordered and unique collection
+\begin{code}
+>>> colours = {"red", "green", "blue"}
+>>> lotto = {14, 16, 25, 42, 46, 51, 53}
+\end{code}
+
+\begin{itemize}
+    \item List, dict and set comprehensions
+    \item String formatting
+\end{itemize}
+\end{frame}
 
 \end{document}
