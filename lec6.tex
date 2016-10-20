@@ -4,6 +4,9 @@
 \usepackage{color}
 \usepackage{hyperref}
 
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
 % Default fixed font does not support bold face
 \DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
 \DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{10}  % for normal
@@ -13,6 +16,7 @@
 \definecolor{deepblue}{rgb}{0,0,0.5}
 \definecolor{deepred}{rgb}{0.6,0,0}
 \definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{purple}{RGB}{153, 0, 153}
 
 \usepackage{listings}
 
@@ -26,7 +30,10 @@ emph={MyClass,__init__},          % Custom highlighting
 emphstyle=\ttb\color{deepred},    % Custom highlighting style
 stringstyle=\color{deepgreen},
 frame=tb,                         % Any extra options here
-showstringspaces=false            % 
+showstringspaces=false,            % 
+upquote=True,
+columns=fullflexible,
+basicstyle=\ttfamily
 }}
 
 
@@ -46,7 +53,7 @@ showstringspaces=false            %
 % numpy hands on lecture (make arrays, apply scalars, make ndarrays, apply basic functions).
 
 \begin{frame}
-\frametitle{CS24420 \& MA25220 \& MT25220 \& MX35220 \& CSM0120}}
+\frametitle{CS24420 \& MA25220 \& MT25220 \& MX35220 \& CSM0120}
 
 \begin{center}
 \begin{huge}
@@ -62,16 +69,34 @@ Amanda Clare (afc@aber.ac.uk)
 
 \begin{frame}[fragile]
 \frametitle{Multidimensional arrays}
+We've seen lists, dictionaries and sets. The numpy module gives us
+multidimensional arrays ('ndarray' or 'array').  
+
 \begin{itemize}
 \item elements all of the same type
 \item the dimensions are called axes
 \item the number of dimensions is the rank 
 \end{itemize}
 
+\bigskip
+
+Today: hands on
+experimenting, and Tuesday will cover the theory.
+
+\bigskip
+
+The numpy module is often imported as follows to save characters later:
+\begin{code}
+import numpy as np
+\end{code}
+
 \end{frame}
+
+
 
 \begin{frame}[fragile]
 \frametitle{Multidimensional arrays}
+We can make arrays of different shapes containing random numbers:
 \begin{code}
 >>> import numpy as np
 >>> x = np.random.random(10)
@@ -86,10 +111,84 @@ Amanda Clare (afc@aber.ac.uk)
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Scalar operations}
+\frametitle{Multidimensional arrays}
+Inspect the array. 
+\begin{code}
+>>> y = np.random.random((10, 3))
+>>> print(y)
+>>> y.shape
+>>> y.dtype
+>>> type(y)
+\end{code}
+\end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Other ways to make arrays}
+\begin{itemize}
+\item a = np.ones(5)
+\pause
+\item b = 5 * np.ones(5)
+\pause
+\item c = np.array([[5,5,5,5,5], [1,1,1,1,1], [8,8,8,8,8]])
+\pause 
+\item d = np.array(a * 5, a, a * 8)
+\pause
+\item e = np.array(a * 5, a, a * 8).astype(int)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Slicing}
+Slice the array. What kind of slices are possible?
+\begin{code}
+>>> y = np.random.random((10, 3))
+>>> print(y)
+>>> print(y[5, 2])   # element
+>>> print(y[5])    # row
+>>> print(y[5, :])    # row
+>>> print(y[:, 2])    # col
+>>> print(y[4:6, 1:3])   # 2d slice
+\end{code}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Watch out when using slices}
+A slice is not a copy of an ndarray. Instead it's just another view.
+
+\bigskip
+
+If z is a slice of y and then the
+values in z are modified, this will modify the original y too.
+
+\begin{code}
+>>> y = np.random.random((10, 3))
+>>> print(y)
+>>> z = y[4:6, 1:3]
+>>> z[0, 0] = 0
+>>> print(z)
+>>> print(y)
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Watch out when using slices}
+What's the difference between these two ways to request the first row?
+\begin{code}
+>>> y = np.random.random((10, 3))
+>>> print(y)
+>>> print(y[0])
+>>> print(y[0, :])
+>>> print(y[0:1, :])
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Scalar operations}
 np.random.random will generate numbers between 0 and 1 (not including
-1). What if we want numbers between 0 and 100?
+1). What if we want random numbers between 0 and 100?
 \begin{code}
 >>> x = np.random.random(10) * 100
 >>> print(x)
@@ -100,7 +199,6 @@ np.random.random will generate numbers between 0 and 1 (not including
 
 \begin{frame}[fragile]
 \frametitle{Scalar operations}
-
 What's the difference? Why?
 \begin{code}
 >>> x = np.random.random(3, 5) * 10 + 5
@@ -110,33 +208,107 @@ What's the difference? Why?
 \end{code}
 \end{frame}
 
-% array 
+\begin{frame}[fragile]
+\frametitle{Converting Celsuis to Fahrenheit}
+\begin{code}
+>>> temps = np.array([15, 18, 23, 20])
+>>> f_temps = temps * 9/5 + 32)
+>>> print(f_temps)
+\end{code}
+\end{frame}
 
-% indexing
 
-% matrix ops
 
-%mean max min of matrix or each row, column
+\begin{frame}[fragile]
+\frametitle{Boolean indexing of arrays}
+\begin{code}
+>>> x = np.array([[1,2,3],[4,5,6],[7,8,9]])
+>>> x
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+>>> x < 5
+array([[ True,  True,  True],
+       [ True, False, False],
+       [False, False, False]], dtype=bool)
+\end{code}
+\end{frame}
 
-% transpose
+\begin{frame}[fragile]
+\frametitle{Boolean indexing of arrays}
+We can use a boolean array (such as x < 5) as an index to request
+certain values in x.
+\begin{code}
+>>> x[x < 5]
 
-% plot distributions in ascii
+>>> x[x % 2 == 0]
 
-% normalise a matrix 
+>>> x[x ** 2 < 50]
+\end{code}
+\end{frame}
 
-% linspace
+\begin{frame}[fragile]
+\frametitle{Boolean indexing of arrays}
+We can use a boolean array (such as x < 5) as an index into another
+array (such as y).
+\begin{code}
+>>> x = np.array([[2,2],[4,4],[3,5]])
+>>> y = np.array([[1,1],[1,1],[1,1]])
+>>> y[x < 4]
+>>> print(y)
+\end{code}
 
-% Z = np.genfromtxt("missing.dat", delimiter=",")
+And we can use the boolean array as a mask to choose which values to
+operate on.
+\begin{code}
+>>> y[x < 4] = 0
+>>> print(y)
+\end{code}
+\end{frame}
 
-% sort matrix on a particular column
-% print(Z[Z[:,1].argsort()])
 
-% bincount and ascii plots
+\begin{frame}[fragile]
+\frametitle{Maximum values}
+We can find the maximum value in each row or column using \texttt{amax}
+(maximum along an axis, where 0 = columns, 1 = rows). Also
+try \texttt{amin}, \texttt{mean}, \texttt{std}, \texttt{sum}.
+\begin{code}
+>>> x = np.random.random((10,5))
+>>> np.amax(x, 0)
+>>> np.amax(x, 1)
+>>> np.amax(x)
+\end{code}
+\end{frame}
 
-% heights of trees in forest 
+\begin{frame}[fragile]
+\frametitle{Mars}
+Heightmap data for the surface of Mars from
+\url{http://pds-geosciences.wustl.edu/missions/mgs/megdr.html} (meg004,
+topography).
+\pause
+\begin{code}
+# Read the data from the file as a 
+# 1-dimensional array of 16-bit ints
+a = np.fromfile("megt90n000cb.img", dtype=np.uint16)
 
-% 4d matrices eg x y z over time
+# Reshape the array to have rows and columns
+b = a.reshape(720, 1440)
+print(b)
+\end{code}
+See the code provided in lec6.py, which also includes code to plot the results.
+\end{frame}
 
-% 4D min max row for each row in each dimension
+\begin{frame}[fragile]
+\frametitle{Summary}
+\begin{itemize}
+\item import numpy as np
+\item n-dimensional arrays
+\item slicing
+\item scalar operations
+\item boolean indexing
+\item applying functions to an axis 
+\item reading and plotting an array as an image
+\end{itemize}
+\end{frame}
 
 \end{document}
