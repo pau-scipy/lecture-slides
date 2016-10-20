@@ -17,6 +17,7 @@
 \definecolor{deepred}{rgb}{0.6,0,0}
 \definecolor{deepgreen}{rgb}{0,0.5,0}
 \definecolor{purple}{RGB}{153, 0, 153}
+\definecolor{vlightgray}{RGB}{230, 230, 230}
 
 \usepackage{listings}
 
@@ -33,7 +34,8 @@ frame=tb,                         % Any extra options here
 showstringspaces=false,            % 
 upquote=True,
 columns=fullflexible,
-basicstyle=\ttfamily
+basicstyle=\ttfamily,
+backgroundcolor = \color{vlightgray}
 }}
 
 
@@ -65,8 +67,8 @@ Tuples, Dictionaries and Sets
 \end{huge}
 \bigskip
 
-Amanda Clare (afc@aber.ac.uk)\\
-Sam Nicholls (msn@aber.ac.uk)
+Sam Nicholls (msn@aber.ac.uk)\\
+Amanda Clare (afc@aber.ac.uk)
 
 \end{center}
 \end{frame}
@@ -83,8 +85,10 @@ Sam Nicholls (msn@aber.ac.uk)
         \item A colour defined in RGB space, like {\color{purple}(153, 0, 153)}
         \item Grouped information such as (firstname, surname, age)
     \end{itemize}
+\end{frame}
 
-\vskip 0.3cm
+\begin{frame}[fragile]
+\frametitle{Tuples}
     \texttt{Tuple}s look like \texttt{list}s, but are enclosed in parentheses:
 \begin{code}
 >>> aber = (52.4153, -4.0829)
@@ -140,11 +144,17 @@ TypeError: 'tuple' object does not support
 Although one cannot assign to individual elements of a \texttt{tuple}, \textbf{mutable}
 elements such as \texttt{list}s can be modified:
 \begin{code}
+>>> sam = ("Sam", "Nicholls", ["cs244"])
+>>> alice = ("Alice", "Wunderland", ["en207"])
 >>> alice[2].append("ma252")
 >>> sam[2][0] = "csm01"
 >>> students
-(('Sam', 'Nicholls', ['cms01']),
-('Alice', 'Wunderland', ['en207', 'ma252']))
+(
+    ('Sam', 'Nicholls', ['cms01']),
+    ('Alice', 'Wunderland', ['en207', 'ma252'])
+)
+>>> students[0]
+('Sam', 'Nicholls', ['cms01'])
 \end{code}
 \end{frame}
 
@@ -176,9 +186,14 @@ Unpacking requires the same number of variables on the left as there
 \begin{frame}[fragile]
 \frametitle{Dictionaries}
     A \texttt{dict}ionary is a data structure where you can store
-    mappings between \textbf{keys} and \textbf{values}.
+    mappings between \textbf{keys} and \textbf{values}.\\
+    \bigskip
+    What might we want to store in a \texttt{dictionary}?
+\end{frame}
 
-For example:
+\begin{frame}[fragile]
+\frametitle{Dictionaries}
+Some examples:
 \begin{itemize}
 \item A birthday book: look up the birthday (value) for the
 name of a person (key)
@@ -257,7 +272,7 @@ else:
 \begin{frame}[fragile]
 \frametitle{Getting all values out}
 \begin{code}
-age = { "a": 34, "b":28, "c":56 }
+age = { "a":34, "b":28, "c":56 }
 print(age.keys())
 print(age.values())
 
@@ -302,8 +317,8 @@ order in which they were inserted into the \texttt{dict}ionary.
 
 Use \texttt{sorted()} to iterate over \texttt{dict}ionaries in a sorted fashion:
 \begin{code}
-for k in sorted(phonebook):
-   print(phonebook[k])
+for key in sorted(phonebook):
+   print(phonebook[key])
 \end{code}
 \end{frame}
 
@@ -330,7 +345,12 @@ for key, value in sorted(phonebook.items()):
 \begin{frame}[fragile]
 \frametitle{Sets}
     A \texttt{set} is a collection of \textbf{unordered}, \textbf{unique} elements.\\
-    For example:
+    \bigskip
+    What might we want to store in a \texttt{set}?
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Sets}
+    Some examples:
 
     \begin{itemize}
         \item All even numbers
