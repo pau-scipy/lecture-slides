@@ -71,9 +71,11 @@ Amanda Clare (afc@aber.ac.uk)
 \begin{frame}[fragile]
 \frametitle{A tour of some of the functionality of NumPy}
 \begin{itemize}
-\item Storage
+\item Storage of numpy arrays
 \item Creating ranges
 \item Sorting
+\item Operations on arrays/matrices
+\item Histograms
 \item Reading from/writing to files
 \end{itemize}
 \end{frame}
@@ -157,6 +159,17 @@ array([   0,    1,    2,    3,    4,    5,    6,    7,    8,    9,   10,
 \end{code}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{A note on print and the Python interpreter prompt}
+Just a note, that the Python interpreter prompt is a REPL (read-evaluate-print loop). It automatically prints out the value returned by the expression you wrote. When coding in a file you'll need to add print statements to see the results.
+\begin{code}
+>>> a = np.arange(0,10)
+>>> a
+array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+>>> print(a)
+[0 1 2 3 4 5 6 7 8 9]
+\end{code}
+\end{frame}
 
 \begin{frame}[fragile]
 \frametitle{linspace and arange}
@@ -167,25 +180,51 @@ array([   0,    1,    2,    3,    4,    5,    6,    7,    8,    9,   10,
 \end{itemize}
 \begin{code}
 >>> a = np.linspace(0, 10, dtype="int")
->>> print(a)
-array([ 0,  0,  0,  0,  0,  1,  1,  1,  1,  1,  2,  2,  2,  2,  2,  3, 
+>>> a
+([ 0,  0,  0,  0,  0,  1,  1,  1,  1,  1,  2,  2,  2,  2,  2,  3, 
         3,  3,  3,  3,  4,  4,  4,  4,  4,  5,  5,  5,  5,  5,  6,  6, 
         6, 6, 6,  7,  7,  7,  7,  7,  8,  8,  8,  8,  8,  9,  9,  
         9, 9, 10])
 >>> b = np.linspace(0, 10, num=7, dtype="int")
->>> print(b)
+>>> b
 array([ 0,  1,  3,  5,  6,  8, 10])
 >>> c = np.linspace(0, 10, num=7)
->>> print(c)
+>>> c
 array([  0. ,  1.66666667, 3.33333333,  5.   ,
          6.66666667,   8.33333333,  10.  ])
 \end{code}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{linspace and arange}
+\frametitle{linspace for even sampling}
+\begin{code}
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Sample 30 values evenly between 0 and 2*pi
+x = np.linspace(0, 2 * np.pi, 30)
+
+# Find the corresponding sines and cosines for 
+# each of these values
+s = np.sin(x)
+c = np.cos(x)
+
+# Plot them using blue circles and red circles
+plt.plot(x, s, 'bo')
+plt.plot(x, c, 'ro')
+plt.show()
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{linspace for even sampling}
+\includegraphics[width=10cm]{sampled_sincos.png}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Floating point numbers}
 \begin{itemize}
-\item Just be careful with floating point numbers
+\item Just be careful with the generation of floating point numbers
 \item They have limited precision and can sometimes be different to
   the answer you expected
 \item What is 0.3/3 ? Is it 0.1?
@@ -203,7 +242,7 @@ array([  0. ,  1.66666667, 3.33333333,  5.   ,
 \begin{code}
 >>> a = np.array([[4,3,5],[8,7,6],[1,2,3]]) 
 >>> a.sort()
->>> print(a)
+>>> a
 array([[3, 4, 5],
        [6, 7, 8],
        [1, 2, 3]])
@@ -212,14 +251,15 @@ array([[3, 4, 5],
 
 \begin{frame}[fragile]
 \frametitle{Making a sorted copy}
+Each row is sorted.
 \begin{code}
 >>> a = np.array([[4,3,5],[8,7,6],[1,2,3]])
 >>> b = np.sort(a)
->>> print(a)
+>>> a
 array([[4, 3, 5],
        [8, 7, 6],
        [1, 2, 3]])
->>> print(b)
+>>> b
 array([[3, 4, 5],
        [6, 7, 8],
        [1, 2, 3]])
@@ -228,14 +268,15 @@ array([[3, 4, 5],
 
 \begin{frame}[fragile]
 \frametitle{{Sorting column-wise}}
+Each column is sorted.
 \begin{code}
 >>> a = np.array([[3,4,5],[6,7,8],[1,9,9]])
->>> print(a)
+>>> a
 array([[3, 4, 5],
        [6, 7, 8],
        [1, 9, 9]])
 >>> a.sort(axis=0)
->>> print(a)
+>>> a
 array([[1, 4, 5],
        [3, 7, 8],
        [6, 9, 9]])
@@ -246,29 +287,123 @@ array([[1, 4, 5],
 \frametitle{{Sort on a column}}
 Sort on column 1 (the second column):
 \begin{code}
->>> a = np.array([[4,3,5],[8,7,6],[1,2,3]])
->>> print(a[:, 1])
+>>> a = np.array([[4,3,5],[8,7,6],[9,2,9]])
+>>> a[:, 1]
 array([3, 7, 2])
 >>> b = a[:, 1].argsort()
->>> print(b)
+>>> b
 array([2, 0, 1])
->>> print(a[ b ])
-array([[1, 2, 3],
+>>> a[ b ]
+array([[9, 2, 9],
        [4, 3, 5],
        [8, 7, 6]])
 \end{code}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Matrix operations}
-
-foo
+\frametitle{Numerical operations on arrays}
+Much faster to use arrays than Python lists, for numerical operations.
+\begin{code}
+>>> a = np.arange(1,40)
+>>> a**2
+array([   1,    4,    9,   16,   25,   36,   49,   64,   81,  100,  121,
+        144,  169,  196,  225,  256,  289,  324,  361,  400,  441, 
+        484, 529,  576,  625,  676,  729,  784,  841,  900,  961, 
+       1024, 1089, 1156, 1225, 1296, 1369, 1444, 1521])
+\end{code}
 \end{frame}
 
-%For example: 
-% matrix ops (add, subtract, multiply? multiply is maybe too hard for CS and would need a motivating concept. I toyed with transitive closure as a way of finding flights between cities, but we'd have to work in boolean space so even more hard - np.logical_or(b, np.dot(b,b)). 
-% transpose
-% normalise a matrix 
+\begin{frame}[fragile]
+\frametitle{Numerical operations on arrays}
+In Python 3 be careful to use large enough integers.
+\begin{code}
+>>> a = np.arange(1,40, dtype='int64')
+>>> 2**a
+[           2            4            8           16           32
+  64          128          256          512         1024
+  2048         4096         8192        16384        32768
+  65536       131072       262144       524288      1048576
+  2097152      4194304      8388608     16777216     33554432
+  67108864    134217728    268435456    536870912   1073741824
+  2147483648   4294967296   8589934592  17179869184  34359738368
+  68719476736 137438953472 274877906944 549755813888]
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Numerical operations on arrays}
+We can use np.log, np.log2, np.sin, np.sqrt, np.reciprocal, etc.
+\begin{code}
+>>> np.log(2**a)
+array([  0.69314718,   1.38629436,   2.07944154,   2.77258872,
+         3.4657359 ,   4.15888308,   4.85203026,   5.54517744,
+         6.23832463,   6.93147181,   7.62461899,   8.31776617,
+         9.01091335,   9.70406053,  10.39720771,  11.09035489,
+        11.78350207,  12.47664925,  13.16979643,  13.86294361,
+        14.55609079,  15.24923797,  15.94238515,  16.63553233,
+        17.32867951,  18.02182669,  18.71497388,  19.40812106,
+        20.10126824,  20.79441542,  21.4875626 ,  22.18070978,
+        22.87385696,  23.56700414,  24.26015132,  24.9532985 ,
+        25.64644568,  26.33959286,  27.03274004,  27.72588722,
+        28.4190344 ,  29.11218158,  29.80532876,  30.49847594,
+        31.19162313,  31.88477031,  32.57791749,  33.27106467,  
+        33.96421185])
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Adding arrays}
+Addition and subtraction are element-wise.
+\begin{code}
+>>> a = np.array([[1,2,3],[4,5,6],[7,8,9]])
+>>> b = np.ones((3,3))
+>>> a
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+>>> b
+array([[ 1.,  1.,  1.],
+       [ 1.,  1.,  1.],
+       [ 1.,  1.,  1.]])
+>>> a+b
+array([[  2.,   3.,   4.],
+       [  5.,   6.,   7.],
+       [  8.,   9.,  10.]])
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Watch out for broadcasting}
+Addition can occur even when the matrices are not the same size, if the 
+elements of the smaller one can be broadcast to make up the required shape. Broadcasting can occur when one of the arrays has a dimension of 1.
+Here, \texttt{a} is a 3x3 array, but \texttt{b} is only one row (a 1x3 array).
+\begin{code}
+>>> a = np.array([[1,2,3],[4,5,6],[7,8,9]])
+>>> b = np.ones(3)
+>>> a
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+>>> b
+array([ 1.,  1.,  1.])
+>>> a+b
+array([[  2.,   3.,   4.],
+       [  5.,   6.,   7.],
+       [  8.,   9.,  10.]])
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Matrix multiplication}
+\begin{itemize}
+\item \texttt{a * b} will perform elementwise multiplication, not matrix multiplication. 
+\item Use \texttt{np.dot(a, b)} for matrix multiplication. 
+\item Use \texttt{np.dot(a, b)} for 1-dimensional vector dot product also.
+\end{itemize}
+\end{frame}
+
+
 
 \begin{frame}[fragile]
 \frametitle{Histograms example}
@@ -316,7 +451,7 @@ Notice that there is one more element in the \texttt{edges} than in the \texttt{
 \item Can specify the separator, whether to skip some header lines,
   whether to ignore some columns.
 \item \texttt{genfromtxt} if you have missing values or missing lines
-\item For writing your aray out to a file: \texttt{savetxt}
+\item For writing your array out to a file: \texttt{savetxt}
 \item Can specify delimiter, header, footer.
 \item For reading from binary file: \texttt{fromfile}
 \end{itemize}
@@ -368,7 +503,8 @@ import matplotlib.pyplot as plt
 # Data file obtained from 
 # http://pds-geosciences.wustl.edu/missions/mgs/megdr.html
 
-# Read the data from the file as a 1-dimensional array of 16-bit ints
+# Read the data from the file as a 1-dimensional array 
+# of 16-bit ints
 a = np.fromfile("megt90n000cb.img", dtype=np.uint16)
 # Reshape the array to have rows and columns
 b = a.reshape(720, 1440)
@@ -391,7 +527,17 @@ plt.show()
 \end{code}
 \end{frame}
 
-
+\begin{frame}[fragile]
+\frametitle{Summary}
+\begin{itemize}
+\item Storage of numpy arrays
+\item Creating ranges
+\item Sorting
+\item Operations on arrays/matrices
+\item Histograms
+\item Reading from/writing to files
+\end{itemize}
+\end{frame}
 
 
 % 4d matrices eg x y z over time
