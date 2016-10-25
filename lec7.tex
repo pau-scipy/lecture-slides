@@ -188,11 +188,11 @@ array([  0. ,  1.66666667, 3.33333333,  5.   ,
 \item Just be careful with floating point numbers
 \item They have limited precision and can sometimes be different to
   the answer you expected
-\item 0.3/3 ? is it 0.1?
+\item What is 0.3/3 ? Is it 0.1?
 \item 0.09999999999999999
 \item For two arrays \texttt{a} and \texttt{b}, you can check if they have the 'same'
-  numbers with np.allclose(a,b)
-\item Other parameters allow you to set how close is good enough, if
+  numbers with np.allclose(a,b) or np.isclose(a,b)
+\item Other parameters to these functions allow you to set how close is good enough, if
   you don't like the default.
 \end{itemize}
 \end{frame}
@@ -265,34 +265,49 @@ array([[1, 2, 3],
 foo
 \end{frame}
 
-For example: 
+%For example: 
 % matrix ops (add, subtract, multiply? multiply is maybe too hard for CS and would need a motivating concept. I toyed with transitive closure as a way of finding flights between cities, but we'd have to work in boolean space so even more hard - np.logical_or(b, np.dot(b,b)). 
 % transpose
 % normalise a matrix 
+
+\begin{frame}[fragile]
+\frametitle{Histograms example}
+Swansea measles outbreak 2013:
+\includegraphics[width=10cm]{measlesbyage01072013.jpg}
+
+Figure taken from Public Health Wales: \url{http://www.wales.nhs.uk/sitesplus/888/page/66389}
+\end{frame}
 
 
 \begin{frame}[fragile]
 \frametitle{Histograms}
 \begin{code}
->>> a = np.array([3,4,7,8,9,5,6,7,8,9,3,5,6])
->>> np.histogram(a, bins=range(0, 11))
-(array([0, 0, 0, 2, 1, 2, 2, 2, 2, 2]), array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10]))
-
->>> a = np.array([3,4,7,8,9,5,6,7,8,9,3,5,6])
->>> (hist, bin_edges) = np.histogram(a, bins=range(0, 11))
->>> print(hist)
-[0 0 0 2 1 2 2 2 2 2]
->>> print(bin_edges)
-[ 0  1  2  3  4  5  6  7  8  9 10]
+>>> m_ages = np.array(
+      [13,4,2,11,12,6,13,14,25,16,22,1,8])
+>>> np.histogram(m_ages, bins=range(0,35,5))
+(array([3,2,5,1,1,1]), array([0,5,10,15,20,25,30]))
 \end{code}
 
-Notice that there is one more element in the \texttt{bin\_edges} than in the \texttt{hist}: it includes the top and bottom edges.
+Notice that the result is a tuple of two arrays. So we could save these arrays into variables.
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Histograms example}
+\frametitle{Histograms}
+\begin{code}
+>>> m_ages = np.array(
+      [13,4,2,11,12,6,13,14,25,16,22,1,8])
+>>> (hist,edges) = np.histogram(m_ages,bins=range(0,35,5))
 
+>>> print(hist)
+array([3, 2, 5, 1, 1, 1])
+
+>>> print(edges)
+array([ 0,  5, 10, 15, 20, 25, 30])
+\end{code}
+
+Notice that there is one more element in the \texttt{edges} than in the \texttt{hist}: the \texttt{edges} array includes both the top and bottom edges of the bins.
 \end{frame}
+
 
 \begin{frame}[fragile]
 \frametitle{Functions for reading/writing data from files}
