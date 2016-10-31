@@ -125,15 +125,17 @@ Inspect the array.
 \begin{frame}[fragile]
 \frametitle{Other ways to make arrays}
 \begin{itemize}
-\item a = np.ones(5)
+\item a = np.zeros(5)
 \pause
-\item b = 5 * np.ones(5)
+\item b = np.ones(5)
 \pause
-\item c = np.array([[5,5,5,5,5], [1,1,1,1,1], [8,8,8,8,8]])
+\item c = 5 * np.ones(5)
+\pause
+\item d = np.array([[5,5,5,5,5], [1,1,1,1,1], [8,8,8,8,8]])
 \pause 
-\item d = np.array(a * 5, a, a * 8)
+\item e = np.array([b * 5, b, b * 8])
 \pause
-\item e = np.array(a * 5, a, a * 8).astype(int)
+\item f = np.array([b * 5, b, b * 8]).astype(int)
 \end{itemize}
 \end{frame}
 
@@ -201,7 +203,7 @@ np.random.random will generate numbers between 0 and 1 (not including
 \frametitle{Scalar operations}
 What's the difference? Why?
 \begin{code}
->>> x = np.random.random(3, 5) * 10 + 5
+>>> x = np.random.random((3, 5)) * 10 + 5
 >>> print(x)
 >>> y = np.random.random((3, 5)) + 5 * 10
 >>> print(y)
@@ -212,7 +214,7 @@ What's the difference? Why?
 \frametitle{Converting Celsuis to Fahrenheit}
 \begin{code}
 >>> temps = np.array([15, 18, 23, 20])
->>> f_temps = temps * 9/5 + 32)
+>>> f_temps = temps * 9/5 + 32
 >>> print(f_temps)
 \end{code}
 \end{frame}
@@ -295,7 +297,8 @@ a = np.fromfile("megt90n000cb.img", dtype=np.uint16)
 b = a.reshape(720, 1440)
 print(b)
 \end{code}
-See the code provided in lec6.py, which also includes code to plot the results.
+See the extra code provided in lec6.py, which also includes code to plot the
+results. A zipfile with the code and data is available on Blackboard. 
 \end{frame}
 
 \begin{frame}[fragile]

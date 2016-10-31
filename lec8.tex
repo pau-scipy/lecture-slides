@@ -4,6 +4,10 @@
 \usepackage{color}
 \usepackage{hyperref}
 
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{upquote}
+
 % Default fixed font does not support bold face
 \DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
 \DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{10}  % for normal
@@ -13,7 +17,7 @@
 \definecolor{deepblue}{rgb}{0,0,0.5}
 \definecolor{deepred}{rgb}{0.6,0,0}
 \definecolor{deepgreen}{rgb}{0,0.5,0}
-\definecolor{shadecolor}{rgb}{1, 0.8, 0.3}
+\definecolor{shadecolor}{rgb}{1, 0.9, 0.3}
 
 \usepackage{listings}
 \usepackage{framed}
@@ -28,7 +32,10 @@ emph={MyClass,__init__},          % Custom highlighting
 emphstyle=\ttb\color{deepred},    % Custom highlighting style
 stringstyle=\color{deepgreen},
 frame=tb,                         % Any extra options here
-showstringspaces=false            % 
+showstringspaces=false,            % 
+upquote=True,
+columns=fullflexible,
+basicstyle=\ttfamily
 }}
 
 
@@ -45,10 +52,10 @@ showstringspaces=false            %
 
 \begin{document}
 
-% Functions hands on. Remember existing functions eg len, sorted, sqrt and numpy functions. Define and call some functions with simple params and return values.
+
 
 \begin{frame}
-\frametitle{CS24420 \& MA25220 \& MT25220 \& MX35220 \& CSM0120}}
+\frametitle{CS24420 \& MA25220 \& MT25220 \& MX35220 \& CSM0120}
 
 \begin{center}
 \begin{huge}
@@ -97,8 +104,8 @@ def weather_message():
       msg = "wear shorts"
    return msg
 \end{code}
-\pause
-We write \texttt{def}, the function name, two brackets and a
+
+We write \textbf{def}, the function name, two brackets and a
 colon.
 The body of the function is indented.
 \end{frame}
@@ -132,7 +139,7 @@ def weather_message():
 \begin{shaded}
 \begin{code}
 def weather_message(temp):
-  if temp < 3:
+   if temp < 3:
       msg = "wear wool trousers"
    elif temp < 10:
       msg = "wear trousers"
@@ -155,7 +162,7 @@ def weather_message(temp):
 \begin{shaded}
 \begin{code}
 def weather_message(temp, low, med):
-  if temp < low:
+   if temp < low:
       msg = "wear wool trousers"
    elif temp < med:
       msg = "wear trousers"
@@ -215,8 +222,7 @@ not indented.
 
 \bigskip
 
-We can execute this code at the command line:\\
-\texttt{python weather.py}
+We can execute this code using Spyder.
 \end{frame}
 
 
@@ -233,8 +239,7 @@ Just start writing your for-loop at the bottom of your
 weather.py file.
 \bigskip
 
-Run the code with\\
-\texttt{python weather.py}
+Run the code.
 \end{frame}
 
 
@@ -281,13 +286,13 @@ up to 25 (but not including 25).\\
 \begin{shaded}
 \begin{code}
 import random
-def predict_tomorrow_temp(today_temp):
+def predict_tomorrow_temp(current_temp):
    change = random.choice(range(-1, 2))
-   new_temp = today_temp + change
+   new_temp = current_temp + change
    return new_temp
 \end{code}
 \end{shaded}
-This function takes one parameter (\texttt{today\_temp})
+This function takes one parameter (\texttt{current\_temp})
 and returns a result (\texttt{new\_temp}).
 \end{frame}
 
@@ -296,17 +301,17 @@ and returns a result (\texttt{new\_temp}).
 \begin{shaded}
 \begin{code}
 import random
-def predict_tomorrow_temp(today_temp):
+def predict_tomorrow_temp(current_temp):
    change = random.choice(range(-1, 2))
-   new_temp = today_temp + change
+   new_temp = current_temp + change
    return new_temp
 
-today = 10
-tomorrow = predict_tomorrow_temp(today)
-next_day = predict_tomorrow_temp(tomorrow)
-print(today)
-print(tomorrow)
-print(next_day)
+temp_today = 10
+temp_tomorrow = predict_tomorrow_temp(temp_today)
+temp_next_day = predict_tomorrow_temp(temp_tomorrow)
+print(temp_today)
+print(temp_tomorrow)
+print(temp_next_day)
 \end{code}
 \end{shaded}
 \end{frame}
@@ -316,13 +321,13 @@ print(next_day)
 \begin{shaded}
 \begin{code}
 import random
-def predict_tomorrow_temp(today_temp):
+def predict_tomorrow_temp(current_temp):
    change = random.choice(range(-1, 2))
-   new_temp = today_temp + change
+   new_temp = current_temp + change
    return new_temp
 
 temp = 10
-for day in range(1,8):
+for day in range(1, 8):
    print("Day " + str(day))
    print("Today's temp is:" + str(temp))
    temp = predict_tomorrow_temp(temp)
@@ -336,9 +341,9 @@ for day in range(1,8):
 \begin{shaded}
 \begin{code}
 import random
-def predict_tomorrows_temp(today_temp):
-   change = random.choice(range(-1,2))
-   new_temp = today_temp + change
+def predict_tomorrows_temp(current_temp):
+   change = random.choice(range(-1, 2))
+   new_temp = current_temp + change
    return new_temp
 \end{code}
 \end{shaded}
@@ -351,10 +356,11 @@ need to use an if-statement).
 \begin{frame}
 \frametitle{Summary}
 \begin{itemize}
-\item Writing functions
-\item Calling functions
+\item Writing functions (use \texttt{def})
+\item Calling functions (use the function name, brackets, and some
+  appropriate values if takes parameters)
 \item Functions can take parameters
-\item Functions can return values that can be saved into variables
+\item Functions often return values that can be saved into variables
 \item Functions allow you to write reusable code
 \end{itemize}
 \end{frame}
