@@ -4,6 +4,10 @@
 \usepackage{color}
 \usepackage{hyperref}
 
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{upquote}
+
 % Default fixed font does not support bold face
 \DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
 \DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{10}  % for normal
@@ -26,7 +30,10 @@ emph={MyClass,__init__},          % Custom highlighting
 emphstyle=\ttb\color{deepred},    % Custom highlighting style
 stringstyle=\color{deepgreen},
 frame=tb,                         % Any extra options here
-showstringspaces=false            % 
+showstringspaces=false,            % 
+upquote=True,
+columns=fullflexible,
+basicstyle=\ttfamily
 }}
 
 
@@ -49,11 +56,11 @@ showstringspaces=false            %
 % as parameters.
 
 \begin{frame}
-\frametitle{CS24420 \& MA25220 \& MT25220 \& MX35220 \& CSM0120}}
+\frametitle{CS24420 \& MA25220 \& MT25220 \& MX35220 \& CSM0120}
 
 \begin{center}
 \begin{huge}
-Lecture 9: Functions, the gory details
+Lecture 9: Functions
 \end{huge}
 \bigskip
 
@@ -66,6 +73,17 @@ Amanda Clare (afc@aber.ac.uk)
 
 
 \begin{frame}[fragile]
+\frametitle{Functions}
+\begin{itemize}
+\item Maths functions vs Python functions
+\item Return values, None and print
+\item Named parameters
+\item Passing functions as arguments
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
 \frametitle{Functions in maths}
 Assume we have 2 sets, $A$ and $B$. For example: countries and capital cities
 \bigskip
@@ -75,8 +93,8 @@ element in the pair is from $A$ and the other is from $B$.
 \bigskip
 
 For example, if
-$A = \{France, UK, Spain\}$ and $B = \{Paris, London, Madrid\}$ then all
-possible pairs are:
+$A = \{France, UK, Spain\}$ and $B = \{Paris, London, Madrid\}$ then
+the set of all possible pairs is:
 \begin{multline*}
 \{ (France, London), (France, Paris), (France, Madrid), \\
 (UK, London),
@@ -93,7 +111,7 @@ The set of all possible pairs from $A$ and $B$ is known as the cartesian product
 and $B$.
 
 A subset of this (that is, some of the pairs but not necessarily all
-of them) is called a \em{relation}.
+of them) is called a {\em relation}.
 
 For example: 
 \begin{itemize} 
@@ -110,15 +128,16 @@ For example:
 
 \begin{frame}[fragile]
 \frametitle{Functions in maths}
-A function is a relation where there's a single output for
+\begin{itemize}
+\item A {\em function} (in maths) is a relation where there's a single output for
 any given input. \\
-A single element of $B$ for every element of $A$ in the relation.
+\item A single element of $B$ for every element of $A$ in the relation.
 So we can pick any input element and know that an output
 exists. \\
-We also know it's the only output (there's no confusion). \\
-We can think of a function as a mapping from elements in $A$
+\item We also know it's the only output (there's no confusion). \\
+\item We can think of a function as a mapping from elements in $A$
 to elements in $B$.
-
+\end{itemize}
 \end{frame}
 
 
@@ -136,10 +155,9 @@ Which of these relations are functions?
   Paris) \}$
 \item Continental flight destinations from UK: $\{ (UK, Paris), (UK, Madrid) \}$
 \end{itemize}
-\pause
-A partial function is not defined for all elements of $A$, only some
-of them. For some elements there is no output. Which of these are partial?
 \end{frame}
+
+
 
 \begin{frame}[fragile]
 \frametitle{In Python}
@@ -188,6 +206,15 @@ print(d)
 \end{frame}
 
 \begin{frame}[fragile]
+\frametitle{Functions in Python}
+When talking about Python, we use the term ``function'' to refer to a block of
+reusable code, defined with the \texttt{def} keyword. 
+
+Some Python functions would not satisfy the mathematical definition of
+a function. 
+\end{frame}
+
+\begin{frame}[fragile]
 \frametitle{Return values and None}
 Some functions in Python don't return a value. They are written
 solely for their side effects (often printing to a screen or writing
@@ -209,8 +236,66 @@ its return value we might instead choose to return a boolean,
 as an indicator of success or failure.
 \end{frame}
 
+
 \begin{frame}[fragile]
-\frametitle{Partial functions give a ValueError Exception}
+\frametitle{Returning multiple values}
+We can return a tuple of values. For example:
+
+\begin{itemize}
+\item a pair of latitude and longitude
+\item the longest element in a list, and its length
+\item an RGB (red-green-blue) colour triple
+\end{itemize}
+
+\begin{code}
+(lat, lon) = convert_postcode("SY23 3DB")
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Returning multiple values}
+We can also return a dictionary of values. For example:
+
+\begin{code}
+def convert_colour(hex_colour):
+   red = # do some work
+   green = # do some more work
+   blue = # do more work
+   return { "r": red, "g": green, "b": blue }
+
+rgb = convert_colour("FFA583")
+print(rgb["r"])
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Partial functions}
+A partial function is not defined for all elements of the input set
+$A$, only some
+of them. For some elements there is no output. 
+
+From our previous example of two sets, which of these are partial
+functions over these sets, rather than total functions?
+ 
+\begin{itemize} 
+\item the capital cities of each country: $\{(France, Paris), (UK,
+  London), (Spain, Madrid) \}$
+\item popular holiday destinations: $\{ (France, Paris), (UK, Paris),
+  (Spain, London) \}$
+\item same number of letters in word: $\{ (France, London), (Spain,
+  Paris) \}$
+\item Continental flight destinations from UK: $\{ (UK, Paris), (UK, Madrid) \}$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Partial functions}
+This matters when coding. Think about which inputs your function
+should provide an answer for, and which inputs can't be handled. What
+do you want to happen for other inputs? 
+
 \begin{code}
 >>> import math
 >>> n = math.sqrt(9)
@@ -268,28 +353,13 @@ print( perimeter() )
 
 
 
-\begin{frame}[fragile]
-\frametitle{Functions have a type}
-Functions have the type 'function'.
-\begin{code}
->>> type(perimeter)
-<type 'function'>
->>> type(len)
-<type 'builtin_function_or_method'>
->>> type(max)
-<type 'builtin_function_or_method'>
-\end{code}
-When we just use the name, e.g. \texttt{perimeter} we are referring
-to the function itself. When we add brackets, we are calling the
-function instead, e.g.  \texttt{perimeter(3,4)}.
-\end{frame}
 
 
 
 \begin{frame}[fragile]
 \frametitle{Functions as arguments}
-We can pass functions as arguments. Here I pass the function \texttt{len}, and
-I also pass the function \texttt{first\_char}.
+We can pass functions as arguments. Here I could pass the function \texttt{len}, or
+I could pass the function \texttt{first\_char}.
 \begin{code}
 def is_ok_text( word, f ):
    score = f(word)
@@ -316,6 +386,7 @@ def tough(word):
 def easy(word):
    return True
 \end{code}
+Both of these functions will take a word as argument, and return a boolean.
 \end{frame}
 
 
@@ -336,63 +407,128 @@ playScrabble(4, tough)
 \end{code}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Functions have a type}
+Functions have the type 'function'.
+\begin{code}
+>>> type(perimeter)
+<type 'function'>
+>>> type(len)
+<type 'builtin_function_or_method'>
+>>> type(max)
+<type 'builtin_function_or_method'>
+\end{code}
+When we just use the name, e.g. \texttt{perimeter} we are referring
+to the function itself. When we add brackets, we are calling the
+function instead, e.g.  \texttt{perimeter(3,4)}.
+\end{frame}
+
 
 \begin{frame}[fragile]
-\frametitle{Lambda functions}
-We can also define simple functions using the lambda keyword. 
+\frametitle{Functions and types}
+\begin{itemize}
+\item There's no way to declare the input types or output types of
+  functions in Python 
+\item We have to do this in the documentation that we provide
+  instead. For example, see the documentation for numpy.loadtxt:
+  \url{https://docs.scipy.org/doc/numpy/reference/generated/numpy.loadtxt.html}
+\item Mypy: Optional type checking for Python \url{http://mypy-lang.org/}
+\item Type hints, Guido van Rossum, PyCon 2015: \url{https://www.youtube.com/watch?v=2wDvzy6Hgxg}
+\end{itemize}
 \begin{code}
-number_of_ls = lambda s : return s.count('l')
-say_hello = lambda name: return "hello " + name 
-
-print (say_hello("Amanda"))
-print (number_of_ls(say_hello("Amanda")))
+def greeting(name: str) -> str:
+    return 'Hello ' + name
 \end{code}
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Lambda functions}
-Lambda functions are a convenient notation but not necessary. 
-These functions are equivalent:
-\begin{code}
-number_of_ls = lambda s : s.count('l')
+% \begin{frame}[fragile]
+% \frametitle{Lambda functions [Optional extra]}
+% We can also define simple functions using the lambda keyword. 
+% \begin{code}
+% number_of_ls = lambda s : return s.count('l')
+% say_hello = lambda name: return "hello " + name 
 
-def number_of_ls(s):
-   return s.count('l')
-\end{code}
-\begin{code}
-say_hello = lambda name: "hello " + name 
+% print (say_hello("Amanda"))
+% print (number_of_ls(say_hello("Amanda")))
+% \end{code}
+% \end{frame}
 
-def say_hello(name):
-   return "hello " + name 
-\end{code}
+% \begin{frame}[fragile]
+% \frametitle{Lambda functions}
+% Lambda functions are a convenient notation but not necessary. 
+
+% \bigskip
+
+% These functions are equivalent:
+% \begin{code}
+% number_of_ls = lambda s : s.count('l')
+
+% def number_of_ls(s):
+%    return s.count('l')
+% \end{code}
+% \end{frame}
+
+% \begin{frame}[fragile]
+% \frametitle{Lambda functions}
+% These functions are equivalent:
+% \begin{code}
+% say_hello = lambda name: "hello " + name 
+
+% def say_hello(name):
+%    return "hello " + name 
+% \end{code}
+% \end{frame}
+
+% \begin{frame}[fragile]
+% \frametitle{Lambda functions}
+% Lambda functions can only be used for simple, single line functions.
+
+% \bigskip
+
+% After the colon must be an expression which produces the returned
+% value.
+
+% \bigskip
+
+% Lambda functions can take more than one argument:
+
+% \begin{code}
+% perimeter = lambda height,width : width*2 + height*2 
+% \end{code}
+% \end{frame}
+
+\begin{frame}
+\frametitle{Why use functions}
+\begin{itemize}
+\item To group code into reusable units.
+\item To make small, testable units of code, that are separate from
+  other pieces of code.
+\item To structure your code so that the flow of code is readable at a high level
+  (details hidden by the functions).
+\item Abstraction: once it's written and tested you don't need to know
+  how a function works inside. Just use it. 
+\end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Lambda functions}
-Lambda functions can only be used for simple, single line functions.
-
-\bigskip
-
-After the colon must be an expression which produces the returned
-value.
-
-\bigskip
-
-Lambda functions can take more than one argument:
-
-\begin{code}
-perimeter = lambda height,width : width*2 + height*2 
-\end{code}
+\begin{frame}
+\frametitle{Writing a function}
+When writing a function:
+\begin{itemize}
+\item Decide what this function should do. Keep this simple. This is
+  the most difficult part. 
+\item Decide what parameters it should take.
+\item Decide what output it should return
+\item Write the code and test it.
+\end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Summary}
 \begin{itemize}
-\item Functions and relations
+\item Functions in maths and Python
 \item Return values, None and print
-\item Parameters
-\item Passing functions
-\item Lambda functions
+\item Named parameters
+\item Passing functions as arguments
 \end{itemize}
 \end{frame}
 
