@@ -4,6 +4,10 @@
 \usepackage{color}
 \usepackage{hyperref}
 
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{upquote}
+
 % Default fixed font does not support bold face
 \DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
 \DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{10}  % for normal
@@ -13,6 +17,8 @@
 \definecolor{deepblue}{rgb}{0,0,0.5}
 \definecolor{deepred}{rgb}{0.6,0,0}
 \definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{shadecolor}{rgb}{1, 0.9, 0.3}
+
 
 \usepackage{listings}
 
@@ -26,7 +32,10 @@ emph={MyClass,__init__},          % Custom highlighting
 emphstyle=\ttb\color{deepred},    % Custom highlighting style
 stringstyle=\color{deepgreen},
 frame=tb,                         % Any extra options here
-showstringspaces=false            % 
+showstringspaces=false,            % 
+upquote=True,
+columns=fullflexible,
+basicstyle=\ttfamily
 }}
 
 
@@ -43,10 +52,13 @@ showstringspaces=false            %
 
 \begin{document}
 
-% Hands on adding main to a file of functions. Importing your file. Running your file. Adding comments. Generating documentation for your module.
+% Hands on adding main to a file of functions. Importing your
+% file. Running your file. Adding comments. Generating documentation
+% for your module. Packages, pip, argparse
+
 
 \begin{frame}
-\frametitle{CS24420 \& MA25220 \& MT25220}
+\frametitle{CS24420 \& MA25220 \& MT25220 \& MX35220 \& CSM0120}
 
 \begin{center}
 \begin{huge}
