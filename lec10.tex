@@ -62,7 +62,7 @@ basicstyle=\ttfamily
 
 \begin{center}
 \begin{huge}
-Lecture 10: Modules, and structuring Python code 
+Lecture 10: Modules and Documentation
 \end{huge}
 \bigskip
 
@@ -71,14 +71,327 @@ Amanda Clare (afc@aber.ac.uk)
 \end{center}
 \end{frame}
 
+\begin{frame} 
+\frametitle{Spyder and help}
+Demo of the variable explorer, the file explorer and the object explorer on Spyder.
+\end{frame}
+
+\begin{frame} 
+\frametitle{Setting the working directory for the console}
+Use the Global Working Directory dropdown (in the bar at the top) to
+navigate to where you want to be. This setting will apply to any new
+consoles (not to existing consoles).
+
+Open a new console (from the menu bar, choose the Consoles menu).
+
+\bigskip
+
+But the easiest way to set the working directory is to just run your code (green button). 
+\end{frame}
+
+\begin{frame} 
+\frametitle{Main}
+\begin{itemize}
+\item Now we can write functions and call them.
+\item We aim to have all the code in functions, so it is all
+reusable.
+\item We still need some place that actually does
+something, that calls the functions.
+\item This is often (by convention) a function called \texttt{main}.
+\end{itemize}
+\end{frame}
 
 \begin{frame}[fragile]
-\frametitle{foo}
-bar
-\begin{code}
-x = 1 + 5
+\frametitle{Previously: weather.py}
+The zip file on Blackboard contains two files: weather.py and
+predict.py. 
+
+Download and unzip, and open weather.py (or use the one
+you had previously if it's ok).
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Previously: weather.py}
+\begin{code} 
+import random
+
+def predict_tomorrow_temp(current_temp):
+   change = random.choice(range(-1, 2))
+   new_temp = current_temp + change
+   return new_temp
+
+temp = 10
+for day in range(1, 8):
+   print("Day " + str(day))
+   print("Today's temp is:" + str(temp))
+   temp = predict_tomorrow_temp(temp)
+   print("Tomorrow will be:" + str(temp))
 \end{code}
 \end{frame}
 
 
+\begin{frame}[fragile]
+\frametitle{Add a main}
+\begin{code} 
+import random
+
+def predict_tomorrow_temp(current_temp):
+   change = random.choice(range(-1, 2))
+   new_temp = current_temp + change
+   return new_temp
+
+def main():
+   temp = 10
+   for day in range(1, 8):
+      print("Day " + str(day))
+      print("Today's temp is:" + str(temp))
+      temp = predict_tomorrow_temp(temp)
+      print("Tomorrow will be:" + str(temp))
+
+main()
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Check whether we should call main}
+\begin{code} 
+import random
+
+def predict_tomorrow_temp(current_temp):
+   change = random.choice(range(-1, 2))
+   new_temp = current_temp + change
+   return new_temp
+
+def main():
+   temp = 10
+   for day in range(1, 8):
+      print("Day " + str(day))
+      print("Today's temp is:" + str(temp))
+      temp = predict_tomorrow_temp(temp)
+      print("Tomorrow will be:" + str(temp))
+
+if __name__ == "__main__":
+   main()
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Using your module}
+Your code can now be:
+\begin{enumerate}
+\item imported as a module (providing two functions
+\texttt{predict\_tomorrow\_temp} and \texttt{main}) 
+\item or run as a script.
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{predict.py}
+Open the downloaded 'predict.py'.
+
+\bigskip
+
+\begin{code} 
+import weather
+
+today = 10
+tomorrow = weather.predict_tomorrow_temp(today)
+print("Tomorrow will be:" + str(tomorrow))
+msg = weather.weather_message(tomorrow, 5, 15)
+print(msg)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Give predict.py a main function too}
+\begin{code}
+import weather
+
+def main():
+   today = 10
+   tomorrow = weather.predict_tomorrow_temp(today)
+   print("Tomorrow will be:" + str(tomorrow))
+   msg = weather.weather_message(tomorrow, 5, 15)
+   print(msg)
+
+if __name__ == "__main__":
+   main()
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{import  ... as ...}
+
+If you don't want to type the full module name:
+ 
+\begin{code}
+import weather as wtr
+
+def main():
+   today = 10
+   tomorrow = wtr.predict_tomorrow_temp(today)
+   print("Tomorrow will be:" + str(tomorrow))
+   msg = wtr.weather_message(tomorrow, 5, 15)
+   print(msg)
+
+if __name__ == "__main__":
+   main()
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Comments}
+\begin{itemize}
+\item We should add lots of explanatory comments to code.
+\item Comments are for humans. The computer will ignore them.
+\item Comments start with a \# (``hash'', ``octothorpe'')
+\end{itemize}
+
+\bigskip
+
+ Comments can be on a line by themselves
+\begin{code}
+# This loop will add all the bird
+# data into the species table
+\end{code}
+
+\bigskip
+
+Or they can be at the end of a line of code
+\begin{code}
+x = 16 # initial value known to be too high
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Comments should be useful}
+No hard and fast rule on what is useful.
+\begin{code}
+# This initialises x
+x = 16
+
+# We need a loop
+for y in range(1,5):
+   print(birds[y])
+\end{code}
+
+\bigskip
+
+\begin{code}
+# x represents the number of birds
+# We initialise it to a value known to be the
+# minimum number submitted by the yearly report.
+x = 16
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Docstrings}
+Docstrings are triple-quoted strings:
+
+\begin{code}
+"""This is a docstring"""
+"""This is another"""
+\end{code}
+
+They are used to provide documentation for your module and
+functions.
+
+We already use comments:
+
+\begin{code}
+# this is a comment and will be ignored by Python
+# but is useful for human readers of the code
+\end{code}
+
+But docstrings offer something different.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{docexample.py}
+Have a look at the code in the file docexample.py.
+Run the code.
+
+\bigskip
+
+Load the code as a module:
+\begin{code}
+>>> import docexample
+>>> help(docexample)
+>>> help(docexample.ten_times)
+\end{code}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{docexample.py}
+The help that you see comes from the docstrings. We put
+them:
+\begin{itemize}
+\item at the start of the file to describe the module
+\item at the start of each function to describe the function
+\end{itemize} 
+Python then uses these to provide help for your module.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{See the documentation shown by the help function}
+\begin{code}
+>>> import docexample
+>>> help(docexample)
+>>> help(docexample.ten_times)
+
+>>> import math
+>>> help(math.pow)
+
+>>> import matplotlib.pyplot
+>>> help(matplotlib.pyplot.bar)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{pydoc can produce a web page}
+It will take the docstrings in your code and produce a web page
+describing your module.
+\begin{code}
+>>> import pydoc
+>>> import docexample
+>>> pydoc.writedoc(docexample)
+\end{code}
+produces a file called:
+\texttt{docexample.html}. Open it in a web browser and have a look.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{What kind of documentation is useful?}
+\begin{itemize}
+\item Short description.
+\item Longer description.
+\item Description of parameters
+\item Return value
+\item Any exceptions thrown
+\item Notes
+\item See also
+\item Examples
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Summary}
+\begin{itemize}
+\item Write all code in functions
+\item Collect functions in a module/file
+\item Can import the module 
+\item If needed to run as a script, add a main function
+\item Add lots of comments
+\item Use triple-quoted docstrings to document the module
+\item Can generate a web page of documentation with pydoc
+\end{itemize}
+\end{frame}
+
+
 \end{document}
+

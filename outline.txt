@@ -31,7 +31,7 @@ Fri 13:10 Hands-on: numpy hands on lecture (make arrays, apply scalars, make nda
 -------------------
 Week 4 (week beginning  24/10)
 
-Tues 4:10 Theory: numpy. 2d and 3d arrays. indexing (and boolean expression indexing). linspace. 4d arrays. bincount. 
+Tues 4:10 Theory: numpy. 2d and 3d arrays. indexing (and boolean expression indexing). linspace. 
 
 Tues 5:10 numpy worksheet. 
 
@@ -42,7 +42,7 @@ Week 5 (week beginning 31/10)
 
 Tues 4:10 Theory: functions and their correspondence to maths functions. Return values and None. print vs return. Parameters. What's the point of functions. lambdas. Passing functions as args.
 
-Tues 5:10 Functions worksheet. Write functions to take params and return values.
+Tues 5:10 No sign off this week. Turn your previous code into functions.
 
 Fri 13:10 Hands on: adding main to a file of functions. Importing your file. Running your file. Adding comments. Generating documentation for your module. Packages, pip, argparse
 
@@ -51,7 +51,7 @@ Week 6 (week beginning 7/11)
 
 Tues 4:10 Theory: exceptions. What they are, how you catch them, how to continue. Why we have them. Exceptions vs if-then. What's caught at run time and what's caught before. 
 
-Tues 5:10 Worksheet that asks them to write a couple of small specific functions, bundle into a module, and make sure obvious exceptions/special cases are handled.
+Tues 5:10 Worksheet that asks them to write a couple of small specific functions, bundle into a module and document.
 
 Fri 13:10 Hands on: objects (some code with simple objects that have a few methods and vars to play with).
 
@@ -64,11 +64,11 @@ Prac session will run Tues at 5:10 and could also run extra one Fri 13:10 if the
 -------------------
 Week 8 (week beginning 21/11)
 
-Tues 4:10 Theory: objects. Inheritance. Design. Objects = methods plus attributes. Self. Calling methods via dot vs just calling functions.  __init__, private
+Tues 4:10 Theory: objects. (maybe Inheritance and Design). Objects = methods plus attributes. Self. Calling methods via dot vs just calling functions.  __init__, private
 
 Tues 5:10 Worksheet on making basic objects. 
 
-Fri 13:10 Hands on: examples of using objects: e.g. datetime, requests
+Fri 13:10 Hands on: examples of using objects: e.g. datetime, requests, files
 
 -------------------
 Week 9 (week beginning 28/11)
