@@ -58,7 +58,7 @@ basicstyle=\ttfamily
 
 \begin{center}
 \begin{huge}
-Lecture 11: Exceptions and errors
+Lecture 11: A tour of Python's exceptions
 \end{huge}
 \bigskip
 
@@ -69,12 +69,297 @@ Amanda Clare (afc@aber.ac.uk)
 
 
 \begin{frame}[fragile]
-\frametitle{foo}
-bar
+\frametitle{Errors when code is run}
 \begin{code}
-x = 1 + 5
+>>> 6 / 0
+
+>>> x = 5
+>>> y = 9 - (14 - x)
+>>> x / y
+
+>>> 6 % 0
 \end{code}
 \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{ZeroDivisionError}
+\begin{code}
+>>> x = 5
+>>> y = 9 - (14 - x)
+>>> x / y
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+ZeroDivisionError: integer division or modulo by zero
+\end{code}
+
+\bigskip
+
+\textbf{ZeroDivisionError} is an exception that is \textbf{thrown} by your
+code.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{IndexError}
+\begin{code}
+>>> x = [4,7,3,8]
+>>> x[6]
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+IndexError: list index out of range
+\end{code}
+\textbf{IndexError} is another possible exception.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{More exceptions}
+\begin{itemize}
+\item ZeroDivisionError
+\item IndexError
+\item KeyError
+\item IOError
+\item FileNotFoundError
+\item ValueError (e.g. math.sqrt(-1.0))
+\end{itemize}
+\begin{itemize}
+\item ImportError
+\item NameError
+\item SyntaxError
+\item IndentationError
+\item TypeError
+\end{itemize}
+\begin{itemize}
+\item numpy.LinAlgError
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{How to handle the exceptions}
+\begin{code}
+x = 5
+y = 9 - (14 - x)
+try:
+   z = x / y
+except ZeroDivisionError:
+   z = 54
+print(z)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{How to handle the exceptions}
+\begin{code}
+x = [3,7,5,2,9]
+try:
+   tenth_elem = x[9]
+except IndexError:
+   tenth_elem = -1
+print(tenth)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{What's the problem?}
+\begin{code}
+x = [3,7,5,2,9]
+try:
+   tenth = x[9]
+except IndexError:
+   print("Sorry, not enough samples in the data")
+   print("There are only " + str(len(x)))
+print(tenth)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Could quit the program}
+\begin{code}
+import sys
+x = [3,7,5,2,9]
+try:
+   tenth = x[9]
+except IndexError:
+   print("Sorry, not enough samples in the data")
+   print("There are only " + str(len(x)))
+   sys.exit(1)
+print(tenth)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Could continue with else}
+\begin{code}
+x = [3,7,5,2,9]
+try:
+   tenth = x[9]
+except IndexError:
+   print("Sorry, not enough samples in the data")
+   print("There are only " + str(len(x)))
+else:
+   print(tenth)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Catch a more generic error}
+(This is not advised, you should always try to catch more specific errors)
+\begin{code}
+x = [3,7,5,2,9]
+try:
+   tenth = x[9]
+except Exception:
+   print("Something went wrong")
+else:
+   print(tenth)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Print info about the exception}
+\begin{code}
+x = [3,7,5,2,9]
+try:
+   tenth = x[9]
+except Exception as e:
+   print("There was an exception and the arguments were " + str(e.args))
+else:
+   print(tenth)
+\end{code}
+The args are a tuple. The tuple may contain anything.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Problems when catching generic errors}
+\begin{code}
+x = [3,7,5,2,9]
+try:
+   tenth = y[9]
+except Exception as e:
+   print("Element 9 doesn't exist")
+else:
+   print(tenth)
+\end{code}
+This will print ``Element 9 doesn't exist''. If instead we had
+caught IndexError, then the code would have terminated with a
+NameError to tell us that ``name 'y' is not defined''.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exceptions vs if-else}
+The word 'exception' makes us think that these are exceptional
+events (events that occur very rarely).
+
+Actually they may occur frequently. You might use try-except regularly
+in your code.
+
+You might even use it instead of try-except. You might do this for two
+reasons:
+\begin{itemize}
+\item faster code
+\item cleaner looking code
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exceptions vs if-else}
+Faster code:
+\begin{code}
+if len(forest_means) > 100:
+   hundredth = forest_means[100]
+else:
+   hundredth = None
+\end{code}
+
+\bigskip
+
+\begin{code}
+try:
+   hundredth = forest_means[100]
+except IndexError:
+   hundredth = None
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Exceptions vs if-else}
+Cleaner code?
+\begin{code}
+word = sys.stdin.readline().strip()
+if isinstance(word,str)  and word.isdigit() and len(word)<10:
+   n = int(word)
+else:
+   n = None
+\end{code}
+
+\bigskip
+
+compare with:
+
+\begin{code}
+word = sys.stdin.readline().strip()
+try:
+    return int(word)
+except (TypeError, ValueError, OverflowError): 
+    return None
+\end{code}
+``Easier to Ask Forgiveness than Permission'' 
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Raise your own exceptions}
+\begin{code}
+def get_age():
+   print("Enter your age") 
+   age = int(sys.stdin.readline())
+   if age < 0:
+      raise ValueError("%d is not a valid age" % age)
+   return age
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{}
+\begin{code}
+>>> x = test.get_age()
+Enter your age
+-3
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "test.py", line 7, in get_age
+    raise ValueError("%d is not a valid age" % age)
+ValueError: -3 is not a valid age
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Turtle}
+And now for something completely different.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Turtle}
+Turtle is a library for drawing turtle graphics. It's great for
+teaching in schools. For example:
+
+\begin{code}
+import turtle
+
+t = turtle.Turtle()
+t.forward(50)
+t.left(90)
+t.forward(50)
+\end{code}
+
+\bigskip
+
+Now we're going to look at a few more examples: lec11a.py and
+lec11b.py
+\end{frame}
+
+
 
 
 \end{document}
