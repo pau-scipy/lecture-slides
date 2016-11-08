@@ -67,6 +67,37 @@ Amanda Clare (afc@aber.ac.uk)
 \end{center}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Worksheets}
+\begin{enumerate}
+\item Familiarisation
+\item Variables, if and while
+\item Lists, dictionaries and sets (also using for-loops, input from
+  keyboard).
+\item Numpy (sign-off today)
+\pause
+\item Starting today: Functions and documentation
+\end{enumerate}
+\pause
+Each score 0, 1, or 2.
+
+There will be three more worksheets (6, 7, 8). Worksheet 8 will be
+shorter (and will therefore be scored 0 or 1). 
+
+Total score possible = 15 (which is 7 worksheets at 2 points + 1
+worksheet at 1 point). 
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Next week is work week}
+\begin{itemize}
+\item No new material (no lectures).
+\item Time to catch up on worksheets and revision.
+\item There will be a practical on Tues 15th.
+\item There will be a practical on Friday 18th (optional).
+\item There will be no lecture on Tues 15th.
+\end{itemize}
+\end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Errors when code is run}
@@ -147,6 +178,25 @@ print(z)
 
 \begin{frame}[fragile]
 \frametitle{How to handle the exceptions}
+
+\begin{code}
+while True:
+   try:
+      x = int(input("Please enter a number: "))
+      break
+   except ValueError:
+      print("That was not a valid number.")
+      print("Please enter a number.")
+\end{code}
+
+\bigskip
+
+Note: \texttt{break} allows us to immediately exit the while loop and move
+to the next line of code following the while loop.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{How to handle the exceptions}
 \begin{code}
 x = [3,7,5,2,9]
 try:
@@ -220,7 +270,8 @@ x = [3,7,5,2,9]
 try:
    tenth = x[9]
 except Exception as e:
-   print("There was an exception and the arguments were " + str(e.args))
+   print("There was an exception and the arguments were " 
+            + str(e.args))
 else:
    print(tenth)
 \end{code}
@@ -233,7 +284,7 @@ The args are a tuple. The tuple may contain anything.
 x = [3,7,5,2,9]
 try:
    tenth = y[9]
-except Exception as e:
+except Exception:
    print("Element 9 doesn't exist")
 else:
    print(tenth)
@@ -251,12 +302,15 @@ events (events that occur very rarely).
 Actually they may occur frequently. You might use try-except regularly
 in your code.
 
-You might even use it instead of try-except. You might do this for two
+You might even use try-except instead of if-else. You might do this for two
 reasons:
 \begin{itemize}
 \item faster code
 \item cleaner looking code
 \end{itemize}
+This is not true for most programming languages. However because
+Python is a dynamic language, many more things are decided at run
+time. So this is a Pythonic approach.
 \end{frame}
 
 \begin{frame}[fragile]
@@ -359,7 +413,20 @@ Now we're going to look at a few more examples: lec11a.py and
 lec11b.py
 \end{frame}
 
+\begin{frame}
+\frametitle{Summary}
+Exceptions:
+\begin{itemize}
+\item what they are
+\item how to handle them
+\item how to raise them
+\end{itemize}
 
-
+Turtle:
+\begin{itemize}
+\item Use it to practice loops, variables, functions, etc.
+\item Take it into schools and encourage the next generation
+\end{itemize}
+\end{frame}
 
 \end{document}
