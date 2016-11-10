@@ -70,6 +70,20 @@ class PersonalStatistics(object):
         """Calculate the mean average age of the people in the list"""
         return np.mean([p.age for p in self.people])
         
+    def std_age(self):
+        """Calculate the standard deviation of age of the people in the list"""
+        return np.std([p.age for p in self.people])
+        
+    def mean_height(self):
+        """Calculate the mean average height 
+        of the people in the list"""
+        return np.mean([p.height for p in self.people])
+        
+    def std_height(self):
+        """Calculate the standard deviation of 
+        height of the people in the list"""
+        return np.std([p.height for p in self.people])
+        
     def median_age(self):
         """Calculate the median average age of the people in the list"""
         return np.median([p.age for p in self.people])
@@ -102,6 +116,9 @@ class PersonalStatistics(object):
         print("Median average age: {}".format(self.median_age()))
         mode, freq = self.mode_age()
         print("Mode average age: {} (freq {})".format(mode, freq))
+        print("Std dev age: {:0.2f}".format(self.std_age()))
+        print("Mean average height: {:0.2f}".format(self.mean_height()))
+        print("Std dev height: {:0.2f}".format(self.std_height()))
         
 
 def generate_random_people(n, cls=Person):

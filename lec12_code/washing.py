@@ -79,3 +79,4 @@ class ZanussiZWF91483W(WashingMachine):
         self.fill_time = 0.5
         self.wash_time = 1.25
         self.spin_time = 0.45
+    

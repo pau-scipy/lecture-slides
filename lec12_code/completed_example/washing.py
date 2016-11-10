@@ -7,7 +7,7 @@
 # @organisation: IMPACS, Aberystwyth University
 
 """
-Silly example as introduction to classes and objects
+Toy example as introduction to classes and objects
 You can't wash your clothes with a computer program!
 """
 
@@ -96,4 +96,8 @@ class WasherDryer(WashingMachine):
             if ww in self.contents:
                 self.contents = self.contents.replace(ww, 'dry')
         print("Dry cycle finished")
+        
+    def wash_and_dry(self):
+        self.wash()
+        self.dry()
         

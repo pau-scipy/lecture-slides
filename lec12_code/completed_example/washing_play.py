@@ -50,6 +50,15 @@ wd1.dry()
 # Check the contents
 print("machine contains: {}".format(wd1.contents))
 
+print("\nTesting the wash and dry cycle")
+# load some dirty clothes
+wd1.load("dirty clothes")
+print("machine contains: {}".format(wd1.contents))
+wd1.add_detergent()
+wd1.wash_and_dry()
+# Check the contents
+print("machine contains: {}".format(wd1.contents))
+
 zan1 = ZanussiZWF91483W()
 print("\nNow testing a specific model '{}'".format(zan1.model))
 zan1.load("dirty clothes")
@@ -59,3 +68,5 @@ zan1.wash()
 zan1.dry()
 # Check the contents
 print("machine contains: {}".format(zan1.contents))
+
+
