@@ -28,7 +28,7 @@ class Person(object):
         self.height = height
                 
     def __str__(self):
-        return "{} of name: {}, sex: {}, age: {}, height {:0.3f}m".format(
+        return "{} of name: {}, sex: {}, age: {}, height {:0.2f}m".format(
                                                 self.__class__.__name__, 
                                                 self.name, self.sex, 
                                                 self.age, self.height)
@@ -121,42 +121,69 @@ class PersonalStatistics(object):
         print("Std dev height: {:0.2f}".format(self.std_height()))
         
 
-def generate_random_people(n, cls=Person):
-    """Generate a list of n people with random attributes"""
+class PeopleFactory(object):
+    """Generates lists of Person objects"""
     sexes = ['male', 'female', 'other']
     sex_prob = [0.49, 0.49, 0.02]
-    male_names = np.genfromtxt('male_first_names.txt', dtype=str).tolist()
-    female_names = np.genfromtxt('female_first_names.txt', dtype=str).tolist()
-    surnames = np.genfromtxt('surnames.txt', dtype=str).tolist()
     
-    def choose_sex():
+    def __init__(self):
+        self.reset()
+        
+    def reset(self):
+        self.male_firstname_fname = 'male_first_names.txt'
+        self.female_firstname_fname = 'female_first_names.txt'
+        self.surname_fname = 'surnames.txt'
+        self.male_firstnames = None
+        self.female_firstnames = None
+        self.surnames = None
+        self.names_loaded = False
+    
+    def load_names(self):
+        self.male_names = np.genfromtxt(self.male_firstname_fname, 
+                                   dtype=str).tolist()
+        self.female_names = np.genfromtxt(self.female_firstname_fname,
+                                     dtype=str).tolist()
+        self.surnames = np.genfromtxt(self.surname_fname, dtype=str).tolist()
+        self.names_loaded = True
+        
+    def choose_sex(self):
+        """choose a sex based on the probabilites"""
         x = random.random()
         cumul_prob = 0.0
-        for s, p in zip(sexes, sex_prob):
+        for s, p in zip(self.sexes, self.sex_prob):
             cumul_prob += p
             if x < cumul_prob:
                 return s
         raise ValueError("Unable to choose sex, "
                         "check probabilities sum to 1.0")
-    peeps = []
-    for i in range(n):
-        # choose a sex
-        sex = choose_sex()
-        # choose name
+                        
+    def choose_name(self, sex):
+        """return a name based on the sex"""
+        if not self.names_loaded:
+            self.load_names()
+            
         if sex == 'male':
-            first_name = random.choice(male_names)
+            first_name = random.choice(self.male_names)
         elif sex == 'female':
-            first_name = random.choice(female_names)
+            first_name = random.choice(self.female_names)
         else:
-            first_name = random.choice(male_names + female_names)
-        name = first_name + ' ' + random.choice(surnames)
+            first_name = random.choice(self.male_names + self.female_names)
+            
+        return first_name + ' ' + random.choice(self.surnames)
+        
+    def generate_person(self, cls=Person):
+        """Generate a Person with random attributes"""
+        # choose a sex
+        sex = self.choose_sex()
+        # choose a name
+        name = self.choose_name(sex)
         # sample age
         age = int(cls.age_distrib_func(*cls.age_distrib_args))
         # sample height
         height = cls.height_distrib_func(*cls.height_distrib_args)
         
-        peeps.append(cls(name, sex, age, height))
-        
-    return peeps
-    
-
+        return Person(name, sex, age, height)
+                    
+    def generate_random_people(self, n, cls=Person):
+        """Generate a list of n people with random attributes"""
+        return [self.generate_person(cls) for i in range(n)]

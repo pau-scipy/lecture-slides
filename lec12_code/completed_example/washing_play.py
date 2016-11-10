@@ -10,6 +10,17 @@ Script for playing around with the washing objects
 """
 
 from washing import WashingMachine, WasherDryer, ZanussiZWF91483W
+import numpy as np
+
+# Try the string formatter
+print("{} values with no formatting "
+        "{}, {}, {}, {}".format(
+        4, 1, 'hello', None, np))
+print("Some floats "
+        "pi: {:0.7f}, cos(1): {:0.3f}, "
+        "a big number {:0.4g}, "
+        "general format {:0.5g}".format(
+            np.pi, np.cos(1), np.exp(100), np.pi*100))
 
 # make a washing machine
 print("Testing the washing machine")

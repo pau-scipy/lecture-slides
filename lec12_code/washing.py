@@ -7,12 +7,11 @@
 # @organisation: IMPACS, Aberystwyth University
 
 """
-Silly example as introduction to classes and objects
+Toy example as introduction to classes and objects
 You can't wash your clothes with a computer program!
 """
 
-
-from time import sleep
+import time
 
 class WashingMachine(object):
     """Machine for washing clothes (intended purpose anyway)"""
@@ -45,20 +44,20 @@ class WashingMachine(object):
         """Run the wash cycle of the machine"""
         self.contents = self.contents.lower()
         print("Water filling...")
-        sleep(self.fill_time)
+        time.sleep(self.fill_time)
         if not "wet" in self.contents:
             self.contents = "wet " + self.contents
         if not "soaking" in self.contents:
             self.contents = "soaking " + self.contents
         print("Washing...")
-        sleep(self.wash_time)
+        time.sleep(self.wash_time)
         if self.detergent_avail:
             for dw in self.dirty_words:
                 if dw in self.contents:
                     self.contents = self.contents.replace(dw, 'clean')
         self.detergent_avail = False
         print("Spinning...")
-        sleep(self.spin_time)
+        time.sleep(self.spin_time)
         self.contents = self.contents.replace('soaking', '').strip()
         print("Wash cycle finished")
         

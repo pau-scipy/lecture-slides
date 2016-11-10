@@ -7,6 +7,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{textcomp}
 \usepackage{upquote}
+\usepackage{framed}
 
 % Default fixed font does not support bold face
 \DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
@@ -36,7 +37,8 @@ upquote=True,
 columns=fullflexible,
 basicstyle=\ttfamily
 }}
-
+%\providecommand{\inlinecode}[1]{\lstinline
+%[column=fixed]|#1|}
 
 % Python environment
 \lstnewenvironment{code}[1][]
@@ -62,36 +64,63 @@ Lecture 12: Objects - the basics
 \end{huge}
 \bigskip
 
-Alexander Pitchford (agp1@loadaber.ac.uk)
+Alexander Pitchford (agp1@aber.ac.uk)
 
 \end{center}
 \end{frame}
 
-
+%--------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Introduction}
-Classes define objects\\
-Objects have \emph{methods} (functions)\\
-and \emph{attribites} (or \emph{properties})\\
-\bigskip
-Often we have many objects of the same class each with different attributes  
+\begin{itemize}
+\item Almost everything in Python is an object
+\item objects have \emph{attributes} or \emph{properties} with values
+\item an \emph{attribute} is a variable belonging to the object
+\item objects have \emph{methods} available to them
+\item a \emph{method} is a function belonging to the object
+\item a \emph{class} is a template that defines the objects\\
+\item \emph{classes} can \emph{inherit} the attributes and methods of other classes
+\item We often create many objects of the same class, each object having different attribute values 
+\end{itemize}
+
 \end{frame}
 
+%--------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Preparation}
 The zip file \texttt{lec12\_code.zip} on Blackboard contains a number of files for
-use today. Some are python files we will edit, some are data files containing names.
-
-Download, save in the folder where you keep your python work, and unzip.
-
-Open Spyder - choosing the correct one as in previous weeks.
-
+use today. Some are python files we will edit, some are data files containing names.\\
+\smallskip
+Download, save in the folder where you keep your python work, and unzip.\\
+\smallskip
+Open Spyder - choosing the correct one as in previous weeks.\\
+\smallskip
 Open \texttt{washing.py}
-
-
 
 \end{frame}
 
+%--------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Using string format in print}
+Today we will use the \lstinline|format| method for inserting variable values into strings when printing.\\
+Here are some examples, try them out.
+\begin{code}
+>>> import numpy as np
+>>> print("{} values with no formatting "
+        "{}, {}, {}, {}".format(
+        4, 1, 'hello', None, np))
+>>> print("Some floats "
+        "pi: {:0.7f}, cos(1): {:0.3f}, "
+        "a big number {:0.4g}, "
+        "general format {:0.5g}".format(
+            np.pi, np.cos(1), np.exp(100), np.pi*100))
+\end{code}
+For each set of \lstinline|{}| a value or variable must be give as arguments in the format method.
+The formatting string in the braces is optional.
+
+\end{frame}
+
+%--------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Testing the WashingMachine 1}
 This is a toy example, in the sense that it does not really do anything useful.
@@ -103,38 +132,43 @@ but it will set your Working Directory.
 Now run these lines in the Python Console
 (remember you can use up and down arrows to select previously run lines)
 \begin{code} 
-mach1 = WashingMachine()
-mach1.load("dirty clothes")
-print("machine contains: {}".format(mach1.contents))
-mach1.wash()
-print("machine contains: {}".format(mach1.contents))
+>>> mach1 = WashingMachine()
+>>> mach1.load("dirty clothes")
+>>> print("machine contains: {}".format(mach1.contents))
+>>> mach1.wash()
+>>> print("machine contains: {}".format(mach1.contents))
 \end{code}
 
 \end{frame}
 
+%--------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Testing the WashingMachine 2}
 You may be disappointed to see that your clothes are still dirty.
 
 Try adding these lines
 \begin{code} 
-mach1.add_detergent()
-mach1.wash()
-print("machine contains: {}".format(mach1.contents))
+>>> mach1.add_detergent()
+>>> mach1.wash()
+>>> print("machine contains: {}".format(mach1.contents))
 \end{code}
 
 \texttt{mach1} is an object of class \texttt{WashingMachine}.
 \texttt{load}, \texttt{wash} and \texttt{add\_detergent}
 are all methods (functions) defined by the class and hence available to the object.
-\texttt{contents} is an attribute.
+\texttt{contents} is an attribute.\\
+\smallskip
+Try washing something else. The class is not very clever, it will let you wash anything.
 
 \end{frame}
 
+%--------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Defining a WasherDryer}
 Now we will define a \texttt{WasherDryer} class by \emph{subclassing} the \texttt{WashingMachine}
 
 Add these lines to the end of the \texttt{washing.py} file (not the Console!)
+\begin{shaded}
 \begin{code} 
 class WasherDryer(WashingMachine):
     """Machine for washing and drying clothes"""
@@ -144,15 +178,17 @@ class WasherDryer(WashingMachine):
         self.model = 'generic washer dryer'
         self.dry_time = 1.0
 \end{code}
-
+\end{shaded}
 \end{frame}
 
+%--------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Add a 'dry' method}
 Now we will add a new method for our new class.
 
 Add these lines to the \texttt{washing.py} file. Note the indentation - 
 it should be at the same level as the \texttt{reset} method
+\begin{shaded}
 \begin{code} 
     def dry(self):
         print("Drying...")
@@ -163,26 +199,29 @@ it should be at the same level as the \texttt{reset} method
                                                    'dry')
         print("Dry cycle finished")
 \end{code}
+\end{shaded}
 \end{frame}
 
+%--------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Testing the WasherDryer}
 
 Now run these lines in the Python Console
 
 \begin{code} 
-wd1 = WasherDryer()
-wd1.load("dirty clothes")
-print("machine contains: {}".format(wd1.contents))
-wd1.add_detergent()
-wd1.wash()
-print("machine contains: {}".format(wd1.contents))
-wd1.dry()
-print("machine contains: {}".format(wd1.contents))
+>>> wd1 = WasherDryer()
+>>> wd1.load("dirty clothes")
+>>> print("machine contains: {}".format(wd1.contents))
+>>> wd1.add_detergent()
+>>> wd1.wash()
+>>> print("machine contains: {}".format(wd1.contents))
+>>> wd1.dry()
+>>> print("machine contains: {}".format(wd1.contents))
 \end{code}
 
 \end{frame}
 
+%--------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{A specific model}
 
@@ -191,19 +230,20 @@ It's faster than the generic model.
 Try it out - run these lines in the Python Console
 
 \begin{code} 
-zan1 = ZanussiZWF91483W()
-zan1.load("dirty clothes")
-print("machine contains: {}".format(zan1.contents))
-zan1.add_detergent()
-zan1.wash()
-print("machine contains: {}".format(zan1.contents))
-zan1.dry()
-print("machine contains: {}".format(zan1.contents))
+>>> zan1 = ZanussiZWF91483W()
+>>> zan1.load("dirty clothes")
+>>> print("machine contains: {}".format(zan1.contents))
+>>> zan1.add_detergent()
+>>> zan1.wash()
+>>> print("machine contains: {}".format(zan1.contents))
+>>> zan1.dry()
+>>> print("machine contains: {}".format(zan1.contents))
 \end{code}
 The \texttt{NotImplementedError} is expected. Hopefully it is informative.
 
 \end{frame}
 
+%--------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Optional Excercise - wash and dry}
 
@@ -214,13 +254,15 @@ the \texttt{WasherDryer} class.
 You can call the other methods (of this class and the \emph{superclass})
 using:
 
+\begin{shaded}
 \begin{code} 
         self.wash()
         self.dry()
 \end{code}
-
+\end{shaded}
 \end{frame}
 
+%-----------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{A useful example - people}
@@ -228,119 +270,132 @@ using:
 The next example is a more realistic use of classes and objects.
 Open the file \texttt{people.py}. 
 
-This contains definitions for classes \texttt{Person} and \texttt{PersonalStatistics}
+This contains definitions for classes \texttt{Person},
+ \texttt{PersonalStatistics} and \texttt{PeopleFactory}
 
 This time we will create a Python script file to try out the classes. 
 A file \texttt{people\_play.py} has been provided for you to add to. Open this one too.
 
-As the classes and functions are in separate file you will need to import them. 
+As the classes and functions are in a separate file you will need to import them. 
 Start by adding this line to \texttt{people\_play.py}
 
+\begin{shaded}
 \begin{code} 
-from people import (Person, generate_random_people, 
+from people import (Person, PeopleFactory, 
                     PersonalStatistics)
 \end{code}
-
+\end{shaded}
 \end{frame}
 
+%--------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Me and my friends}
 The \texttt{Person} class requires that some attributes are set when an object is created.
 This is done by passing arguments when you create a \texttt{Person} object.
 These are the name, sex, age and height respectively.
-Try creating a few people, starting with yourself and few friends. 
-Then add them all to a list. (this is just an example, chose your own names and personal attributes)
+Try creating a few people, starting with yourself and a few friends. 
+Then add them all to a list. This is just an example, chose your own names and personal attributes.
 
+\begin{shaded}
 \begin{code} 
-alex = Person('Alex Pitchford', 'male', 42, 1.75)
-fred = Person('Fred Blogs', 'male', 55, 1.9)
-bilbo = Person('Bilbo Baggins', 'male', 131, 0.9)
-meandmyfriends = [alex, fred, bilbo]
+alex = Person('Alexander Pitchford', 'male', 42, 1.75)
+kath = Person('Katherine Jenkins', 'female', 36, 1.6)
+sid = Person('Sidharth Kashap', 'male', 29, 1.9)
+meandmyfriends = [alex, kath, sid]
 for p in meandmyfriends:
     print(p)
 \end{code}
+\end{shaded}
 Run the script to test it.
 
 \end{frame}
 
-
+%--------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Me and my friends - stats}
-The \texttt{PersonalStatistics} class will accept a list people when it is created.
-Try creating one for you and your friends
+The \texttt{PersonalStatistics} class will accept a list of people when it is created.
+Try creating one for you and your friends. Add these lines to your script.
 
+\begin{shaded}
 \begin{code} 
 mmf_stats = PersonalStatistics(meandmyfriends)
 mmf_stats.report()
 \end{code}
+\end{shaded}
 Run the script to test it.
 You should see the \texttt{report} method provides some statistics 
 on the split of the sexes and on the ages.
 
 \end{frame}
 
+%--------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{More people}
-Now lets try with some bigger data sets. We will use the \texttt{generate\_random\_people}
-function that we imported earlier.
+Now lets try with some bigger data sets. We will use a \texttt{PeopleFactory}
+class object that we imported earlier.
 
+\begin{shaded}
 \begin{code} 
-peeps10 = generate_random_people(10)
+pf = PeopleFactory()
+peeps10 = pf.generate_random_people(10)
 stats10 = PersonalStatistics(peeps10)
 stats10.report()
-peeps100 = generate_random_people(100)
+peeps100 = pf.generate_random_people(100)
 stats100 = PersonalStatistics(peeps100)
 stats100.report()
-peeps10000 = generate_random_people(10000)
+peeps10000 = pf.generate_random_people(10000)
 stats10000 = PersonalStatistics(peeps10000)
 stats10000.report()
 \end{code}
+\end{shaded}
 Run the script to test it.
-You mostly likely see that for the bigger data sets the splits and means approach the distribution, 
-which are 49\%, 49\%, 2\% and 60 years old.
+
 
 \end{frame}
 
+%--------------------------------------------------
 \begin{frame}[fragile]
-\frametitle{Me and my friends - stats}
-The \texttt{PersonalStatistics} class will accept a list people when it is created.
-Try creating one for you and your friends
-
-\begin{code} 
-mmf_stats = PersonalStatistics(meandmyfriends)
-mmf_stats.report()
-\end{code}
-Run the script to test it.
-You should see the \texttt{report} method provides some statistics 
-on the split of the sexes and on the ages.
+\frametitle{Understanding the stats}
+The sex is chosen randomly from a distribution with probabilities 
+male: 49\%, female: 49\%, other: 2\%.
+The age is chosen from a uniform distribution ranging from 1 to 120.
+The height is chosen from a Gaussian distribution with mean 1.7 and standard deviation 0.2.\\
+\bigskip
+You will mostly likely see that for the bigger data sets the splits and means approach the distribution parameters.
 
 \end{frame}
 
 %----------------------------------------------
 \begin{frame}[fragile]
 \frametitle{more stats - standard deviation}
-Now lets add method for calculating the standard deviation of the age
+Now lets add a method for calculating the standard deviation of the age.
 For this we need to edit the class - that's in the \texttt{people.py} file.
 Add this method beneath the \texttt{mean\_age} method.
+\begin{shaded}
 \begin{code} 
     def std_age(self):
         """Calculate the standard deviation
          of age of the people in the list"""
         return np.std([p.age for p in self.people])
 \end{code}
+\end{shaded}
 And this line to the \texttt{report} method
+\begin{shaded}
 \begin{code} 
         print("Std dev age: {:0.2f}".format(
                                 self.std_age()))
 \end{code}
+\end{shaded}
 Run the script \texttt{people\_play.py} to test the new addition.
 
 \end{frame}
 
+%--------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{more stats - height}
 Now we will add stats for the height.
 Add these methods to the \texttt{PersonalStatistics} class
+\begin{shaded}
 \begin{code} 
     def mean_height(self):
         """Calculate the mean average height 
@@ -352,19 +407,37 @@ Add these methods to the \texttt{PersonalStatistics} class
         height of the people in the list"""
         return np.std([p.height for p in self.people])
 \end{code}
-
+\end{shaded}
 \end{frame}
 
+%--------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{report height stats}
 And these lines to the \texttt{report} method
+\begin{shaded}
 \begin{code} 
         print("Mean average height: {:0.2f}".format(
                                   self.mean_height()))
         print("Std dev height: {:0.2f}".format(
                                    self.std_height()))
 \end{code}
+\end{shaded}
 Run the script \texttt{people\_play.py} to test the new additions.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Summary}
+\begin{itemize}
+\item We have created objects from class definitions
+\item We have set object attributes when creating them
+\item We have run methods of the objects
+\item We have added additional attributes and methods to the class definition
+\item We have created a new class, extending another through inheritance
+\item We have processed lists of objects of the same class to calculate statistics
+\end{itemize}
+In the next theory lecture we will look at what all these definitions mean in more detail, 
+and look inside the classes we have used to today to understand how they are constructed.
 
 \end{frame}
 

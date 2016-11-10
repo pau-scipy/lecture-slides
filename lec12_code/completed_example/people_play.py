@@ -9,13 +9,13 @@
 Script for trying out with the people objects
 """
 
-from people import (Person, generate_random_people, 
+from people import (Person, PeopleFactory, 
                     PersonalStatistics)
 
-alex = Person('Alex Pitchford', 'male', 42, 1.75)
-fred = Person('Fred Blogs', 'male', 55, 1.9)
-bilbo = Person('Bilbo Baggins', 'male', 131, 0.9)
-meandmyfriends = [alex, fred, bilbo]
+alex = Person('Alexander Pitchford', 'male', 42, 1.75)
+kath = Person('Katherine Jenkins', 'female', 36, 1.6)
+sid = Person('Sidharth Kashap', 'male', 29, 1.9)
+meandmyfriends = [alex, kath, sid]
 for p in meandmyfriends:
     print(p)
     
@@ -24,21 +24,18 @@ mmf_stats.report()
 
 
 # make some more people
-peeps10 = generate_random_people(10)
+pf = PeopleFactory()
+peeps10 = pf.generate_random_people(10)
 stats10 = PersonalStatistics(peeps10)
 stats10.report()
 
-peeps100 = generate_random_people(100)
+peeps100 = pf.generate_random_people(100)
 stats100 = PersonalStatistics(peeps100)
 stats100.report()
 
-peeps10000 = generate_random_people(10000)
+peeps10000 = pf.generate_random_people(10000)
 stats10000 = PersonalStatistics(peeps10000)
 stats10000.report()
 
-# Add standard deviation for age
-# Add mean and standard deviation for height
-# Add shoe size for Person
 
-# Use property setters for value checking
 
