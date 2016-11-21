@@ -62,19 +62,246 @@ Lecture 13: Object-oriented code
 \end{huge}
 \bigskip
 
-Amanda Clare (afc@aber.ac.uk)
+Alexander Pitchford (agp1@aber.ac.uk)
 
 \end{center}
 \end{frame}
 
-
+%---------------------------------------------------
 \begin{frame}[fragile]
-\frametitle{foo}
+\frametitle{A World Full of Objects}
+The world is full of objects:
+\begin{itemize}
+\item chairs
+\item tables
+\item buildings
+\item planets
+\item stars
+\item washing machines
+\end{itemize}
+
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Things}
+The world also contains other things
+%SpeakerNote: Things that we would not usually call objects
+\begin{itemize}
+\item atoms
+\item animals
+\item people
+\item bacteria
+\item emotions
+\item philosophical concepts
+\end{itemize}
+
+\bigskip
+All these objects and things have characteristics\\
+% chairs have a number of legs
+% plants have a mass and a radius
+% washing machines have a model name
+\smallskip
+and possibly actions associated with them
+% either things they do or have done to them
+% stars radiate
+% washing machines wash clothes
+% emotions can expressed
+% philosophical concepts can be argued
+\bigskip
+
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Object-oriented Programming}
+
+\begin{itemize}
+\item Naturally then we would like some way of representing these things in code
+\item In many computer programming languages objects and things can be represented by \emph{objects}
+\item Characteristics by \emph{attributes} or \emph{properties}
+\item Actions by \emph{methods}
+\item Languages that support this are called \emph{Object-Oriented}
+\item or 'OO' for short
+\end{itemize}
+
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Objects in Python}
+\begin{itemize}
+\item Python is an Object-Oriented language
+% Not as OO as some others, like C++ or Java
+% Many people happily write Python using module and functions 
+% and rarely, if ever, write a custom class
+\item Objects are everywhere in Python
+\item In all the workshops we have used objects
+\item All of these are objects:
+\begin{itemize}
+\item strings
+\item files
+\item modules
+\item lists, dictionaries, numpy arrays
+\item Exceptions
+\item in fact all variables of all types
+\end{itemize}
+\end{itemize}
+% Switch to live demo:
+% showing how strings have methods like upper() and lower()
+% numpy has a __name__ attribute
+% an Exception has a string representation
+% numbers have a real and imaginary part
+\begin{code}
+"ABC".lower()
+numpy.__name__
+\end{code}
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Creating an Object}
+\begin{itemize}
+\item So we 'accidentally' create objects all the time whenever we set a variable value
+\item However, we will focus here on objects from modules
+\item These are examples of creating on object.
+\end{itemize}
+
+\begin{code}
+myobj = ClassName()
+mach1 = WashingMachine()
+pfact = PeopleFactory()
+\end{code}
+
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Creating an Object - with arguments}
+
+\begin{itemize}
+\item In the previous examples no arguments are given
+\item meaning that a generic instance of the object will be created
+\item Sometimes we create them with \emph{initialisation arguments}
+\item These generate objects with some attributes already set to specific values
+\end{itemize}
+
+\begin{code}
+myobj = ClassName(init_arg1, init_arg2)
+mach1 = WashingMachine("Hotpoint WMFUG842G")
+sam = Person("Sam Nicholls", 'male', 25, 1.6)
+pstats = PersonalStatistics(meandmyfriends)
+\end{code}
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Using Objects}
 bar
 \begin{code}
 x = 1 + 5
 \end{code}
 \end{frame}
 
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Defining Objects - Classes}
+% Naming convention 'PascalCase'
+\begin{code}
+x = 1 + 5
+\end{code}
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Class Initialisation}
+bar
+\begin{code}
+x = 1 + 5
+\end{code}
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Attributes}
+bar
+\begin{code}
+x = 1 + 5
+\end{code}
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Methods}
+bar
+\begin{code}
+x = 1 + 5
+\end{code}
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Example - WashingMachine}
+bar
+\begin{code}
+x = 1 + 5
+\end{code}
+\end{frame}
+
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Classification Systems}
+Tree of Life
+Standard model
+\begin{code}
+x = 1 + 5
+\end{code}
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Inheritance}
+bar
+\begin{code}
+x = 1 + 5
+\end{code}
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Example - WasherDryer}
+bar
+\begin{code}
+x = 1 + 5
+\end{code}
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{When to use Custom Objects}
+bar
+\begin{code}
+x = 1 + 5
+\end{code}
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Private attributes and Methods}
+bar
+\begin{code}
+x = 1 + 5
+\end{code}
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Python 'system' attributes and Methods}
+bar
+\begin{code}
+x = 1 + 5
+\end{code}
+\end{frame}
 
 \end{document}
