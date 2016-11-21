@@ -19,14 +19,13 @@ class WashingMachine(object):
     dirty_words = ['dirty', 'filthy', 'grubby', 'soiled']
     wet_words = ['wet', 'damp', 'soggy', 'drenched']
     
-    def __init__(self, model_name=None):
-        """Initialise WashingMachine, optionally with model_name"""
+    def __init__(self):
         # This is called when a new object of this type is created.
         self.reset()
-        if model_name is None:
-            self.model = 'generic washing machine'
-        else:
-            self.model = model_name
+        
+    def reset(self):
+        """Reset all attributes to default values"""
+        self.model = 'generic washing machine'
         self.contents = 'empty'
         self.detergent_avail = False
         self.fill_time = 1.0
@@ -79,4 +78,26 @@ class ZanussiZWF91483W(WashingMachine):
         self.fill_time = 0.5
         self.wash_time = 1.25
         self.spin_time = 0.45
-    
+        
+# ******* Workshop code starts here ********
+
+class WasherDryer(WashingMachine):
+    """Machine for washing and drying clothes"""
+    def reset(self):
+        """Reset all attributes to default values"""
+        WashingMachine.reset(self)
+        self.model = 'generic washer dryer'
+        self.dry_time = 1.0
+
+    def dry(self):
+        print("Drying...")
+        time.sleep(self.dry_time)
+        for ww in self.wet_words:
+            if ww in self.contents:
+                self.contents = self.contents.replace(ww, 'dry')
+        print("Dry cycle finished")
+        
+    def wash_and_dry(self):
+        self.wash()
+        self.dry()
+        
