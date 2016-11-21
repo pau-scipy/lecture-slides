@@ -85,7 +85,7 @@ The world is full of objects:
 %----------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Things}
-The world also contains other things
+The world also contains other things:
 %SpeakerNote: Things that we would not usually call objects
 \begin{itemize}
 \item atoms
@@ -97,12 +97,12 @@ The world also contains other things
 \end{itemize}
 
 \bigskip
-All these objects and things have characteristics\\
+All these objects and things have characteristics,\\
 % chairs have a number of legs
 % plants have a mass and a radius
 % washing machines have a model name
 \smallskip
-and possibly actions associated with them
+and possibly actions associated with them.
 % either things they do or have done to them
 % stars radiate
 % washing machines wash clothes
@@ -117,12 +117,26 @@ and possibly actions associated with them
 \frametitle{Object-oriented Programming}
 
 \begin{itemize}
-\item Naturally then we would like some way of representing these things in code
-\item In many computer programming languages objects and things can be represented by \emph{objects}
-\item Characteristics by \emph{attributes} or \emph{properties}
-\item Actions by \emph{methods}
-\item Languages that support this are called \emph{Object-Oriented}
-\item or 'OO' for short
+\item Naturally then we would like some way of representing these things in code.
+\item In many computer programming languages objects and things can be represented by \emph{objects}.
+\item Characteristics by \emph{attributes} or \emph{properties}.
+\item Actions by \emph{methods}.
+\item Languages that support this are called \emph{Object-Oriented},
+\item or 'OO' for short.
+\end{itemize}
+
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Outline}
+
+\begin{itemize}
+\item Objects in Python
+\item Creating and using objects
+\item Defining objects through classes
+\item Class inheritance
+\item Use of washing machine and people examples
 \end{itemize}
 
 \end{frame}
@@ -131,12 +145,12 @@ and possibly actions associated with them
 \begin{frame}[fragile]
 \frametitle{Objects in Python}
 \begin{itemize}
-\item Python is an Object-Oriented language
+\item Python is an Object-Oriented language.
 % Not as OO as some others, like C++ or Java
 % Many people happily write Python using module and functions 
 % and rarely, if ever, write a custom class
-\item Objects are everywhere in Python
-\item In all the workshops we have used objects
+\item Objects are everywhere in Python.
+\item In all the workshops we have used objects.
 \item All of these are objects:
 \begin{itemize}
 \item strings
@@ -144,8 +158,8 @@ and possibly actions associated with them
 \item modules
 \item lists, dictionaries, numpy arrays
 \item Exceptions
-\item in fact all variables of all types
 \end{itemize}
+\item in fact all variables of all types.
 \end{itemize}
 % Switch to live demo:
 % showing how strings have methods like upper() and lower()
@@ -162,8 +176,8 @@ numpy.__name__
 \begin{frame}[fragile]
 \frametitle{Creating an Object}
 \begin{itemize}
-\item So we 'accidentally' create objects all the time whenever we set a variable value
-\item However, we will focus here on objects from modules
+\item So we 'accidentally' create objects all the time whenever we set a variable value.
+\item However, we will focus here on objects from modules.
 \item These are examples of creating on object.
 \end{itemize}
 
@@ -180,10 +194,10 @@ pfact = PeopleFactory()
 \frametitle{Creating an Object - with arguments}
 
 \begin{itemize}
-\item In the previous examples no arguments are given
-\item meaning that a generic instance of the object will be created
-\item Sometimes we create them with \emph{initialisation arguments}
-\item These generate objects with some attributes already set to specific values
+\item In the previous examples no arguments are given,
+\item meaning that a generic instance of the object will be created.
+\item Sometimes we create them with \emph{initialisation arguments}.
+\item These generate objects with some attributes already set to specific values.
 \end{itemize}
 
 \begin{code}
@@ -191,60 +205,221 @@ myobj = ClassName(init_arg1, init_arg2)
 mach1 = WashingMachine("Hotpoint WMFUG842G")
 sam = Person("Sam Nicholls", 'male', 25, 1.6)
 pstats = PersonalStatistics(meandmyfriends)
+arr1 = numpy.array([1, 2], [3, 4]])
 \end{code}
 \end{frame}
 
 %----------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Using Objects}
-bar
+The attributes and methods of objects are all accessed using the dot '.'
+\begin{itemize}
+\item Setting attributes
 \begin{code}
-x = 1 + 5
+myobj.my_attribute = "some value"
+mach1.model = "Hotpoint WMFUG842G"
+sam.age = 26
 \end{code}
+\item Accessing attributes
+\begin{code}
+print("My attribute value is: " + myobj.my_attribute)
+if mach1.detergent_avail:
+\end{code}
+\item Calling (or running) methods
+\begin{code}
+myobj.my_method(metharg1, metharg2)
+mach1.wash()
+pfact.generate_random_people(1000)
+\end{code}
+% Emphasize the brackets
+\end{itemize}
 \end{frame}
 
 %----------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Defining Objects - Classes}
-% Naming convention 'PascalCase'
+\begin{itemize}
+\item Defining your own custom objects is done through a \emph{class}
+by using the \lstinline|class| statement.
+\item Note the naming convention 'PascalCase'.
+%Explain that this is optional, so don't expect to see it everywhere
+%but that they should use it
+\item Note the \emph{inheritance} (explained later) from \lstinline|object|.
+%Explain that this is optional, but that they should use it
+\item Note the \emph{docstring}, which should explain what the class is for.
+\end{itemize}
 \begin{code}
-x = 1 + 5
+class MyClass(object):
+	"""My class does some interesting things"""
+  # Everything indented at this level 
+  # or beyond is part of the class
 \end{code}
+Note: we can make many instances of \lstinline|MyClass|. 
+Each of which can have different attribute values,
+but they will all be of the same \emph{class} or definition.
+
 \end{frame}
 
-%----------------------------------------------------
-\begin{frame}[fragile]
-\frametitle{Class Initialisation}
-bar
-\begin{code}
-x = 1 + 5
-\end{code}
-\end{frame}
+
 
 %----------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Attributes}
-bar
-\begin{code}
-x = 1 + 5
-\end{code}
+
+\begin{itemize}
+\item Attributes are variables attached to the object.
+\item Attributes have a name and a value.
+\item They are named, by convention, using lower case with underscores as separators, 
+e.g. \lstinline|my_attrib|
+\item An object can be given new attributes at any time,
+\item either from inside or outside the class.
+\item Most commonly they are defined during the initialisation,
+% which will be explained shortly
+\item They are always referred to inside the class using the \lstinline|self| variable.
+\item The \lstinline|self| variable points to the current instance - 
+the object that the code is currently being applied to.
+\end{itemize}
+%
 \end{frame}
 
 %----------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Methods}
-bar
+\begin{itemize}
+\item Methods are functions attached to the object.
+\item Methods have a name and possibly arguments (or parameters).
+\item The first argument should always be the \lstinline|self| variable.
+% These are variables passed to the method
+\item They are named, by convention, using lower case with underscores a separators, 
+e.g. \lstinline|my_method|
+\item The methods will almost certainly use the attributes during their execution.
+\item They may return a value, but don't have to.
+\end{itemize}
+
 \begin{code}
-x = 1 + 5
+  def my_method(self, testtarg1):
+    """Do some work"""
+    if self.my_attrib == testtarg1:
+    	return "Success"
+    else:
+    	return "Fail"
+\end{code}
+
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Class Initialisation}
+\begin{itemize}
+\item A class initialisation method is usually required.
+\item It has to be called \lstinline|__init__|.
+% mention that we will come back to this later
+\item It has to have a first argument, which is always called \lstinline|self|.
+\item In it you can define attributes by setting their values.
+\item These can be hardcoded or based on the method arguments.
+\end{itemize}
+% Note self
+
+\begin{code}
+class MyClass(object):
+  def __init__(self, initarg1, initarg2=None):
+    """Initialise initarg1 and (optionally) initarg2"""
+    self.attrib1 = initarg1
+    if initarg2 is None:
+      self.attrib2 = initarg2
+    else:
+      self.attrib2 = 0.0
+    self.attrib3 = False
+\end{code}
+
+\end{frame}
+
+%----------------------------------------------------
+% Look at example inside of Spyder, this is here just in case
+\begin{frame}[fragile]
+\frametitle{Example - WashingMachine}
+\begin{code}
+class WashingMachine(object):
+    """Machine for washing clothes"""
+    dirty_words = ['dirty', 'filthy', 'grubby', 'soiled']
+    wet_words = ['wet', 'damp', 'soggy', 'drenched']
+    def __init__(self, model_name=None):
+        """Initialise WashingMachine, optionally with model_name"""
+        self.reset()
+        if model_name is None:
+            self.model = 'generic washing machine'
+        else:
+            self.model = model_name
+        self.contents = 'empty'
+        self.detergent_avail = False
+        self.fill_time = 1.0
+        self.wash_time = 2.0
+        self.spin_time = 1.0
 \end{code}
 \end{frame}
 
 %----------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Example - WashingMachine}
-bar
 \begin{code}
-x = 1 + 5
+    def load(self, contents):
+        """Load the machine with the contents"""
+        self.contents = str(contents)
+        
+    def add_detergent(self):
+        """Add some detergent to the machine"""
+        self.detergent_avail = True
+        
+    def empty(self):
+        """Remove the contents"""
+        self.contents = 'empty'
+\end{code}
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Private Attributes and Methods}
+
+% Just talking about these, as they are likely to be encountered
+% We are not going to be using these in the workshop
+\begin{itemize}
+\item In OO programming \emph{private} means 'internal use only'.
+\item There is no implementation of 'private' in Python objects.
+% As is found in some other OO languages
+\item However, often class authors wish to imply privacy.
+\item This is done starting the method or attribute name with a single underscore.
+\begin{code}
+  def _some_private_method(self):
+    self._private_attrib = "some value"
+\end{code}
+
+\item You should avoid accessing them in your code.
+\item Usage may change in future versions of the class.
+\item They may disappear altogether.
+\item We will not be using them in this course.
+\end{itemize}
+
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Python 'system' Attributes and Methods}
+\begin{itemize}
+\item Python system internal, or \emph{magic}, attributes and methods are
+named with double leading and trailing underscores.
+\item You are likely to often use these.
+\item We have come across two already \lstinline|__name__| and \lstinline|__init__|.
+\item Some other useful ones are \lstinline|__str__| and \lstinline|__repr__|.
+\item If you implement them in your class, then they define how the objects will be represented as string.
+\item For instance when the object is printed.
+\item There is an example in the workshop \lstinline|Person| class.
+\end{itemize}
+\begin{code}
+  def __str__(self):
+    return "{} of name {}".format(self.__class__.__name__, 
+                              self.name)
+		
+print(myobj)
 \end{code}
 \end{frame}
 
@@ -252,20 +427,40 @@ x = 1 + 5
 %----------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Classification Systems}
-Tree of Life
-Standard model
-\begin{code}
-x = 1 + 5
-\end{code}
+\begin{itemize}
+\item Often we can classify things hierarchically.
+\begin{itemize}
+\item We could define something called 'Furniture', to which both 'Table' and 'Chair' belong
+\item Planets and Stars are both types of celestial body
+\item A Salmon is a type of Fish, which is in turn a type of Animal
+\item A WasherDryer is a type of Washing Machine.
+\item A Student and a Lecturer are both sub-types of Person
+\end{itemize}
+\item Mathematically we could one a 'subset' of the other.
+\end{itemize}
+
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Example Hierarchy}
+Find some Tree of Life image for here
+Maybe also the Standard Model
+
 \end{frame}
 
 %----------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Inheritance}
 bar
+% Superclasses and sub-classes
+% overriding methods
+% calling the superclass methods
+
 \begin{code}
 x = 1 + 5
 \end{code}
+
 \end{frame}
 
 %----------------------------------------------------
@@ -275,33 +470,23 @@ bar
 \begin{code}
 x = 1 + 5
 \end{code}
+
 \end{frame}
 
 %----------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{When to use Custom Objects}
 bar
-\begin{code}
-x = 1 + 5
-\end{code}
+
+
 \end{frame}
 
 %----------------------------------------------------
 \begin{frame}[fragile]
-\frametitle{Private attributes and Methods}
+\frametitle{Summary}
 bar
-\begin{code}
-x = 1 + 5
-\end{code}
-\end{frame}
 
-%----------------------------------------------------
-\begin{frame}[fragile]
-\frametitle{Python 'system' attributes and Methods}
-bar
-\begin{code}
-x = 1 + 5
-\end{code}
+
 \end{frame}
 
 \end{document}

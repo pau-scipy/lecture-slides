@@ -19,13 +19,14 @@ class WashingMachine(object):
     dirty_words = ['dirty', 'filthy', 'grubby', 'soiled']
     wet_words = ['wet', 'damp', 'soggy', 'drenched']
     
-    def __init__(self):
+    def __init__(self, model_name=None):
+        """Initialise WashingMachine, optionally with model_name"""
         # This is called when a new object of this type is created.
         self.reset()
-        
-    def reset(self):
-        """Reset all attributes to default values"""
-        self.model = 'generic washing machine'
+        if model_name is None:
+            self.model = 'generic washing machine'
+        else:
+            self.model = model_name
         self.contents = 'empty'
         self.detergent_avail = False
         self.fill_time = 1.0
