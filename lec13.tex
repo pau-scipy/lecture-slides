@@ -154,7 +154,6 @@ and possibly actions associated with them.
 \item All of these are objects:
 \begin{itemize}
 \item strings
-\item files
 \item modules
 \item lists, dictionaries, numpy arrays
 \item Exceptions
@@ -176,9 +175,8 @@ numpy.__name__
 \begin{frame}[fragile]
 \frametitle{Creating an Object}
 \begin{itemize}
-\item So we 'accidentally' create objects all the time whenever we set a variable value.
-\item However, we will focus here on objects from modules.
-\item These are examples of creating on object.
+\item So we create objects all the time whenever we set a variable value.
+\item These are examples of creating an object.
 \end{itemize}
 
 \begin{code}
@@ -237,49 +235,40 @@ pfact.generate_random_people(1000)
 
 %----------------------------------------------------
 \begin{frame}[fragile]
-\frametitle{Defining Objects - Classes}
+\frametitle{Classes}
+\begin{itemize}
+\item An object is a single \emph{instance} of a thing.
+\item To produce many instances, we use a template, or, mould.
+\item This template we call a \emph{class}
+\item Each instance need not be identical.
+\item It may have different characteristics,
+\item but the same actions will be applicable.
+\end{itemize}
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Defining Objects through Classes}
 \begin{itemize}
 \item Defining your own custom objects is done through a \emph{class}
 by using the \lstinline|class| statement.
-\item Note the naming convention 'PascalCase'.
+\begin{code}
+class MyClass(object):
+  """My class does some interesting things"""
+  # Everything indented at this level 
+  # or beyond is part of the class
+\end{code}
+\item Note the naming convention 'CapWords'.
 %Explain that this is optional, so don't expect to see it everywhere
 %but that they should use it
 \item Note the \emph{inheritance} (explained later) from \lstinline|object|.
 %Explain that this is optional, but that they should use it
 \item Note the \emph{docstring}, which should explain what the class is for.
 \end{itemize}
-\begin{code}
-class MyClass(object):
-	"""My class does some interesting things"""
-  # Everything indented at this level 
-  # or beyond is part of the class
-\end{code}
 Note: we can make many instances of \lstinline|MyClass|. 
 Each of which can have different attribute values,
-but they will all be of the same \emph{class} or definition.
+but they will all be of the same \emph{class}.
 
-\end{frame}
-
-
-
-%----------------------------------------------------
-\begin{frame}[fragile]
-\frametitle{Attributes}
-
-\begin{itemize}
-\item Attributes are variables attached to the object.
-\item Attributes have a name and a value.
-\item They are named, by convention, using lower case with underscores as separators, 
-e.g. \lstinline|my_attrib|
-\item An object can be given new attributes at any time,
-\item either from inside or outside the class.
-\item Most commonly they are defined during the initialisation,
-% which will be explained shortly
-\item They are always referred to inside the class using the \lstinline|self| variable.
-\item The \lstinline|self| variable points to the current instance - 
-the object that the code is currently being applied to.
-\end{itemize}
-%
 \end{frame}
 
 %----------------------------------------------------
@@ -292,11 +281,11 @@ the object that the code is currently being applied to.
 % These are variables passed to the method
 \item They are named, by convention, using lower case with underscores a separators, 
 e.g. \lstinline|my_method|
-\item The methods will almost certainly use the attributes during their execution.
 \item They may return a value, but don't have to.
 \end{itemize}
-
+Methods are defined in the class:
 \begin{code}
+class MyClass(object):
   def my_method(self, testtarg1):
     """Do some work"""
     if self.my_attrib == testtarg1:
@@ -305,6 +294,49 @@ e.g. \lstinline|my_method|
     	return "Fail"
 \end{code}
 
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Use of self}
+\begin{itemize}
+\item Note the use of \lstinline|self| in the method.
+\begin{code}
+class MyClass(object):
+  def my_method(self, testtarg1):
+\end{code}
+\item The \lstinline|self| variable points to the current instance - 
+the object that called the method.
+\item It should be the first argument of all methods.
+\item It is passed automatically when the object method is called.
+\begin{code}
+myobj = MyClass()
+ret = myobj.my_method(testthis)
+\end{code}
+\item This is equivalent
+\begin{code}
+myobj = MyClass()
+ret = MyClass.my_method(myobj, testthis)
+\end{code}
+\end{itemize}
+
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Attributes}
+
+\begin{itemize}
+\item Attributes are variables attached to the object.
+\item Attributes have a name and a value.
+\item They are named, by convention, using lower case with underscores as separators, 
+e.g. \lstinline|my_attrib|
+\item Attributes are created when the value is set during the initialisation.
+% which will be explained shortly
+\item The methods will almost certainly use the attributes during their execution.
+\item They are always referred to in the methods using the \lstinline|self| variable.
+\end{itemize}
+%
 \end{frame}
 
 %----------------------------------------------------
