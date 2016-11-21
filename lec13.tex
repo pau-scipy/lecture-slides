@@ -452,14 +452,48 @@ Maybe also the Standard Model
 %----------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Inheritance}
-bar
+% This is where the true power of OO programming resides
+\begin{itemize}
+\item Through \emph{inheritance} we can define classes in a hierarchical way.
+\item A new class can inherit all the attributes and methods of its \emph{superclass}
+\item This class is then called the \emph{subclass} of the \emph{superclass}
+\begin{code}
+  class MySubClass(TheSuperClass):
+\end{code}
+\item The superclass could be something that you wrote yourself,
+\item or it could be something from Python's core or some other module.
+\item This can be very powerful, as you can always use the subclass wherever the superclass is used.
+\item For instance, one could subclass the numpy array, add some new functionality, 
+but still use all the numpy methods that accept arrays.
+% The numpy matrix is an example of this
+
+\end{itemize}
 % Superclasses and sub-classes
 % overriding methods
 % calling the superclass methods
 
+
+\end{frame}
+
+%----------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Overriding}
+% overriding methods
+% calling the superclass methods
+
+\begin{itemize}
+\item All the superclass methods are available to the subclass.
+\item However, the function of these methods can be changed through \emph{overriding}.
+\item To override a method one simply implements a new method with the same name.
+\item Often the subclass wants to call the superclass method that it overrides,
+\item particularly when overriding the \lstinline|__init__| method.
 \begin{code}
-x = 1 + 5
+  class MySubClass(TheSuperClass):
+    def __init__(self, initarg)
+      TheSuperClass.__init__(self, initarg)
+      # subclass specific stuff here
 \end{code}
+\end{itemize}
 
 \end{frame}
 
