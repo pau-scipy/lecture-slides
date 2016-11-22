@@ -124,9 +124,12 @@ and possibly actions associated with them.
 
 \begin{itemize}
 \item Naturally then we would like some way of representing these things in code.
+\pause
 \item In many computer programming languages objects and things can be represented by \emph{objects}.
+\pause
 \item Characteristics by \emph{attributes} or \emph{properties}.
 \item Actions by \emph{methods}.
+\pause
 \item Languages that support this are called \emph{Object-Oriented},
 \item or 'OO' for short.
 \end{itemize}
@@ -157,6 +160,7 @@ and possibly actions associated with them.
 % and rarely, if ever, write a custom class
 \item Objects are everywhere in Python.
 \item We have used objects in all the workshops.
+\pause
 \item All of these are objects:
 \begin{itemize}
 \item strings
@@ -164,6 +168,7 @@ and possibly actions associated with them.
 \item lists, dictionaries, numpy arrays
 \item Exceptions
 \end{itemize}
+\pause
 \item In fact all variables of all types.
 \end{itemize}
 % Switch to live demo:
@@ -182,6 +187,7 @@ numpy.__name__
 \frametitle{Creating an Object}
 \begin{itemize}
 \item So we create objects all the time whenever we set a variable value.
+\pause
 \item These are examples of creating an object.
 \end{itemize}
 
@@ -201,6 +207,7 @@ pfact = PeopleFactory()
 \item In the previous examples no arguments are given,
 \item meaning that a generic object will be created -
 \item Repeated calls will make identical objects.
+\pause
 \item Sometimes we create them with \emph{initialisation arguments}.
 \item These generate objects with some attributes already set to specific values.
 \end{itemize}
@@ -225,11 +232,13 @@ myobj.my_attribute = "some value"
 mach1.model = "Hotpoint WMFUG842G"
 sam.age = 26
 \end{code}
+\pause
 \item Accessing attributes
 \begin{code}
 print("My attribute value is: " + myobj.my_attribute)
 if mach1.detergent_avail:
 \end{code}
+\pause
 \item Calling (or running) methods
 \begin{code}
 myobj.my_method(metharg1, metharg2)
@@ -246,12 +255,14 @@ pfact.generate_random_people(1000)
 \begin{itemize}
 \item An object is a single \emph{instance} of a thing.
 \item To produce many instances, we use a template, or, mould.
-\item This template we call a \emph{class}
+\item This template we call a \emph{class}.
+\pause
 \item Each instance need not be identical.
 \item It may have different characteristics - 
 \begin{itemize}
 \item different attribute values
 \end{itemize}
+\pause
 \item But the same actions will be applicable -
 \begin{itemize}
 \item the same methods will be available
@@ -278,7 +289,8 @@ class MyClass(object):
 %Explain that this is optional, but that they should use it
 \item Note the \emph{docstring}, which should explain what the class is for.
 \end{itemize}
-Note: we can make many instances of \lstinline|MyClass|. 
+\pause
+Note: we can make many instances of \lstinline|MyClass| as objects. 
 Each of which can have different attribute values,
 but all instances will all be of the same \emph{class}.
 
@@ -296,12 +308,13 @@ but all instances will all be of the same \emph{class}.
 e.g. \lstinline|my_method|
 \item They may return a value, but don't have to.
 \end{itemize}
+\pause
 Methods are defined in the class:
 \begin{code}
 class MyClass(object):
-  def my_method(self, testtarg1):
+  def my_method(self, testarg1):
     """Do some work"""
-    if self.my_attrib == testtarg1:
+    if self.my_attrib == testarg1:
     	return "Success"
     else:
     	return "Fail"
@@ -316,20 +329,22 @@ class MyClass(object):
 \item Note the use of \lstinline|self| in the method.
 \begin{code}
 class MyClass(object):
-  def my_method(self, testtarg1):
+  def my_method(self, testarg1):
 \end{code}
 \item The \lstinline|self| variable points to the current instance - 
 the object that called the method.
 \item It should be the first argument of all methods.
+\pause
 \item It is passed automatically when the object method is called.
 \begin{code}
 myobj = MyClass()
-ret = myobj.my_method(testthis)
+ret = myobj.my_method(test)
 \end{code}
+\pause
 \item This is equivalent
 \begin{code}
 myobj = MyClass()
-ret = MyClass.my_method(myobj, testthis)
+ret = MyClass.my_method(myobj, test)
 \end{code}
 \end{itemize}
 
@@ -344,9 +359,12 @@ ret = MyClass.my_method(myobj, testthis)
 \item Attributes have a name and a value.
 \item They are named, by convention, using lower case with underscores as separators, 
 e.g. \lstinline|my_attrib|
+\pause
 \item Attributes are created when the value is set during the initialisation.
 % which will be explained shortly
+\pause
 \item The methods will almost certainly use the attributes during their execution.
+\pause
 \item They are always referred to in the methods using the \lstinline|self| variable.
 \end{itemize}
 \begin{code}
@@ -364,12 +382,13 @@ class MyClass(object):
 \item A class initialisation method is usually required.
 \item It has to be called \lstinline|__init__|.
 % mention that we will come back to this later
-\item The first argument will be \lstinline|self|. 
+\item The first argument will be \lstinline|self|.
+\pause
 \item There can be others, either required or optional (kwargs).
 \item The method can define attributes by setting their values.
+\pause
 \item These can be hardcoded or based on the method arguments.
 \end{itemize}
-% Note self
 
 \begin{code}
 class MyClass(object):
@@ -377,9 +396,9 @@ class MyClass(object):
     """Initialise initarg1 and (optionally) initarg2"""
     self.attrib1 = initarg1
     if initarg2 is None:
-      self.attrib2 = initarg2
-    else:
       self.attrib2 = 0.0
+    else:
+      self.attrib2 = initarg2
     self.attrib3 = False
 \end{code}
 
@@ -454,10 +473,11 @@ class SomeClass(object):
   def _some_private_method(self):
     self._private_attrib = "some value"
 \end{code}
-
+\pause
 \item You should avoid accessing them in your code.
 \item Usage may change in future versions of the class.
 \item They may disappear altogether.
+\pause
 \item We will not be using them in this course.
 \end{itemize}
 
@@ -470,8 +490,10 @@ class SomeClass(object):
 \item Python system internal, or \emph{magic}, attributes and methods are
 named with double leading and trailing underscores.
 \item You must \emph{not} name your attributes with double leading and trailing underscores!
+\pause
 \item You are likely to often use these magic methods.
 \item We have come across two already \lstinline|__name__| and \lstinline|__init__|.
+\pause
 \item Some other useful ones are \lstinline|__str__| and \lstinline|__repr__|.
 \item If you implement them in your class, then they define how the objects will be represented as string.
 \item For instance when the object is printed.
@@ -506,12 +528,14 @@ print(myobj)
 \item Often we can classify things hierarchically.
 \begin{itemize}
 \item 'Table' and 'Chair' both belong to a \emph{supertype} 'Furniture'.
+\pause
 \item Planets and Stars are both sub-types of CelestialBody
 \item Salmon is a sub-type of Fish, which is in turn a sub-type of Animal
 \item WasherDryer is a sub-type of Washing Machine.
 \item Student and Lecturer are both sub-types of Person
 \end{itemize}
-\item Mathematically we could call some a 'subsets' of the other.
+\pause
+\item Mathematically we could call some classifications 'subsets' of the others.
 \end{itemize}
 
 \end{frame}
@@ -519,8 +543,6 @@ print(myobj)
 %----------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Example Hierarchy}
-% Find some Tree of Life image for here
-% Maybe also the Standard Model
 \includegraphics[width=10cm]{animal_hierarch.pdf}
 \end{frame}
 
@@ -530,23 +552,22 @@ print(myobj)
 % This is where the true power of OO programming resides
 \begin{itemize}
 \item Through \emph{inheritance} we can define classes in a hierarchical way.
+\pause
 \item A new class can inherit all the attributes and methods of its \emph{superclass}
 \item This class is then called the \emph{subclass} of the \emph{superclass}
 \begin{code}
   class MySubClass(TheSuperClass):
 \end{code}
+\pause
 \item The superclass could be something that you wrote yourself,
 \item or it could be something from Python's core or some other module.
+\pause
 \item This can be very powerful, as you can always use the subclass wherever the superclass is used.
+\pause
 \item For instance, one could subclass the numpy array, add some new functionality, 
 but still use all the numpy methods that accept arrays.
 % The numpy matrix is an example of this
-
 \end{itemize}
-% Superclasses and sub-classes
-% overriding methods
-% calling the superclass methods
-
 
 \end{frame}
 
@@ -603,8 +624,10 @@ class WasherDryer(WashingMachine):
 \begin{itemize}
 \item When there are many things with the same function and characteristics,
 but different values for the characteristics.
+\pause
 \begin{itemize}
 \item A data set, such as experimental output, is a good example.
+\pause
 \end{itemize}
 \item When there is a hierarchy to the structure of function.
 \end{itemize}
@@ -616,9 +639,13 @@ but different values for the characteristics.
 \frametitle{Summary}
 \begin{itemize}
 \item Objects are everywhere in Python.
+\pause
 \item Objects are defined by templates called classes
+\pause
 \item Objects are created using the class.
+\pause
 \item Classes define the methods (functions) and attributes (characteristics) of the objects.
+\pause
 \item Classes can be defined in a hierarchy, each inheriting the methods and attributes of the parent.
 \end{itemize}
 
