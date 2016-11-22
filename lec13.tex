@@ -100,13 +100,14 @@ The world also contains other things:
 \item emotions
 \item philosophical concepts
 \end{itemize}
-
+\pause
 \bigskip
 All these objects and things have characteristics,\\
 % chairs have a number of legs
 % plants have a mass and a radius
 % washing machines have a model name
 \smallskip
+\pause
 and possibly actions associated with them.
 % either things they do or have done to them
 % stars radiate
@@ -155,7 +156,7 @@ and possibly actions associated with them.
 % Many people happily write Python using module and functions 
 % and rarely, if ever, write a custom class
 \item Objects are everywhere in Python.
-\item In all the workshops we have used objects.
+\item We have used objects in all the workshops.
 \item All of these are objects:
 \begin{itemize}
 \item strings
@@ -163,7 +164,7 @@ and possibly actions associated with them.
 \item lists, dictionaries, numpy arrays
 \item Exceptions
 \end{itemize}
-\item in fact all variables of all types.
+\item In fact all variables of all types.
 \end{itemize}
 % Switch to live demo:
 % showing how strings have methods like upper() and lower()
@@ -198,7 +199,8 @@ pfact = PeopleFactory()
 
 \begin{itemize}
 \item In the previous examples no arguments are given,
-\item meaning that a generic instance of the object will be created.
+\item meaning that a generic object will be created -
+\item Repeated calls will make identical objects.
 \item Sometimes we create them with \emph{initialisation arguments}.
 \item These generate objects with some attributes already set to specific values.
 \end{itemize}
@@ -246,8 +248,14 @@ pfact.generate_random_people(1000)
 \item To produce many instances, we use a template, or, mould.
 \item This template we call a \emph{class}
 \item Each instance need not be identical.
-\item It may have different characteristics,
-\item but the same actions will be applicable.
+\item It may have different characteristics - 
+\begin{itemize}
+\item different attribute values
+\end{itemize}
+\item But the same actions will be applicable -
+\begin{itemize}
+\item the same methods will be available
+\end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -259,11 +267,11 @@ pfact.generate_random_people(1000)
 by using the \lstinline|class| statement.
 \begin{code}
 class MyClass(object):
-  """My class does some interesting things"""
+  """MyClass does some interesting things"""
   # Everything indented at this level 
   # or beyond is part of the class
 \end{code}
-\item Note the naming convention 'CapWords'.
+\item Note the naming convention: 'CapWords'.
 %Explain that this is optional, so don't expect to see it everywhere
 %but that they should use it
 \item Note the \emph{inheritance} (explained later) from \lstinline|object|.
@@ -272,7 +280,7 @@ class MyClass(object):
 \end{itemize}
 Note: we can make many instances of \lstinline|MyClass|. 
 Each of which can have different attribute values,
-but they will all be of the same \emph{class}.
+but all instances will all be of the same \emph{class}.
 
 \end{frame}
 
@@ -341,7 +349,12 @@ e.g. \lstinline|my_attrib|
 \item The methods will almost certainly use the attributes during their execution.
 \item They are always referred to in the methods using the \lstinline|self| variable.
 \end{itemize}
-%
+\begin{code}
+class MyClass(object):
+  def my_method(self, testtarg1):
+    if self.my_attrib == testtarg1:
+      # do something
+\end{code}
 \end{frame}
 
 %----------------------------------------------------
@@ -437,6 +450,7 @@ bosch = WashingMachine(model_name="Bosch WAN28280GB")
 \item However, often class authors wish to imply privacy.
 \item This is done starting the method or attribute name with a single underscore.
 \begin{code}
+class SomeClass(object):
   def _some_private_method(self):
     self._private_attrib = "some value"
 \end{code}
@@ -455,10 +469,10 @@ bosch = WashingMachine(model_name="Bosch WAN28280GB")
 \begin{itemize}
 \item Python system internal, or \emph{magic}, attributes and methods are
 named with double leading and trailing underscores.
-\item You are likely to often use these.
+\item You must \emph{not} name your attributes with double leading and trailing underscores!
+\item You are likely to often use these magic methods.
 \item We have come across two already \lstinline|__name__| and \lstinline|__init__|.
 \item Some other useful ones are \lstinline|__str__| and \lstinline|__repr__|.
-\item You must \emph{not} name your attributes with double leading and trailing underscores!
 \item If you implement them in your class, then they define how the objects will be represented as string.
 \item For instance when the object is printed.
 \item There is an example in the workshop \lstinline|Person| class.
@@ -491,10 +505,10 @@ print(myobj)
 \begin{itemize}
 \item Often we can classify things hierarchically.
 \begin{itemize}
-\item We could define 'Furniture', to which both 'Table' and 'Chair' belong
+\item 'Table' and 'Chair' both belong to a \emph{supertype} 'Furniture'.
 \item Planets and Stars are both sub-types of CelestialBody
 \item Salmon is a sub-type of Fish, which is in turn a sub-type of Animal
-\item WasherDryer is a type of Washing Machine.
+\item WasherDryer is a sub-type of Washing Machine.
 \item Student and Lecturer are both sub-types of Person
 \end{itemize}
 \item Mathematically we could call some a 'subsets' of the other.
@@ -505,11 +519,9 @@ print(myobj)
 %----------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Example Hierarchy}
-Find some Tree of Life image for here
-Maybe also the Standard Model
-
-Image taken from Review of the Universe, [topic], [sub-topic] in website: universe-review.ca
-
+% Find some Tree of Life image for here
+% Maybe also the Standard Model
+\includegraphics[width=10cm]{animal_hierarch.pdf}
 \end{frame}
 
 %----------------------------------------------------
@@ -594,7 +606,7 @@ but different values for the characteristics.
 \begin{itemize}
 \item A data set, such as experimental output, is a good example.
 \end{itemize}
-\item When there is a hierarchical to the structure of function.
+\item When there is a hierarchy to the structure of function.
 \end{itemize}
 
 \end{frame}
@@ -605,6 +617,7 @@ but different values for the characteristics.
 \begin{itemize}
 \item Objects are everywhere in Python.
 \item Objects are defined by templates called classes
+\item Objects are created using the class.
 \item Classes define the methods (functions) and attributes (characteristics) of the objects.
 \item Classes can be defined in a hierarchy, each inheriting the methods and attributes of the parent.
 \end{itemize}
