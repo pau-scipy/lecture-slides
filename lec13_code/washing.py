@@ -18,14 +18,16 @@ class WashingMachine(object):
     
     dirty_words = ['dirty', 'filthy', 'grubby', 'soiled']
     wet_words = ['wet', 'damp', 'soggy', 'drenched']
-    
-    def __init__(self):
-        # This is called when a new object of this type is created.
-        self.reset()
         
-    def reset(self):
-        """Reset all attributes to default values"""
-        self.model = 'generic washing machine'
+    def __init__(self, model_name=None):
+        """
+        Initialise WashingMachine, optionally with model_name
+        Set all other attributes to default values
+        """
+        if model_name is None:
+            self.model = 'generic washing machine'
+        else:
+            self.model = model_name
         self.contents = 'empty'
         self.detergent_avail = False
         self.fill_time = 1.0
@@ -69,27 +71,28 @@ class WashingMachine(object):
         # Not implemented in this class, only here to give an Exception
         raise NotImplementedError(
                 "{} cannot dry, try another machine".format(self.model))
-        
+
+
 class ZanussiZWF91483W(WashingMachine):
     """A 9kg load washing machine from Zanussi"""
-    def reset(self):
-        WashingMachine.reset(self)
-        self.model = 'ZWF91483W'
+    def __init__(self):
+        WashingMachine.__init__(self, model_name='ZWF91483W')
         self.fill_time = 0.5
         self.wash_time = 1.25
         self.spin_time = 0.45
-        
-# ******* Workshop code starts here ********
+
 
 class WasherDryer(WashingMachine):
     """Machine for washing and drying clothes"""
-    def reset(self):
-        """Reset all attributes to default values"""
-        WashingMachine.reset(self)
+    def __init__(self, model_name=None):
+        """Set all attributes to default values"""
+        # This will set the WashingMachine attributes
+        WashingMachine.__init__(self)
         self.model = 'generic washer dryer'
         self.dry_time = 1.0
 
     def dry(self):
+        """Run the dry cycle of the machine"""
         print("Drying...")
         time.sleep(self.dry_time)
         for ww in self.wet_words:
@@ -98,6 +101,7 @@ class WasherDryer(WashingMachine):
         print("Dry cycle finished")
         
     def wash_and_dry(self):
+        """Run the combined wash and dry cycle"""
         self.wash()
         self.dry()
         
