@@ -4,6 +4,10 @@
 \usepackage{color}
 \usepackage{hyperref}
 
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{upquote}
+
 % Default fixed font does not support bold face
 \DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
 \DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{10}  % for normal
@@ -13,6 +17,18 @@
 \definecolor{deepblue}{rgb}{0,0,0.5}
 \definecolor{deepred}{rgb}{0.6,0,0}
 \definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{shadecolor}{rgb}{1, 0.9, 0.3}
+
+% To make quotes
+\def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
+  \hbox{}\nobreak\hfil(#1)%
+  \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
+
+\newsavebox\mybox
+\newenvironment{aquote}[1]
+  {\savebox\mybox{#1}\begin{quote}}
+  {\signed{\usebox\mybox}\end{quote}}
+
 
 \usepackage{listings}
 
@@ -26,7 +42,10 @@ emph={MyClass,__init__},          % Custom highlighting
 emphstyle=\ttb\color{deepred},    % Custom highlighting style
 stringstyle=\color{deepgreen},
 frame=tb,                         % Any extra options here
-showstringspaces=false            % 
+showstringspaces=false,            % 
+upquote=True,
+columns=fullflexible,
+basicstyle=\ttfamily
 }}
 
 
@@ -46,12 +65,19 @@ showstringspaces=false            %
 % hands on examples of using objects: e.g. datetime
 
 \begin{frame}
-\frametitle{CS24420 \& MA25220 \& MT25220}
+\frametitle{CS24420 \& MA25220 \& MT25220 \& MX35220 \& CSM0120}
 
 \begin{center}
 \begin{huge}
 Lecture 14: Example objects
 \end{huge}
+
+\bigskip
+
+\begin{huge}
+datetime, requests and BeautifulSoup
+\end{huge}
+
 \bigskip
 
 Amanda Clare (afc@aber.ac.uk)
@@ -59,14 +85,347 @@ Amanda Clare (afc@aber.ac.uk)
 \end{center}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Using objects from Python's libraries}
+We're going to make and use some objects from classes that are defined
+in Python's libraries.
+\begin{itemize}
+\item datetime (for working with dates and times)
+\item requests (for getting data from the web)
+\item BeautifulSoup (for extracting data from HTML and XML)
+\end{itemize}
+\end{frame}
 
 \begin{frame}[fragile]
-\frametitle{foo}
-bar
+\frametitle{Before we do that:}
+You've actually already been doing plenty of this.
 \begin{code}
-x = 1 + 5
+a = np.array([4, 5, 3, 2, 9, 4])
+print(a.shape)
+b = a.reshape(2, 3)
+
+s = str(2787673)
+if s.endswith('0'):
+   print("divisible by 10")
 \end{code}
 \end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Datetime}
+Dates and times are actually quite complicated: 
+
+
+\begin{aquote} {Wikipedia}
+The Julian calendar has been replaced as the civil calendar by the Gregorian calendar in almost all countries which formerly used it, although it continued to be the civil calendar of some countries into the 20th century. Egypt converted on 20 December 1874/1 January 1875. Turkey switched (for fiscal purposes) on 16 February/1 March 1917. Russia changed on 1/14 February 1918. The original proposal in Russia had been to drop 24 hours every year, spreading the change over thirteen years, and to drop the leap day in years exactly divisible by 128 (e.g. 1920). Greece made the change for civil purposes on 16 February/1 March 1923 ...
+\end{aquote}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Datetime}
+Python has a module called datetime. This module has the following classes:
+\begin{itemize}
+\item datetime.time
+\item datetime.date
+\item datetime.datetime
+\item datetime.timedelta
+\item datetime.timezone
+\end{itemize}
+\url{https://docs.python.org/3/library/datetime.html}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Datetime}
+
+\begin{code}
+>>> import datetime
+>>> today = datetime.datetime(2016, 11, 25)
+>>> print(today.weekday())
+\end{code}
+
+\bigskip
+
+Try out the day you were born. \\
+What day of the week will Jan 1st 2017 be?
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Datetime}
+We can get the time now with the datetime.now() function.
+\begin{code}
+>>> import datetime
+>>> now = datetime.datetime.now()
+\end{code}
+
+\bigskip
+
+Look at the \texttt{minute} attribute of \texttt{now}. \\
+Call the
+\texttt{weekday} and \texttt{timetuple} methods of \texttt{now}.
+\begin{code}
+>>> print("The minute is: " + str(now.minute)
+>>> print("Weekday number is: " + str(now.weekday()))
+>>> print(now.timetuple())
+\end{code}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Date and time}
+We can make a \texttt{date} object and a \texttt{time} object. We can then combine the two to make a \texttt{datetime} object.
+\begin{code}
+>>> meeting = datetime.time(13, 10)
+>>> standrew = datetime.date(2016, 11, 30)
+>>> ma = datetime.datetime.combine(standrew, meeting)
+>>> print(ma.timetuple())
+\end{code}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Creating a datetime out of a string}
+\begin{code}
+import datetime as dt
+
+x = "2016-01-25 11:33 AM GMT"
+
+# We need to describe the format of the string
+format = "%Y-%m-%d %I:%M %p %Z"
+
+mydt = dt.datetime.strptime(x, format)
+\end{code}
+
+Suitable format codes can be found by reading the documentation for
+\texttt{strptime} in
+the datetime
+module. \url{https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{How long until Christmas?}
+\begin{code}
+>>> now = datetime.datetime.now()
+>>> xmas = datetime.datetime(2016, 12, 25)
+>>> difference = xmas - now
+>>> print(difference)
+>>> print(difference.days)
+\end{code}
+If we subtract one datetime from another then the difference is a \texttt{datetime.timedelta} object.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{What date is 100 days from today?}
+\begin{code}
+>>> now = datetime.datetime.now()
+>>> hundred_days = datetime.timedelta(days=100)
+>>> new_date = now + hundred_days
+>>> print(str(new_date.month) + " " + str(new_date.day))
+\end{code}
+We can add or subtract a timedelta from a datetime.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exercise}
+The full moon occurs approximately every 29.53 days. 
+
+\bigskip
+
+If the next full moon in Aberystwyth occurs on
+14th December at 00:05, use a loop to calculate and print when the
+next 12 full moons occur.
+
+\bigskip
+
+Compare your answers with
+\url{https://www.timeanddate.com/moon/phases/uk/aberystwyth?year=2017}. The
+dates should be correct but the times will vary slightly, because
+29.53 is an approximation and doesn't account for the elliptical
+orbit. 
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{requests and BeautifulSoup}
+Two very handy Python libraries: \texttt{requests} for getting data
+from the web, and \texttt{BeautifulSoup} for extracting the components
+of HTML or XML from web pages.
+
+\bigskip
+
+But first... Have a look at \url{https://arxiv.org}, which is a searchable
+collection of academic literature in physics, maths and CS.  Search
+for "exomars".
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{arXiv can be searched using Python}
+We can use Python's \texttt{requests} library to do the same search.
+\begin{code}
+import requests
+
+url = "http://export.arxiv.org/api/query?" 
+url += "search_query=all:exomars" 
+url += "&start=0&max_results=10"
+
+result = requests.get(url)
+print(result.status_code) # 200 is good
+
+xml_text = response.text
+print(xml_text)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The result will be XML}
+XML stands for eXtensible Markup Language.
+
+It is a (somewhat) readable format for representing data.
+
+It uses tags to mark up text.
+
+\bigskip
+
+\begin{code}
+<author>Amanda Clare</author>
+<title>Lecture 14</title>
+\end{code} 
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{XML tags can be nested}
+
+\begin{code}
+<data>
+    <student>
+        <username>aaa</username>
+        <forename>Amy</forename>
+        <surname>Andrews</surname>
+        <year>3</year>
+    </student>
+    <student>
+        <username>bbb</username>
+        <forename>Boris</forename>
+        <surname>Brown</surname>
+        <year>2</year>
+    </student>
+</data>\end{code} 
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{What's in our XML?}
+Use the Google Chrome web browser to look at the XML that the query returns
+\url{http://export.arxiv.org/api/query?search_query=all:exomars&start=0&max_results=10}
+
+\bigskip
+
+(in other browsers you won't see the raw XML returned but instead will then have to press Ctrl-u to see the source rather than the reformatted view).
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Extract parts of the XML with BeautifulSoup}
+Lets analyse the results with \texttt{bs4}.
+\begin{code}
+import requests
+import bs4
+
+url = "http://export.arxiv.org/api/query?" 
+url += "search_query=all:exomars" 
+url += "&start=0&max_results=10"
+result = requests.get(url)
+print(result.status_code) # 200 is good
+xml_text = response.text
+
+soup = bs4.BeautifulSoup(xml_text, "xml")
+titles = soup.select("feed > entry > title")
+for title in titles:
+   print(title.text)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exercise}
+This code needs to be made into functions. 
+
+\bigskip
+
+Make one function called \texttt{search} that will take a search term (such as "exomars") and will construct the correct url, submit the request and return the response text.
+
+\bigskip
+
+Make another function called \texttt{print\_parts} that will take the XML text and a tag name that we can expect to find inside an entry (for example "title" or "summary") and will print out all the bits of text corresponding to this tag in this XML text.
+
+\bigskip
+
+Text that your two functions work correctly.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Weather forecasts}
+We can get the weather forecast from \url{http://api.met.no}. Have a look at the result from this URL in Chrome:
+
+\bigskip
+
+\url{http://api.met.no/weatherapi/locationforecast/1.9/?lat=52.41616&lon=-4.064598}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Weather forecasts}
+
+\begin{small}
+\begin{code} 
+  <product class="pointData">
+      <time datatype="forecast" from="2016-11-24T14:00:00Z" 
+                to="2016-11-24T14:00:00Z">
+         <location altitude="59" latitude="52.4162" 
+                          longitude="-4.0646">
+            <temperature id="TTT" unit="celsius" value="8.5"/>
+            <windDirection id="dd" deg="61.5" name="NE"/>
+            <windSpeed id="ff" mps="7.4" beaufort="4" 
+                                name="Laber bris"/>
+            ... 
+       </location>
+      </time>
+   </product>
+\end{code}
+\end{small}
+
+Most of the elements have attributes. 
+\texttt{temperature} has no text, but instead has \texttt{id}, \texttt{unit} and \texttt{value} attributes. 
+We can access these as follows:
+\begin{code}
+temperatures = xml_text.find_all("temperature")
+temperatures[0].get("value")
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Have a go}
+Change your code to use this weather forecasting URL instead, and then report the first temperature.
+
+\bigskip
+
+Have a look at the documentation for BeautifulSoup at \url{https://www.crummy.com/software/BeautifulSoup/bs4/doc/}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Summary}
+We have begun to use objects from the following libraries:
+\begin{itemize}
+\item datetime
+\item requests
+\item bs4
+\end{itemize}
+
+We also briefly looked at XML, a common format for scientific data exchange and markup.
+\end{frame}
+
 
 
 \end{document}
