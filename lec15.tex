@@ -4,6 +4,10 @@
 \usepackage{color}
 \usepackage{hyperref}
 
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{upquote}
+
 % Default fixed font does not support bold face
 \DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
 \DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{10}  % for normal
@@ -13,6 +17,7 @@
 \definecolor{deepblue}{rgb}{0,0,0.5}
 \definecolor{deepred}{rgb}{0.6,0,0}
 \definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{shadecolor}{rgb}{1, 0.9, 0.3}
 
 \usepackage{listings}
 
@@ -26,7 +31,10 @@ emph={MyClass,__init__},          % Custom highlighting
 emphstyle=\ttb\color{deepred},    % Custom highlighting style
 stringstyle=\color{deepgreen},
 frame=tb,                         % Any extra options here
-showstringspaces=false            % 
+showstringspaces=false,            % 
+upquote=True,
+columns=fullflexible,
+basicstyle=\ttfamily
 }}
 
 
@@ -46,7 +54,7 @@ showstringspaces=false            %
 % Theory of file handling. Files as objects. File handles, iterators. Looping over file contents. CSV format.
 
 \begin{frame}
-\frametitle{CS24420 \& MA25220 \& MT25220}
+\frametitle{CS24420 \& MA25220 \& MT25220 \& MX35220 \& CSM0120}
 
 \begin{center}
 \begin{huge}
@@ -61,12 +69,450 @@ Amanda Clare (afc@aber.ac.uk)
 
 
 \begin{frame}[fragile]
-\frametitle{foo}
-bar
+\frametitle{Extract parts of the XML with BeautifulSoup}
+Lets analyse the results with \texttt{bs4}.
 \begin{code}
-x = 1 + 5
+import requests
+import bs4
+
+url = "http://export.arxiv.org/api/query?" 
+url += "search_query=all:exomars" 
+url += "&start=0&max_results=10"
+response = requests.get(url)
+print(response.status_code) # 200 is good
+xml_text = response.text
+
+soup = bs4.BeautifulSoup(xml_text, "xml")
+titles = soup.select("feed > entry > title")
+for title in titles:
+   print(title.text)
 \end{code}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Exercise}
+This code needs to be made into functions. 
+
+\bigskip
+
+Make one function called \texttt{search} that will take a search term (such as "exomars") and will construct the correct url, submit the request and return the response text.
+
+\bigskip
+
+Make another function called \texttt{print\_parts} that will take the XML text and a tag name that we can expect to find inside an entry (for example "title" or "summary") and will print out all the bits of text corresponding to this tag in this XML text.
+
+\bigskip
+
+Text that your two functions work correctly.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Weather forecasts}
+We can get the weather forecast from \url{http://api.met.no}. Have a look at the result from this URL in Chrome:
+
+\bigskip
+
+\url{http://api.met.no/weatherapi/locationforecast/1.9/?lat=52.41616&lon=-4.064598}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Weather forecasts}
+
+\begin{small}
+\begin{code} 
+  <product class="pointData">
+      <time datatype="forecast" from="2016-11-24T14:00:00Z" 
+                to="2016-11-24T14:00:00Z">
+         <location altitude="59" latitude="52.4162" 
+                          longitude="-4.0646">
+            <temperature id="TTT" unit="celsius" value="8.5"/>
+            <windDirection id="dd" deg="61.5" name="NE"/>
+            <windSpeed id="ff" mps="7.4" beaufort="4" 
+                                name="Laber bris"/>
+            ... 
+       </location>
+      </time>
+   </product>
+\end{code}
+\end{small}
+
+Most of the elements have attributes. 
+\texttt{temperature} has no text, but instead has \texttt{id}, \texttt{unit} and \texttt{value} attributes. 
+We can access these as follows:
+\begin{code}
+temperatures = xml_text.find_all("temperature")
+temperatures[0].get("value")
+\end{code}
+\end{frame}
+
+% BeautifulSoup find_all, attributes
+
+\begin{frame}[fragile]
+\frametitle{Have a go}
+Change your code to use this weather forecasting URL instead, and then report the first temperature.
+
+\bigskip
+
+Have a look at the documentation for BeautifulSoup at \url{https://www.crummy.com/software/BeautifulSoup/bs4/doc/}
+\end{frame}
+
+
+% ethics of web scraping
+
+\begin{frame}[fragile]
+\frametitle{Web scraping and ethics}
+When we download data from the web, we need to be sure that we are
+acting:
+\begin{itemize}
+\item legally
+\item responsibly
+\end{itemize}
+
+Find out what each site allows you to do (if the website has an 'About' page then read it!).
+\begin{itemize}
+\item Does it allow automated access? 
+\item Does it restrict the number of queries you can make? 
+\item Do you need to pay? 
+\item What are you allowed to do with the resulting data? 
+\item Does the data have a licence?
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{robots.txt}
+Many websites will have a robots.txt file that you should check before you use a web robot (Python script) to download pages from their site. It states which parts of the website you are allowed to download automatically. It is polite to read and comply with it.
+
+\bigskip
+
+Disallow all pages from any robot:
+\begin{code}
+User-agent: *
+Disallow: /
+\end{code}
+
+Disallow robots from entering some directories
+\begin{code}
+User-agent: Googlebot
+Disallow: /private/
+Disallow: /temp/
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{robots.txt}
+See: 
+\begin{itemize}
+\item \url{http://www.bbc.co.uk/robots.txt} 
+\item \url{http://www.google.com/robots.txt}
+\item \url{http://www.arxiv.org/robots.txt}
+\item \url{http://www.aber.ac.uk/robots.txt}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{time.sleep}
+If we're making many requests, one after the other, we might want to put some pauses in so that our usage of the website is not too heavy.
+\begin{code}
+import time
+
+urls = make_urls(some_data)
+for url in urls:
+   resp = requests.get(url)
+   process(resp)
+   time.sleep(1) # wait for 1 second
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Legally processing content you have downloaded}
+Even if you can download content from a website with an API, you might not legally be allowed to do whatever you want with the results (or perhaps with restrictions such as for non-commercial use).
+
+\bigskip
+
+For example see ongoing battles between researchers and publishers such as Elsevier \url{http://www.nature.com/news/text-mining-block-prompts-online-response-1.18819}
+\end{frame}
+
+% files, file handles, file contents
+\begin{frame}[fragile]
+\frametitle{Files on disk}
+The following code opens a file, and reads in all the lines of the file, so we have a list of strings. 
+\begin{code}
+filename = "surnames.txt"
+surnames_file = open(filename)
+lines = surnames_file.readlines()
+surnames_file.close()
+\end{code}
+Note the difference between:
+\begin{itemize}
+\item the file name
+\item the file contents
+\item the file handle (the object that represents a file in Python)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Opening and closing files}
+Ways to open a file for reading:
+\begin{code}
+f = open("foo.txt")
+f = open("foo.txt","r")
+\end{code}
+
+Open a file for writing (take care!):
+\begin{code}
+f = open("foo.txt","w")
+\end{code}
+
+Open a file for appending (take care!):
+\begin{code}
+f = open("foo.txt","a")
+\end{code}
+
+Close a file:
+\begin{code}
+f.close() 
+\end{code}
+It's good practice to close all files that you opened. This frees up resources.
+\end{frame}
+
+% with open() as ...
+\begin{frame}[fragile]
+\frametitle{But we often forget to close files, so...}
+\begin{code}
+with open("foo.txt") as my_file:
+   for line in my_file.readlines():
+      # do some processing for the line
+      print(len(line)) 
+\end{code}
+If we use \lstinline{with open(...) as ...} then the file will be automatically closed at the end of the indented code block. 
+This is good practice because you don't need to remember to close it.
+\end{frame}
+
+
+% readline (and sys.stdin.readline)
+\begin{frame}[fragile]
+\frametitle{Remember readline?}
+We can use \lstinline{readline()} to get a single line of text from a file handle. 
+\begin{code}
+with open("foo.txt") as my_file:
+   text = my_file.readline()
+\end{code}
+Remember: we saw that the same function can be used to read a line of text from the keyboard (sys.stdin)
+\begin{code}
+import sys
+text = sys.stdin.readline()
+\end{code}
+The line of text that was read will most likely have a newline on the end. Remember you can strip this off with \texttt{my\_file.readline().strip()}
+\end{frame}
+
+
+% iterators and looping over file contents
+\begin{frame}[fragile]
+\frametitle{Looping over file contents}
+We can get all lines of text with \texttt{my\_file.readlines()}. This produces a list of lines of text. 
+
+However, your data file might be very large so the list might be very large too. 
+
+The following code will read the files one line at a time and not load them all into a list.
+
+\begin{code}
+with open("foo.txt") as my_file:
+   for line in my_file:
+      print(line)
+\end{code}
+
+Here, the file handle (saved into the \texttt{my\_file} variable) acts as an \textit{iterator}. It produces lines from the file on demand.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Breaking out of the loop}
+Example: Print out all the lines beginning with TT in the file until we get to one that begins with XY and then stop.
+\begin{code}
+with open("foo.txt") as my_file:
+   for line in my_file:
+      if line.startswith("TT"):
+         print(line)
+      elif line.startswith("XY"):
+         break
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Ignoring a header line}
+We can use next(...) to ask for the next line from an iterator (and then the iterator has moved on one line).
+\begin{code}
+with open("foo.txt") as my_file:
+   # get header line
+   header = next(my_file)
+   # process the lines after the header line
+   for line in my_file:  
+      if line.startswith("TT"):
+         print(line)
+      elif line.startswith("XY"):
+         break
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{CSV files}
+\begin{itemize}
+\item Comma Separated Value (CSV) files are text files containing data. 
+
+\item Each line is a row, and the items in the row are separated by commas (or other delimiter).
+
+\item Other delimiters are possible, including tabs, spaces or other characters (sometimes tab-separated CSV files have a \texttt{.tsv} filename ending).
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{CSV files}
+\begin{itemize}
+\item Excel/Office spreadsheets can be exported as CSV files so that we can work with them more easily.
+
+\item Beware: some Excel users represent their data in very awkward formats (e.g. using cell colours to represent information, or breaking up the spreadsheet with extra lines of commentary).
+
+\item Some fields may contain the delimiter as part of the data in that field. \\For example, the module name "Chaos, Communications and Consciousness'' contains a comma. Excel's default format is to separate fields by commas, but if the field can contain a comma, then those items are enclosed in quote marks.
+\end{itemize}
+\end{frame}
+
+% CSV file handling 
+\begin{frame}[fragile]
+\frametitle{CSV reading}
+\begin{code}
+import csv
+
+filename = "raintemp_1845_2011.csv"
+rain_file = open(filename)
+rain_csv = csv.reader(rain_file, delimiter='\t')
+
+for row in rain_csv:
+    print(row[2])  # prints 3rd element
+
+rain_file.close()
+\end{code}
+\end{frame}
+
+% CSV file handling 
+\begin{frame}[fragile]
+\frametitle{CSV reading}
+\begin{code}
+my_csv = csv.reader(some_file, dialect='excel')
+\end{code}
+\end{frame}
+
+% CSV writing
+\begin{frame}[fragile]
+\frametitle{CSV writing}
+\begin{code}
+import csv
+
+data = []
+data.append([1,5,"hello"])
+data.append([7,4,"apple"])
+data.append([2,3,"cat"])
+
+with open("foo.csv", "w") as outfile:
+   csv_out = csv.writer(outfile, dialect = "excel")
+   csv_out.writerows(data)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{CSV writing - just some of the rows}
+\begin{code}
+import csv
+
+data = []
+data.append([1,5,"hello"])
+data.append([7,4,"apple"])
+data.append([2,3,"cat"])
+
+with open("foo.csv", "w") as outfile:
+   csv_out = csv.writer(outfile, dialect = "excel")
+
+   for row in data:
+      if row[1] > 4:
+          csv_out.writerow(row)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{CSV formats}
+Can read and write lots of CSV fomats
+\begin{code}
+csv.reader(csvfile, delimiter='\t')
+csv.reader(csvfile, delimiter=' ', quotechar='|')
+csv.reader(csvfile, delimiter=':')
+\end{code}
+
+Read the docs:
+\url{https://docs.python.org/3/library/csv.html}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Exception handling and errors}
+Files might not exist!
+
+Web links might be down (or you might have constructed a bad URL).
+
+We should be able to write robust code.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{What happens if I open a file that doesn't exist?}
+\begin{itemize}
+\item \lstinline{open("bar.txt") #} if bar.txt doesn't exist then FileNotFoundError exception
+\item \lstinline{open("foo/bar.txt") #} if directory foo doesn't exist then FileNotFoundError exception
+\item \lstinline{open("bar.txt", "w") #} if bar.txt doesn't exist this will work
+\item \lstinline{open("bar.txt", "w") #} if directory foo doesn't exist then FileNotFoundError exception
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Handle those exceptions}
+\begin{code} 
+filenames = ["mouseDNA.fasta", "humanDNA.fasta"]
+for filename in filenames:
+   try:
+      f = open(filename, "r")
+   except IOError: # or FileNotFoundError
+      print ("Cannot open " + filename)
+   else:
+      print (filename + " has "+ len(f.readlines()) 
+               + " lines")
+      f.close()
+\end{code}
+Other file errors include not having the correct permissions (PermissionError). 
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{What happens if I request a URL that doesn't exist?}
+\begin{code}
+import requests
+
+url = "http://www.bbc.co.uk"
+response = requests.get(url)
+if response.status_code == 200:
+   # Success! Do something good.
+else:
+   # Failure! Deal with it.
+\end{code}
+Status of a web request could be 404 (not found), 500 (internal server error), etc. 
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Summary}
+Today we talked about more libraries and objects. 
+\begin{itemize}
+\item Weather forecast API (using requests and bs4)
+\item Files and file handles (with methods open, close, readline, readlines)
+\item The csv module (with classes csv.reader and csv.writer)
+\end{itemize}
+\end{frame}
 
 \end{document}
