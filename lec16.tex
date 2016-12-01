@@ -4,6 +4,11 @@
 \usepackage{color}
 \usepackage{hyperref}
 
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{upquote}
+
+
 % Default fixed font does not support bold face
 \DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
 \DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{10}  % for normal
@@ -13,6 +18,7 @@
 \definecolor{deepblue}{rgb}{0,0,0.5}
 \definecolor{deepred}{rgb}{0.6,0,0}
 \definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{shadecolor}{rgb}{1, 0.9, 0.3}
 
 \usepackage{listings}
 
@@ -20,13 +26,16 @@
 \newcommand\pythonstyle{\lstset{
 language=Python,
 basicstyle=\ttm,
-otherkeywords={self},             % Add keywords here
+otherkeywords={self, as},             % Add keywords here
 keywordstyle=\ttb\color{deepblue},
 emph={MyClass,__init__},          % Custom highlighting
 emphstyle=\ttb\color{deepred},    % Custom highlighting style
 stringstyle=\color{deepgreen},
 frame=tb,                         % Any extra options here
-showstringspaces=false            % 
+showstringspaces=false,            % 
+upquote=True,
+columns=fullflexible,
+basicstyle=\ttfamily
 }}
 
 
@@ -46,11 +55,11 @@ showstringspaces=false            %
 % Hands on with plotting graphs using data from files.
 
 \begin{frame}
-\frametitle{CS24420 \& MA25220 \& MT25220}
+\frametitle{CS24420 \& MA25220 \& MT25220 \& MX35220 \& CSM0120}
 
 \begin{center}
 \begin{huge}
-Lecture 16: Plotting data from files
+Lecture 16: Plotting data
 \end{huge}
 \bigskip
 
@@ -61,12 +70,200 @@ Amanda Clare (afc@aber.ac.uk)
 
 
 \begin{frame}[fragile]
-\frametitle{foo}
-bar
+\frametitle{matplotlib}
+\begin{itemize}
+\item matplotlib provides MATLAB-like 2D plotting.
+\item A free and open source library for Python. \url{http://matplotlib.org}
+\item Produces a range of image formats: png, pdf, ps, eps, svg etc
+\begin{figure}
+        \centering
+        \begin{minipage}{.5\textwidth}
+            \centering
+            \includegraphics[width=5cm]{histogram_demo_multihist.png}
+       \end{minipage}%
+        \begin{minipage}{.5\textwidth}
+            \centering
+            \includegraphics[width=5cm]{finance_work2.png}
+       \end{minipage}
+   \end{figure}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The most basic plot}
 \begin{code}
-x = 1 + 5
+import matplotlib.pyplot as plt
+plt.plot([1, 3, 2, 4])
+plt.ylabel("the y axis name")
+plt.show()
 \end{code}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Adding x values for the y values}
+\begin{code}
+import matplotlib.pyplot as plt
+plt.plot([10, 20, 30, 40], [1, 3, 2, 4])
+plt.ylabel("the y axis name")
+plt.xlabel("some x axis")
+plt.show()
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Plotting triangles etc}
+\begin{code}
+import matplotlib.pyplot as plt
+
+plt.plot([10, 20, 30, 40], [1, 3, 2, 4], "bv")
+plt.ylabel("the y axis name")
+plt.xlabel("some x axis")
+plt.show()
+\end{code}
+
+\bigskip
+
+Try \texttt{"ro" "g." "c-" "k:"}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Plotting points and lines}
+Create variables x and y to hold the data. Plot with points and plot
+again with lines on the same graph.
+\begin{code}
+import matplotlib.pyplot as plt
+
+x = [10, 20, 30, 40]
+y = [1, 3, 2, 4]
+
+plt.plot(x, y, "bv")
+plt.plot(x, y, "b-")
+plt.ylabel("the y axis name")
+plt.xlabel("some x axis")
+plt.show()
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Plotting multiple data series on one graph}
+\begin{code}
+import matplotlib.pyplot as plt
+
+x = [10, 20, 30, 40]
+y1 = [1, 3, 2, 4]
+y2 = [1.5, 2.5, 3.5, 4.5]
+
+plt.plot(x, y1, "b-") 
+plt.plot(x, y2, "r-")
+plt.axis([0, 50, 0, 5])
+plt.ylabel("the y axis name")
+plt.xlabel("some x axis")
+plt.show()
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Saving the image}
+\begin{code}
+import matplotlib.pyplot as plt
+
+x = [1, 2, 3, 4]
+mouse = [10, 12, 20, 15]
+
+plt.bar(x, mouse)
+plt.xticks(x, ('A', 'T', 'C', 'G'))
+plt.savefig("fig.png", dpi=200)
+\end{code}
+\pythonstyle{\lstinline{plt.savefig("fig.png")}}
+
+or
+
+\pythonstyle{\lstinline{plt.savefig("fig.pdf")}}
+
+or
+
+\pythonstyle{\lstinline{plt.savefig("fig.tiff")}}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Saving the image}
+\includegraphics[width=10cm]{barfig.png}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Midpoints of the bars}
+We'd prefer the bar ticks to be at the midpoints of the bars. So we
+need to calculate where the midpoints of the bars are.
+
+If the x locations are [1, 2, 3, 4] and the bars are of width 0.8 then
+the midpoints of the bars are [1.4, 2.4, 3.4, 4.4].
+
+\begin{code}
+import matplotlib.pyplot as plt
+
+x = [1, 2, 3, 4]
+mouse = [10, 12, 20, 15]
+
+barwidth = 0.8
+midpoints = []
+for b in x:
+   midpoints.append(b + barwidth/2)
+plt.bar(x, mouse, barwidth)
+plt.xticks(midpoints, ('A', 'T', 'C', 'G'))
+plt.show()
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Multiple bars}
+\begin{code}
+import matplotlib.pyplot as plt
+x = [1, 2, 3, 4]
+mouse = [10, 12, 20, 15]
+human = [11, 14, 5, 5]
+barwidth = 0.4
+midpoints = []
+for b in x:
+   midpoints.append(b + barwidth)
+plt.bar(x, mouse, barwidth, color="r", label="mouse")
+plt.bar(midpoints,human,barwidth,color="b",label="human")
+plt.xticks(midpoints, ('A', 'T', 'C', 'G'))
+plt.legend()
+plt.grid(True, axis='y')
+plt.show()
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Multiple bars}
+\includegraphics[width=10cm]{twobars.png}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Scatter plot exercise}
+Read the documentation for scatter plots:
+
+\url{http://matplotlib.org/api/pyplot_api.html?highlight=scatter#matplotlib.pyplot.scatter}
+
+and produce a scatter plot with green diamond
+markers for the following data:
+\begin{code}
+import random
+x = range(0,100)
+y = random.sample(range(1000),100)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Summary}
+Begun to experiment with:
+\begin{itemize}
+\item Examples of plots: plot, bar, scatter
+\item Customising: labels, axes, colors, markers, positions
+\item Many more matplotlib plot styles on offer 
+\end{itemize}
+\end{frame}
 
 \end{document}

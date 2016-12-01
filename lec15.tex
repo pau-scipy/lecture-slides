@@ -310,7 +310,7 @@ The line of text that was read will most likely have a newline on the end. Remem
 % iterators and looping over file contents
 \begin{frame}[fragile]
 \frametitle{Looping over file contents}
-We can get all lines of text with \texttt{my\_file.readlines()}. This produces a list of lines of text. 
+We can get all lines of text with \pythonstyle{\lstinline{my_file.readlines()}}. This produces a list of lines of text. 
 
 However, your data file might be very large so the list might be very large too. 
 
@@ -397,6 +397,10 @@ rain_file.close()
 % CSV file handling 
 \begin{frame}[fragile]
 \frametitle{CSV reading}
+If we want Excel format (comma separated, quote delimited, etc) there is a special argument for this.
+
+\bigskip
+
 \begin{code}
 my_csv = csv.reader(some_file, dialect='excel')
 \end{code}
@@ -464,10 +468,10 @@ We should be able to write robust code.
 \begin{frame}[fragile]
 \frametitle{What happens if I open a file that doesn't exist?}
 \begin{itemize}
-\item \lstinline{open("bar.txt") #} if bar.txt doesn't exist then FileNotFoundError exception
-\item \lstinline{open("foo/bar.txt") #} if directory foo doesn't exist then FileNotFoundError exception
-\item \lstinline{open("bar.txt", "w") #} if bar.txt doesn't exist this will work
-\item \lstinline{open("bar.txt", "w") #} if directory foo doesn't exist then FileNotFoundError exception
+\item \pythonstyle{\lstinline{open("bar.txt") #}} if bar.txt doesn't exist then gives FileNotFoundError exception
+\item \pythonstyle{\lstinline{open("foo/bar.txt") #}} if directory foo doesn't exist then gives FileNotFoundError exception
+\item \pythonstyle{\lstinline{open("bar.txt", "w") #}} if bar.txt doesn't exist this will work
+\item \pythonstyle{\lstinline{open("bar.txt", "w") #}} if directory foo doesn't exist then gives FileNotFoundError exception
 \end{itemize}
 \end{frame}
 
@@ -478,7 +482,7 @@ filenames = ["mouseDNA.fasta", "humanDNA.fasta"]
 for filename in filenames:
    try:
       f = open(filename, "r")
-   except IOError: # or FileNotFoundError
+   except OSError: # or FileNotFoundError
       print ("Cannot open " + filename)
    else:
       print (filename + " has "+ len(f.readlines()) 
@@ -486,6 +490,8 @@ for filename in filenames:
       f.close()
 \end{code}
 Other file errors include not having the correct permissions (PermissionError). 
+
+PermissionError and FileNotFoundError are both subclasses of OSError.
 \end{frame}
 
 
