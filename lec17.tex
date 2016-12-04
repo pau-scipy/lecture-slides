@@ -4,6 +4,11 @@
 \usepackage{color}
 \usepackage{hyperref}
 
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{upquote}
+
+
 % Default fixed font does not support bold face
 \DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
 \DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{10}  % for normal
@@ -13,6 +18,7 @@
 \definecolor{deepblue}{rgb}{0,0,0.5}
 \definecolor{deepred}{rgb}{0.6,0,0}
 \definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{shadecolor}{rgb}{1, 0.9, 0.3}
 
 \usepackage{listings}
 
@@ -26,7 +32,10 @@ emph={MyClass,__init__},          % Custom highlighting
 emphstyle=\ttb\color{deepred},    % Custom highlighting style
 stringstyle=\color{deepgreen},
 frame=tb,                         % Any extra options here
-showstringspaces=false            % 
+showstringspaces=false,            % 
+upquote=True,
+columns=fullflexible,
+basicstyle=\ttfamily
 }}
 
 
@@ -43,14 +52,14 @@ showstringspaces=false            %
 
 \begin{document}
 
-% Theory of plotting. Examples of different plots, their pros and cons. Legends, axes, colours. Misleading graphs. Multiple plots on same axes. Saving and showing. 
+
 
 \begin{frame}
-\frametitle{CS24420 \& MA25220 \& MT25220}
+\frametitle{CS24420 \& MA25220 \& MT25220 \& MX35220 \& CSM0120}
 
 \begin{center}
 \begin{huge}
-Lecture 17: Plotting
+Lecture 17: Plotting and files
 \end{huge}
 \bigskip
 
@@ -60,13 +69,304 @@ Amanda Clare (afc@aber.ac.uk)
 \end{frame}
 
 
+
 \begin{frame}[fragile]
-\frametitle{foo}
-bar
+\frametitle{Error bars}
+\includegraphics[width=10cm]{errorbars.png}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Error bars}
+
+We can plot error bars for each y value:
+
 \begin{code}
-x = 1 + 5
+x = [1, 2, 3, 4, 5]
+y = [10, 12, 15, 22, 28]
+errors = [2.2, 1.5, 1.8, 2.8, 1.4]
+
+plt.errorbar(x, y, yerr=errors)
+
+plt.axis([0, 6, 0, 40])
+plt.ylabel('the y axis name')
+plt.xlabel('some x axis')
+plt.show()
+\end{code}
+
+Could also plot xerr (error in the x position). 
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Error bars by themselves}
+\includegraphics[width=10cm]{justerrors.png}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Error bars by themselves}
+
+\begin{code}
+x = [1, 2, 3, 4, 5]
+y = [10, 12, 15, 22, 28]
+errors = [2.2, 1.5, 1.8, 2.8, 1.4]
+
+plt.errorbar(x, y, yerr=errors, fmt="none")
+
+plt.axis([0, 6, 0, 40])
+plt.ylabel('the y axis name')
+plt.xlabel('some x axis')
+plt.show()
+\end{code}
+
+In Python 2 this would have been \texttt{fmt=None}.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Error bars in colour}
+\includegraphics[width=10cm]{errorscolour.png}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Error bars in colo\textcolor{red}{u}r}
+
+Error bars in a different colo\textcolor{red}{u}r.
+
+\begin{code}
+x = [1, 2, 3, 4, 5]
+y = [10, 12, 15, 22, 28]
+errors = [2.2, 1.5, 1.8, 2.8, 1.4]
+plt.plot(x, y, 'b-')
+plt.plot(x, y, 'bo')
+
+plt.errorbar(x, y, yerr=errors, fmt="none", ecolor="r")
+
+plt.axis([0, 6, 0, 40])
+plt.ylabel('the y axis name')
+plt.xlabel('some x axis')
+plt.show()
 \end{code}
 \end{frame}
 
+
+% datetime plots
+\begin{frame}[fragile]
+\frametitle{Plotting datetime values}
+Lets say we have a list of datetime objects. We can plot this against
+a list of y values:
+\begin{code}
+plt.plot(dts, y, 'r-')
+
+# Will tilt the date labels on the x axis
+plt.gcf().autofmt_xdate()
+\end{code}
+
+\bigskip
+
+\bigskip
+
+\includegraphics[width=7cm]{datetime.png}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Plotting tides}
+
+Downloaded tide heights for the past month for Castletownbere on the south west coast of Ireland from \url{http://data.marine.ie/Dataset/Details/20932} as a CSV file:
+
+\bigskip
+
+\begin{footnotesize}
+\begin{verbatim}
+station_id,time,Water_Level,Water_Level_LAT,Water_Level_OD_Malin,QC_Flag,longitude,latitude,altitude
+,UTC,m,m,m,,degrees_east,degrees_north,m
+Castletownbere,2016-11-06T00:00:00Z,1.968,1.968,-0.52,0.0,-9.9034,51.6496,0.0
+Castletownbere,2016-11-06T00:15:00Z,1.888,1.888,-0.6,0.0,-9.9034,51.6496,0.0
+Castletownbere,2016-11-06T00:30:00Z,1.808,1.808,-0.68,0.0,-9.9034,51.6496,0.0
+Castletownbere,2016-11-06T00:45:00Z,1.758,1.758,-0.73,0.0,-9.9034,51.6496,0.0
+\end{verbatim}
+\end{footnotesize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Plotting tides}
+Code here for your notes but also provided as tides.py.
+
+\begin{code}
+import matplotlib.pyplot as plt
+import csv
+import datetime as dt
+\end{code}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Plotting tides}
+
+\begin{code}
+def get_data_from_file(filename, dates, heights):
+    format = "%Y-%m-%dT%H:%M:00Z"
+    with open(filename,'r') as f:
+        csvreader = csv.reader(f)
+        next(csvreader) # throw away header line
+        next(csvreader) # throw away second header line
+        for row in csvreader:
+            thedatetime = row[1]
+            height = float(row[2])
+            d_o = dt.datetime.strptime(thedatetime, format)
+            dates.append(d_o)
+            heights.append(height)
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Plotting tides}
+
+\begin{code}
+def plot_tides(dates, heights):
+    plt.plot(dates, heights, 'c-')
+    plt.ylabel("Height in m")
+    plt.gcf().autofmt_xdate()
+    plt.savefig("tides.png")
+
+if __name__ == "__main__":
+    dates = []
+    heights = [] 
+    get_data_from_file(
+       "IrishNationalTideGaugeNetwork_6b1b_95a2_06e9.csv", 
+       dates, heights)
+    plot_tides(dates, heights)
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Plotting tides}
+\includegraphics[width=12cm]{tides.png}
+\end{frame}
+
+%plotting loglog
+\begin{frame}[fragile]
+\frametitle{Plotting a relationship}
+
+Linear relationship
+\[ y = mx + c \]
+
+Exponential relationship
+\[ y = Ax^n \]
+
+
+For example:
+\[y = 5x +6\]
+
+\[y = 5x ^3 \] 
+
+We can generate data from these equations and plot them.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Functions to generate data}
+\begin{code}
+def gen_linear(m, c):
+    """Generates data for y = mx + c"""
+    x = np.linspace(0,10)
+    y = m * x + c
+    return (x, y)
+
+def gen_exponential(a, n):
+    """Generates data for y = ax^n"""
+    x = np.linspace(0,10)
+    y = a * x ** n
+    return (x, y)
+\end{code}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Plot it!}
+\begin{code}
+if __name__ == "__main__":
+
+    (x, y) = gen_linear(5, 3)
+    plt.plot(x, y, 'b-')
+    plt.plot(x, y, 'bv')
+
+    (x, y) = gen_exponential(5, 3)
+    plt.plot(x, y, 'r-')
+    plt.plot(x, y, 'rv')
+
+    plt.savefig("linexp.png")
+    plt.show()
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Plot it!}
+\includegraphics[width=12cm]{linexp.png}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exponential relationship}
+If we have an exponential relationship between variables x and y then when we take logs of both sides we will get a linear relationship. 
+\[ y = Ax^n \]
+
+\[log(y) = log(Ax^n) \]
+
+\[ log(y) = log(A) + log(x^n) \]
+
+\[ log(y) = log(A) + n log(x) \]
+
+So plotting this data on log-transformed axes should show a straight line.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Plot exponential relationships on a loglog scale}
+\begin{code}
+    plt.loglog(x, y, 'r-')
+    plt.loglog(x, y, 'rv')
+    plt.savefig("loglog.png")
+    plt.show()
+\end{code}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Plots with logarithmic axes}
+\includegraphics[width=10cm]{loglog.png}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Richter scale}
+The Richter scale for measuring earthquakes is a logarithmic scale.
+
+\bigskip
+
+Using data from the Wikipedia description of the comparison between the Richter scale and the equivalent mass of TNT that would be needed for some events:
+\url{https://en.wikipedia.org/wiki/Richter_magnitude_scale}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Plots with logarithmic axes}
+\includegraphics[width=11cm]{richter.png}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Writing data to files}
+
+\end{frame}
+
+
+% Misleading graphs. Multiple plots on same axes. 
 
 \end{document}
