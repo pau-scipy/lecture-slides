@@ -68,6 +68,19 @@ Amanda Clare (afc@aber.ac.uk)
 \end{center}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{The next two weeks}
+\begin{itemize}
+\item \textbf{Tues 6th:} Plotting, and prac with worksheet 8. Sign off worksheet 6 deadline
+\item \textbf{Fri 9th:} What would you like? Mathematical algorithms
+  hack? 50-min data
+  analysis challenge? Fractal plotting? Extra material on a previous topic? Python show and tell? 
+\item \textbf{Tues 13th:} Revision class. Prac, and sign off worksheet 7 deadline.
+\item \textbf{Fri 16th:} Optional extra practical. Sign off worksheet 8 deadline.
+\end{itemize}
+January: Extra material on Databases and Python (using Sqlite).
+\end{frame}
+
 
 \begin{frame}[fragile]
 \frametitle{matplotlib}
@@ -172,17 +185,16 @@ x = [1, 2, 3, 4]
 mouse = [10, 12, 20, 15]
 
 plt.bar(x, mouse)
-plt.xticks(x, ('A', 'T', 'C', 'G'))
+plt.xticks(x, ['A', 'T', 'C', 'G'])
 plt.savefig("fig.png", dpi=200)
 \end{code}
-\pythonstyle{\lstinline{plt.savefig("fig.png")}}
 
+\bigskip 
+
+Could also have \pythonstyle{\lstinline{plt.savefig("fig.png")}}
 or
-
 \pythonstyle{\lstinline{plt.savefig("fig.pdf")}}
-
 or
-
 \pythonstyle{\lstinline{plt.savefig("fig.tiff")}}
 \end{frame}
 
@@ -210,7 +222,7 @@ midpoints = []
 for b in x:
    midpoints.append(b + barwidth/2)
 plt.bar(x, mouse, barwidth)
-plt.xticks(midpoints, ('A', 'T', 'C', 'G'))
+plt.xticks(midpoints, ['A', 'T', 'C', 'G'])
 plt.show()
 \end{code}
 \end{frame}
@@ -228,7 +240,7 @@ for b in x:
    midpoints.append(b + barwidth)
 plt.bar(x, mouse, barwidth, color="r", label="mouse")
 plt.bar(midpoints,human,barwidth,color="b",label="human")
-plt.xticks(midpoints, ('A', 'T', 'C', 'G'))
+plt.xticks(midpoints, ['A', 'T', 'C', 'G'])
 plt.legend()
 plt.grid(True, axis='y')
 plt.show()

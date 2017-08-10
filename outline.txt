@@ -59,7 +59,6 @@ Fri 13:10 Hands on: objects (some code with simple objects that have a few metho
 Week 7 Reading week (week beginning 14/11)
 
 Catch up with all outstanding pracs. 
-Worksheet 6 on material covered so far.
 Prac session will run Tues at 5:10 and could also run extra one Fri 13:10 if there are demonstrators available.
 
 -------------------
@@ -67,34 +66,34 @@ Week 8 (week beginning 21/11)
 
 Tues 4:10 Theory: objects. (maybe Inheritance and Design). Objects = methods plus attributes. Self. Calling methods via dot vs just calling functions.  __init__, private
 
-Tues 5:10 Worksheet 7 on making basic objects. 
+Tues 5:10 Worksheet 6 on making basic objects. 
 
-Fri 13:10 Hands on: examples of using objects: e.g. datetime, requests, files
+Fri 13:10 Hands on: examples of using objects: e.g. datetime, requests, BeautifulSoup
 
 -------------------
 Week 9 (week beginning 28/11)
 
-Tues 4:10 Theory: file handling. Files as objects. File handles, iterators. Looping over file contents. CSV format. 
+Tues 4:10 Theory: file handling. Files as objects. File handles, iterators. Looping over file contents. CSV format. XML.
 
-Tues 5:10 Worksheet 8 on reading stuff from files
+Tues 5:10 Worksheet 7 on reading stuff from files. Worksheet 5 due in.
 
-Friday 13:10 Hands on: with plotting graphs using data from files.
+Friday 13:10 MEQ. Hands on: with plotting graphs using data from files.
 
 -------------------
 Week 10 (week beginning 5/12)
 
 Tues 4:10 Theory: plotting. Examples of different plots, their pros and cons. Legends, axes, colours. Misleading graphs. Multiple plots on same axes. Saving and showing. 
 
-Tues 5:10 Worksheet 9 on plotting (is there enough time for this to be assessed?)
+Tues 5:10 Worksheet 8 on plotting (is there enough time for this to be assessed?). Worksheet 6 due in.
 
-Fri 13:10 Interactive team quiz (with prizes?)
+Fri 13:10 Extra prac?
 
 -------------------
 Week 11 
 
 Tues 4:10 Revision lecture. Q&A. 
 
-Tues 5:10 Catch up outstanding worksheets.
+Tues 5:10 Catch up outstanding worksheets. Worksheet 7 due.
 
 Fri 13:10 Final prac. no plan, emergency usage only. Probably more
-worksheet signoff.
+worksheet signoff. Worksheet 8 due.

@@ -59,7 +59,7 @@ basicstyle=\ttfamily
 
 \begin{center}
 \begin{huge}
-Lecture 17: Plotting and files
+Lecture 17: More Plotting
 \end{huge}
 \bigskip
 
@@ -68,6 +68,27 @@ Amanda Clare (afc@aber.ac.uk)
 \end{center}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Until the end of term}
+\begin{itemize}
+\item \textbf{Tues 6th:} Plotting, and prac with worksheet 8. Sign off worksheet 6 deadline.
+\item \textbf{Fri 9th:} Mathematical algorithms hack.
+\item \textbf{Tues 13th:} Revision class. Prac, and sign off worksheet 7 deadline.
+\item \textbf{Fri 16th:} Optional extra practical. Sign off worksheet 8 deadline.
+\end{itemize}
+January: Extra material on Databases and Python (using Sqlite).
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Writing data to files}
+\begin{code}
+with open("foo.txt", "w") as output_file:
+    output_file.write("whatever we want to write\n")
+    for i in range(100):
+        output_file.write(i)
+\end{code}
+\end{frame}
 
 
 \begin{frame}[fragile]
@@ -330,6 +351,14 @@ So plotting this data on log-transformed axes should show a straight line.
 \begin{frame}[fragile]
 \frametitle{Plot exponential relationships on a loglog scale}
 \begin{code}
+def gen_exponential(a, n):
+    """Generates data for y = ax^n"""
+    x = np.linspace(0,10)
+    y = a * x ** n
+    return (x, y)
+
+if __name__ == "__main__":
+    (x, y) = gen_exponential(5, 3)
     plt.loglog(x, y, 'r-')
     plt.loglog(x, y, 'rv')
     plt.savefig("loglog.png")
@@ -353,20 +382,54 @@ The Richter scale for measuring earthquakes is a logarithmic scale.
 Using data from the Wikipedia description of the comparison between the Richter scale and the equivalent mass of TNT that would be needed for some events:
 \url{https://en.wikipedia.org/wiki/Richter_magnitude_scale}
 
+\bigskip
+
+\[ log( \textrm{amount of TNT}) \propto \textrm{Richter magnitude}\]
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Plots with logarithmic axes}
+\frametitle{Plot with semi-logarithmic axes}
 \includegraphics[width=11cm]{richter.png}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{xkcd}
+\includegraphics[width=8cm]{log_scale_xkcd.png}
+
+\bigskip
+
+Also see \url{https://xkcd.com/482/}: Universe on a log scale.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{When using graphs in a report:}
+\begin{itemize}
+\item Label both axes of every graph (description and units).
+\item Caption the graph in full (not just 3 words). Do this even if you
+feel you are repeating what you said in the body of the report. ``Figure 1. A graph of tide heights over the course of a month beginning 8th November 2016 for Castletownbere, Ireland. Data was obtained from http://data.marine.ie/. Note that the variation in height of the high and low tides over the month is approximately 1 m.'' 
+\item If presenting a graph on screen, explain what the graph
+shows.
+``This is a graph of population size in London through the
+Victorian era in Britain.
+The x-axis shows the years from 1840 to 1900.
+The y-axis shows population in hundreds.
+I'm showing this graph to point out how population in major
+cities rose sharply during the industrial revolution and
+especially so after 1860 because of ...''
+\end{itemize}
 \end{frame}
 
 
 \begin{frame}[fragile]
-\frametitle{Writing data to files}
-
+\frametitle{Summary}
+More plotting:
+\begin{itemize}
+\item Error bars
+\item Dates
+\item Log scale graphs
+\end{itemize}
 \end{frame}
 
-
-% Misleading graphs. Multiple plots on same axes. 
 
 \end{document}

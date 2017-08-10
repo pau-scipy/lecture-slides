@@ -270,8 +270,8 @@ url = "http://export.arxiv.org/api/query?"
 url += "search_query=all:exomars" 
 url += "&start=0&max_results=10"
 
-result = requests.get(url)
-print(result.status_code) # 200 is good
+response = requests.get(url)
+print(response.status_code) # 200 is good
 
 xml_text = response.text
 print(xml_text)
@@ -335,8 +335,8 @@ import bs4
 url = "http://export.arxiv.org/api/query?" 
 url += "search_query=all:exomars" 
 url += "&start=0&max_results=10"
-result = requests.get(url)
-print(result.status_code) # 200 is good
+response = requests.get(url)
+print(response.status_code) # 200 is good
 xml_text = response.text
 
 soup = bs4.BeautifulSoup(xml_text, "xml")
