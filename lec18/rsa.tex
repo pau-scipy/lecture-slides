@@ -1,0 +1,134 @@
+\documentclass[a4paper]{article}
+
+% Margins to 2cm
+\usepackage[left=2cm,right=2cm,top=3cm,bottom=2cm]{geometry}
+
+% No identation on paragraphs
+\usepackage{parskip}
+
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{upquote}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+% Allow for code samples and change captions for "Listings" to "Code Snippet"
+% \usepackage{minted}
+\usepackage{xcolor}
+\usepackage{listings} %bera
+\definecolor{keywords}{RGB}{0,0,255}
+\definecolor{comments}{RGB}{190,190,190}
+\lstset{basicstyle=\ttfamily,
+language=Python,
+  showstringspaces=false,
+  commentstyle=\color{red},
+  keywordstyle=\color{blue},
+  upquote=True
+}
+
+% URLS
+\usepackage{hyperref}
+
+% Prevent hypenation (not the nicest way to do this)
+\hyphenpenalty 1000
+
+% Asterism
+\newcommand{\asterism}{\bigskip\par\centerline{*\,*\,*}\medskip\par}%
+
+% Page headers
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Mathematical Algorithms Hack}
+\lhead{CS244{\tiny{20}} - CSM01{\tiny{20}} - MA252{\tiny{20}} - MT252{\tiny{20}} - MX352{\tiny{20}}}
+\rfoot{\thepage}
+
+% Use a sensible encoding so we don't have fancy quotes
+\usepackage[T1]{fontenc}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%For hiding and showing solutions:
+
+\usepackage{etoolbox}   % for booleans and much more
+\usepackage{verbatim}   % for the comment environment
+
+% setup a new boolean
+\newbool{hidesolution}
+\setbool{hidesolution}{false}
+
+% new environment
+\newenvironment{solution}{}{}
+
+% set conditional behaviour of environment
+\ifbool{hidesolution}{\AtBeginEnvironment{solution}{\comment}%
+\AtEndEnvironment{solution}{\endcomment}}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+\begin{center}
+    {\huge{Rivest-Shamir-Adleman (RSA) encryption}}\\
+
+\end{center}
+
+\vskip 0.5cm
+
+RSA is a public key encryption system. If Alice wants to send an
+encrypted message to Bob, she uses Bob's public key to encrypt the
+message. Bob can then use his private key to decrypt the message. Even
+though the public key can be made public and shared among everyone, it
+is still very difficult to decrypt the message without the private
+key. The difficulty is based on factoring a product of two (usually
+large) prime numbers.
+
+We want to generate suitable public and private keys, encrypt a message and
+then decrypt the message.
+
+You have been given a template for some code: \texttt{rsa.py}. There
+are several functions that need finishing. These currently just return
+None, but should instead return something useful.
+
+\section*{Generate keys}
+\begin{itemize}
+\item First we ask the user for two prime numbers, $p$ and $q$. We compute $n$, the product
+of $p$ and $q$. We now need to find $t$, which is Euler's totient of $n$. Euler's
+totient of $n$ is the number of positive integers less than or equal to $n$
+that are relatively prime to $n$. See
+\url{http://mathworld.wolfram.com/TotientFunction.html}. You should
+fill in the details of the function \texttt{euler\_totient}. 
+
+\item Next we need to choose a suitable public key $e$. 
+  We will choose an integer $e$ such that $1
+  < e < t$ and e and t are coprime. We can do this by choosing a
+  $e$ to be a prime number which is less than $t$ and does not divide
+  $t$. Fill in the function \texttt{make\_primes} to generate all
+  prime numbers between 2 and $t$. Fill in the function
+  \texttt{choose\_e} to choose one of these primes and ensure it does
+  not divide $t$.
+
+\item Now we need to calculate the private key $d$. This will be the
+  modular inverse of $e$ (modulo $t$). A function
+  \texttt{modular\_inverse} is already provided. Fill in the function \texttt{calc\_d}.
+
+\end{itemize}
+
+\section*{Encrypting and decrypting}
+Finally we can test that encryption and decryption work. If we
+  have chosen $n$, $e$ and $d$ successfully then we can see that for any
+  message $m$:
+
+\[ c = m^e \mod n \] will encrypt the message, producing $c$.
+
+\[ m = c^d \mod m \] will decrypt the encrypted message, producing
+$m$. This is because $d$ was chosen to be the modular inverse of $e$.
+
+\[ (m^d)^e = m \mod n\]
+
+This code is already provided.
+
+Can you encrypt a message, with another team's public key ($e$,$n$)
+and then have them decrypt it using their private key?
+
+How could you work out $p$ and $q$ from a public key ($e$, $n$) and hence crack someone else's encryption?
+\end{document}
