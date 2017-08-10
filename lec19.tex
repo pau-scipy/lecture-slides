@@ -1,0 +1,259 @@
+\documentclass{beamer}
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{hyperref}
+
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{upquote}
+
+
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{10}  % for normal
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{shadecolor}{rgb}{1, 0.9, 0.3}
+
+\usepackage{listings}
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle=\ttm,
+otherkeywords={self},             % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false,            % 
+upquote=True,
+columns=fullflexible,
+basicstyle=\ttfamily
+}}
+
+
+% Python environment
+\lstnewenvironment{code}[1][]
+{
+%\begin{small}
+\pythonstyle
+\lstset{#1}
+%\end{small}
+}
+{}
+
+
+\begin{document}
+
+
+
+\begin{frame}
+\frametitle{CS24420 \& MA25220 \& MT25220 \& MX35220 \& CSM0120}
+
+\begin{center}
+\begin{huge}
+Lecture 19: Revision
+\end{huge}
+\bigskip
+
+Amanda Clare (afc@aber.ac.uk)
+
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Until the end of term}
+\begin{itemize}
+\item \textbf{Tues 13th:} Revision class. Prac, and sign off worksheet 7 deadline.
+\item \textbf{Fri 16th:} Optional extra practical. Sign off worksheet 8 deadline.
+\end{itemize}
+January: Extra material on Databases and Python (using Sqlite).
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{L-systems}
+\begin{itemize}
+\item  Invented by Lindenmayer (Hungarian theoretical biologist).
+
+\item Formal grammar for the transformation of strings using rules, and then
+the translation of the strings into shapes.
+
+\item For modelling plant growth, or decsribing fractals.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{L-systems example - Sierpinski}
+\begin{code}
+axiom = "FX+"
+
+production_rules = {
+   'X' : 'YF+XF+Y',
+   'Y' : 'XF-YF-X'
+}
+\end{code}
+
+\lstinline|'F'| = move forward one position
+
+\lstinline|'+'| = turn right
+
+\lstinline|'-'| = turn left
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{L-systems example - Sierpinski}
+Writing code to produce these using lots of our python course
+knowledge: functions, classes, dictionaries,
+lists, strings, math, matplotlib.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{What's wrong?}
+\begin{code}
+temp = 40 * math.sin(2.5)
+if temp < 10
+   print("Feeling cold! Only " + str(temp))
+   print("wear trousers")
+else temp >= 10
+   print("We're enjoying summer")
+   print("wear shorts")
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Lists}
+\begin{code}
+>>> x = [1,3,4,5,7,2]
+\end{code}
+The last element in x is at what position?
+
+\bigskip
+
+What slice will give me [4,5,7,2] ?
+
+\bigskip
+
+How do I add an item such as 8?
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Dictionaries}
+\begin{code}
+my_dict = { "a": 34, "b":28, "c":56 }
+\end{code}
+How do I add an item "d" with key 77?
+
+\bigskip
+
+How do I check if item "b" is present?
+
+\bigskip
+
+How do I find out the value for item "a"?
+
+\bigskip
+
+How do I get a list of all the keys?
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Loops}
+What does a for loop look like?
+
+What does a while loop look like?
+
+When do you use each one?
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Functions}
+What's the difference between return and print?
+
+Write a function to take a temperature in Celsius and
+approximately convert it to Fahrenheit, returning the result. 
+
+(times 1.8 andsubtract 32)
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Colons and indentation}
+When do you use a colon?
+
+When do you need to indent?
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{What does this do?}
+\begin{code}
+with open("foo.txt","w") as x:
+\end{code}
+
+What might you do next?
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{What will happen?}
+\begin{code}
+>>> 6 / 0
+>>> 3 + "hello"
+\end{code}
+
+What could you do to deal with problems in:
+\begin{itemize}
+\item \lstinline{z = x / y}
+\item \lstinline{f = open(filename, 'r')}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{What is the role of the following?}
+\begin{code}
+#
+'
+"
+"""
+\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{What is happening?}
+\begin{code}
+import requests
+
+url = 'http://api.yr.no/weatherapi/locationforecast/1.9/?lat=52.41616&lon=-4.064598'
+response = requests.get(url)
+if response.status_code == 200:
+   # What does this check?
+else:
+   # What would this mean?
+\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Summary}
+Python the language, and some of its libraries 
+\begin{itemize}
+\item variables, types, functions
+\item data structures (lists, sets, dictionaries, numpy arrays)
+\item loops (for, while), if-elif-else
+\item modules, exceptions
+\item objects and classes
+\end{itemize}
+\begin{itemize}
+\item math, numpy
+\item csv
+\item requests, BeautifulSoup
+\item matplotlib
+\end{itemize}
+\end{frame}
+
+\end{document}
